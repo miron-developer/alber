@@ -1,0 +1,1 @@
+DELETE FROM Parsels WHERE id < 3;

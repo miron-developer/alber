@@ -1,0 +1,47 @@
+/*
+	Initialize app
+*/
+
+package app
+
+import (
+	"log"
+	"os"
+	"sync"
+	"zhibek/pkg/orm"
+)
+
+// Application this is app struct and items
+type Application struct {
+	m                   sync.Mutex
+	ELog                *log.Logger
+	ILog                *log.Logger
+	Port                string
+	CurrentRequestCount int
+	MaxRequestCount     int
+	IsHeroku            bool
+	UsersCode           map[string]*orm.User
+}
+
+// InitProg initialise
+func InitProg() *Application {
+	logFile, _ := os.Create("logs.txt")
+
+	eLog := log.New(logFile, "\033[31m[ERROR]\033[0m\t", log.Ldate|log.Ltime|log.Lshortfile)
+	iLog := log.New(logFile, "\033[34m[INFO]\033[0m\t", log.Ldate|log.Ltime|log.Lshortfile)
+	iLog.Println("loggers is done!")
+
+	iLog.Println("creating/configuring database")
+	orm.InitDB(eLog, iLog)
+	iLog.Println("database completed!")
+
+	return &Application{
+		ELog:                eLog,
+		ILog:                iLog,
+		Port:                "4330",
+		CurrentRequestCount: 0,
+		MaxRequestCount:     1200,
+		IsHeroku:            false,
+		UsersCode:           map[string]*orm.User{},
+	}
+}
