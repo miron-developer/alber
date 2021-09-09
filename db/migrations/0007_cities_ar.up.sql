@@ -1,4 +1,3 @@
-INSERT INTO Cities VALUES(null,'Ереван');
 INSERT INTO Cities VALUES(null,'Абовян');
 INSERT INTO Cities VALUES(null,'Агарак');
 INSERT INTO Cities VALUES(null,'Айрум');

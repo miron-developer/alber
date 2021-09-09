@@ -1,4 +1,4 @@
-package app
+package api
 
 import (
 	"errors"
@@ -22,7 +22,8 @@ func sessionID() string {
 	return fmt.Sprint(u1)
 }
 
-func setCookie(w http.ResponseWriter, sid string, expire int) {
+// SetCookie set cookie with expire
+func SetCookie(w http.ResponseWriter, sid string, expire int) {
 	sidCook := http.Cookie{
 		Name:   cookieName,
 		Value:  url.QueryEscape(sid),
@@ -36,7 +37,7 @@ func setCookie(w http.ResponseWriter, sid string, expire int) {
 }
 
 // SessionStart start user session
-func SessionStart(w http.ResponseWriter, r *http.Request, login string, userID int) error {
+func SessionStart(w http.ResponseWriter, r *http.Request, userID int) error {
 	cookie, e := r.Cookie(cookieName)
 	sidFromCookie := ""
 	sidFromDB := ""
@@ -78,45 +79,14 @@ func SessionStart(w http.ResponseWriter, r *http.Request, login string, userID i
 		return errors.New("Session error")
 	}
 
-	setCookie(w, sid, int(sessionExpire/timeSecond))
+	SetCookie(w, sid, int(sessionExpire/timeSecond))
 	return nil
 }
 
 // SessionGC delete expired session
-func (app *Application) SessionGC() error {
+func SessionGC() error {
 	return orm.DeleteByParams(orm.SQLDeleteParams{
 		Table:   "Sessions",
 		Options: orm.DoSQLOption("datetime(expire) < datetime('"+TimeExpire(time.Nanosecond)+"')", "", ""),
 	})
-}
-
-var min = 0
-
-// CheckPerMin call SessionGC per minute that delete expired sessions and do db backup
-func (app *Application) CheckPerMin() {
-	timer := time.NewTicker(1 * time.Minute)
-	for {
-		// manage timer
-		<-timer.C
-		timer.Reset(1 * time.Minute)
-
-		app.CurrentRequestCount = 0
-		min++
-
-		// do general actions
-		if min == 60*24 {
-			min = 0
-			app.UsersCode = map[string]*orm.User{}
-		}
-		if min == 30 {
-			if e := app.DoBackup(); e == nil {
-				app.ILog.Println("backup created!")
-			} else {
-				app.ELog.Println(e)
-			}
-		}
-		if e := app.SessionGC(); e != nil {
-			app.ELog.Println(e)
-		}
-	}
 }

@@ -1,34 +1,44 @@
-package app
+package api
 
 import (
+	"encoding/json"
+	"errors"
 	"net/http"
+	"net/url"
+	"regexp"
 	"strconv"
+	"time"
+	"zhibek/pkg/orm"
 )
 
-const (
-	FOLLOWING_USER_ONE_Q   string = "SELECT receiverUserID FROM Relations WHERE senderUserID = ? AND value != -1"
-	FOLLOWING_USER_BOTH_Q  string = "SELECT senderUserID FROM Relations WHERE receiverUserID = ? AND value = 0"
-	FOLLOWING_USER_GROUP_Q string = "SELECT receiverGroupID FROM Relations WHERE senderUserID = ? AND value = 1"
-	FOLLOWERS_USER_ONE_Q   string = "SELECT senderUserID FROM Relations WHERE receiverUserID = ? AND value != -1"
-	FOLLOWERS_USER_BOTH_Q  string = "SELECT receiverUserID FROM Relations WHERE senderUserID = ? AND value = 0"
-	FOLLOWERS_USER_GROUP_Q string = "SELECT receiverGroupID FROM Relations WHERE senderUserID = ? AND value = 1"
-	FOLLOWERS_GROUP_ONE_Q  string = "SELECT senderUserID FROM Relations WHERE receiverGroupID = ? AND value != -1"
-	FOLLOWERS_GROUP_BOTH_Q string = "SELECT receiverUserID FROM Relations WHERE senderGroupID = ? AND value = 0"
-	REQUEST_USER_USER_Q    string = "SELECT senderUserID FROM Relations WHERE receiverUserID = ? AND value = -1"
-	REQUEST_USER_GROUP_Q   string = "SELECT senderGroupID FROM Relations WHERE receiverUserID = ? AND value = -1"
-	REQUEST_GROUP_USER_Q   string = "SELECT senderUserID FROM Relations WHERE receiverGroupID = ? AND value = -1"
-	PRIVATE_ACCESS_CHECK   string = `
-		SELECT id IS NOT NULL FROM Relations 
-		WHERE (
-			(
-				userID IS NOT NULL AND (
-					(senderUserID = ? AND receiverUserID = userID) OR 
-					(receiverUserID = ? AND senderUserID = userID AND value = 0)
-				)
-			) OR
-			(groupID IS NOT NULL AND (senderUserID = ? AND receiverGroupID = groupID))
-		)`
-)
+type API_RESPONSE struct {
+	Err  string      `json:"err"`
+	Data interface{} `json:"data"`
+	Code int         `json:"code"`
+}
+
+// XSS check
+func xss(data string) error {
+	if data == "" {
+		return nil
+	}
+
+	rg := regexp.MustCompile(`<+[\w\s/]+>+`)
+	if rg.MatchString(data) {
+		return errors.New("xss data")
+	}
+	return nil
+}
+
+// CheckAllXSS check xss
+func CheckAllXSS(testers ...string) error {
+	for _, v := range testers {
+		if e := xss(v); e != nil {
+			return e
+		}
+	}
+	return nil
+}
 
 // Gets int value from string with setted default value
 func getIntFromString(src string, def int) int {
@@ -41,4 +51,104 @@ func getIntFromString(src string, def int) int {
 
 func getLimits(r *http.Request) (int, int) {
 	return getIntFromString(r.FormValue("from"), 0), getIntFromString(r.FormValue("step"), 10)
+}
+
+// DoJS do json and write it
+func DoJS(w http.ResponseWriter, data interface{}) {
+	js, _ := json.Marshal(data)
+	w.Header().Set("Content-Type", "Application/json")
+	w.Write(js)
+}
+
+// getAuthCookie check if user is logged
+func getAuthCookie(r *http.Request) (string, error) {
+	cookie, e := r.Cookie(cookieName)
+	if e != nil {
+		return "", errors.New("cookie not founded")
+	}
+	return url.QueryUnescape(cookie.Value)
+}
+
+// TimeExpire time.Now().Add(some duration) and return it by string
+func TimeExpire(add time.Duration) string {
+	return time.Now().Add(add).Format("2006-01-02 15:04:05")
+}
+
+// GetUserIDfromReq gets users id from requst
+func GetUserIDfromReq(w http.ResponseWriter, r *http.Request) int {
+	sesID, e := getAuthCookie(r)
+	if sesID == "" || e != nil {
+		return -1
+	}
+
+	userID, e := orm.GetOneFrom(orm.SQLSelectParams{
+		Table:   "Sessions",
+		What:    "userID",
+		Options: orm.DoSQLOption("id = ?", "", "", sesID),
+	})
+	if e != nil {
+		return -1
+	}
+
+	// update cooks & sess
+	ses := &orm.Session{ID: sesID, Expire: TimeExpire(sessionExpire)}
+	ses.Change()
+	SetCookie(w, sesID, int(sessionExpire/timeSecond))
+	return orm.FromINT64ToINT(userID[0])
+}
+
+// GetUserID get userID from rq or from get rq
+func GetUserID(w http.ResponseWriter, r *http.Request, reqID string) (int, error) {
+	if reqID != "" {
+		return strconv.Atoi(reqID)
+	}
+	if userID := GetUserIDfromReq(w, r); userID != -1 {
+		return userID, nil
+	}
+	return -1, errors.New("not logged")
+}
+
+// SendErrorJSON send to front error
+func SendErrorJSON(w http.ResponseWriter, data API_RESPONSE, err string) {
+	data.Err = err
+	data.Code = 401
+	DoJS(w, data)
+}
+
+// HApi general handler from api
+func HApi(w http.ResponseWriter, r *http.Request, f func(w http.ResponseWriter, r *http.Request) (interface{}, error)) {
+	if r.Method == "GET" {
+		data := API_RESPONSE{
+			Err:  "ok",
+			Data: "",
+			Code: 200,
+		}
+
+		ids, e := f(w, r)
+		if e != nil {
+			SendErrorJSON(w, data, e.Error())
+			return
+		}
+		data.Data = ids
+		DoJS(w, data)
+	}
+}
+
+// HSaves general handler for all save paths
+func HSaves(w http.ResponseWriter, r *http.Request, f func(w http.ResponseWriter, r *http.Request) (interface{}, error)) {
+	if r.Method == "POST" {
+		data := API_RESPONSE{
+			Err:  "ok",
+			Data: "",
+			Code: 200,
+		}
+
+		datas, e := f(w, r)
+		if e != nil {
+			SendErrorJSON(w, data, e.Error())
+			return
+		}
+		data.Data = datas
+		DoJS(w, data)
+	}
 }

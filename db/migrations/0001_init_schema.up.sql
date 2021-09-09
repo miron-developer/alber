@@ -17,15 +17,15 @@ CREATE TABLE IF not EXISTS Sessions (
 
 -- future feature
 CREATE TABLE IF not EXISTS Countries (
-	id TEXT PRIMARY KEY,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE
 );
 
 -- when you need country
 -- create migrations with change
 CREATE TABLE IF not EXISTS Cities (
-	id TEXT PRIMARY KEY,
-    name TEXT UNIQUE
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT
 );
 
 -- travelTypes
@@ -34,7 +34,7 @@ CREATE TABLE IF not EXISTS Cities (
 -- 3 = plane
 -- 4 = ship
 CREATE TABLE IF not EXISTS TravelTypes (
-	id TEXT PRIMARY KEY,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE IF not EXISTS TravelTypes (
 -- 8 - 2 month
 -- going futher is not meaningful
 CREATE TABLE IF not EXISTS TopTypes (
-	id TEXT PRIMARY KEY,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE,
     color TEXT -- you must write correct colour)
 );
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS Travelers (
     toID INTEGER NOT NULL,
     FOREIGN KEY (userID) REFERENCES Users(id) ON DELETE CASCADE,
     FOREIGN KEY (travelTypeID) REFERENCES TravelTypes(id) ON DELETE CASCADE,
-    FOREIGN KEY (onTop) REFERENCES TopTypes(id) ON DELETE CASCADE,
+    FOREIGN KEY (topTypeID) REFERENCES TopTypes(id) ON DELETE CASCADE,
     FOREIGN KEY (fromID) REFERENCES Cities(id) ON DELETE CASCADE,
     FOREIGN KEY (toID) REFERENCES Cities(id) ON DELETE CASCADE,
     CHECK(

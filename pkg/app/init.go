@@ -20,7 +20,7 @@ type Application struct {
 	CurrentRequestCount int
 	MaxRequestCount     int
 	IsHeroku            bool
-	UsersCode           map[string]*orm.User
+	UsersCode           map[string]interface{}
 }
 
 // InitProg initialise
@@ -42,6 +42,6 @@ func InitProg() *Application {
 		CurrentRequestCount: 0,
 		MaxRequestCount:     1200,
 		IsHeroku:            false,
-		UsersCode:           map[string]*orm.User{},
+		UsersCode:           map[string]interface{}{},
 	}
 }

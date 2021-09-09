@@ -1,15 +1,12 @@
 package app
 
 import (
-	"errors"
 	"fmt"
 	"math/rand"
 	"net/http"
-	"net/url"
-	"regexp"
-	"strconv"
+	"os/exec"
 	"time"
-	"wnet/pkg/orm"
+	"zhibek/pkg/api"
 )
 
 func StringWithCharset(length int) string {
@@ -27,83 +24,46 @@ func logingReq(r *http.Request) string {
 	return fmt.Sprintf("%v %v: '%v'\n", r.RemoteAddr, r.Method, r.URL)
 }
 
-// XCSSOther check
-func XCSSOther(data string) error {
-	if data == "" {
-		return nil
-	}
-
-	rg := regexp.MustCompile(`<+[\w\s/]+>+`)
-	if rg.MatchString(data) {
-		return errors.New("xss data")
-	}
-	return nil
-}
-
-// TimeExpire time.Now().Add(some duration) and return it by string
-func TimeExpire(add time.Duration) string {
-	return time.Now().Add(add).Format("2006-01-02 15:04:05")
-}
-
 // DoBackup make backup every 30 min
 func (app *Application) DoBackup() error {
-	return orm.UploadDB()
+	cmd := exec.Command("cp", `db/zhibek.db`, `db/zhibek_backup.db`)
+	return cmd.Run()
 }
 
-// getAuthCookie check if user is logged
-func getAuthCookie(r *http.Request) (string, error) {
-	cookie, e := r.Cookie(cookieName)
-	if e != nil {
-		return "", errors.New("cookie not founded")
-	}
-	return url.QueryUnescape(cookie.Value)
-}
+var min = 0
 
-// GetUserIDfromReq gets users id from requst
-func GetUserIDfromReq(w http.ResponseWriter, r *http.Request) int {
-	sesID, e := getAuthCookie(r)
-	if sesID == "" || e != nil {
-		return -1
-	}
+// CheckPerMin call SessionGC per minute that delete expired sessions and do db backup
+func (app *Application) CheckPerMin() {
+	timer := time.NewTicker(1 * time.Minute)
+	for {
+		// manage timer
+		<-timer.C
+		timer.Reset(1 * time.Minute)
 
-	userID, e := orm.GetOneFrom(orm.SQLSelectParams{
-		Table:   "Sessions",
-		What:    "userID",
-		Options: orm.DoSQLOption("id = ?", "", "", sesID),
-	})
-	if e != nil {
-		return -1
-	}
+		// change conf app
+		app.CurrentRequestCount = 0
+		min++
 
-	// update cooks & sess
-	ses := &orm.Session{ID: sesID, Expire: TimeExpire(sessionExpire)}
-	ses.Change()
-	setCookie(w, sesID, int(sessionExpire/timeSecond))
-	return orm.FromINT64ToINT(userID[0])
-}
-
-func CarmaCountQ(column string, eq interface{}) orm.SQLSelectParams {
-	return orm.SQLSelectParams{
-		Table:   "Likes",
-		What:    "COUNT(id)",
-		Options: orm.DoSQLOption(column+" = ?", "", "", eq),
+		// do general actions
+		if min == 60*24 {
+			min = 0
+			app.UsersCode = map[string]interface{}{}
+		}
+		if min == 30 {
+			if e := app.DoBackup(); e == nil {
+				app.ILog.Println("backup created!")
+			} else {
+				app.ELog.Println(e)
+			}
+		}
+		if e := api.SessionGC(); e != nil {
+			app.ELog.Println(e)
+		}
 	}
 }
 
-func EventAnswerQ(answer, eventID interface{}) orm.SQLSelectParams {
-	return orm.SQLSelectParams{
-		Table:   "EventAnswers",
-		What:    "COUNT(id)",
-		Options: orm.DoSQLOption("answer = ? AND eventID = ?", "", "", answer, eventID),
-	}
-}
-
-func GetUserID(w http.ResponseWriter, r *http.Request, reqID string) (int, error) {
-	if reqID != "" {
-		return strconv.Atoi(reqID)
-	}
-	if userID := GetUserIDfromReq(w, r); userID != -1 {
-		return userID, nil
-	}
-	return -1, errors.New("not logged")
+// TODO: send SMS
+// SendSMS make sending sms
+func (app *Application) SendSMS(phone, msg string) error {
+	return nil
 }

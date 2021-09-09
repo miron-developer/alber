@@ -3,32 +3,30 @@ package app
 import (
 	"errors"
 	"net/http"
-	"net/smtp"
 	"regexp"
-	"strconv"
 	"strings"
-	"time"
+	"zhibek/pkg/api"
 	"zhibek/pkg/orm"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
-// checkEmailAndNick check if email is empty or not
+// checkPhoneAndNick check if phone & nickname is empty or not
 //	exist = true - user exist in db
-func checkEmailAndNick(exist bool, email, nickname string) error {
+func checkPhoneAndNick(isExist bool, phone, nickname string) error {
 	results, _ := orm.GetFrom(orm.SQLSelectParams{
-		What:    "email, nName",
+		What:    "phone, nickname",
 		Table:   "Users",
-		Options: orm.DoSQLOption("email=? OR nName=?", "", "", email, nickname),
+		Options: orm.DoSQLOption("phone=? OR nickname=?", "", "", phone, nickname),
 	})
 
-	if !exist && len(results) > 0 {
-		if results[0][0].(string) == email {
-			return errors.New("This email is not empty")
+	if !isExist && len(results) > 0 {
+		if results[0][0].(string) == phone {
+			return errors.New("This phone is not empty")
 		}
 		return errors.New("This nickname is not empty")
 	}
-	if exist && len(results) == 0 {
+	if isExist && len(results) == 0 {
 		return errors.New("Wrong login")
 	}
 	return nil
@@ -36,8 +34,8 @@ func checkEmailAndNick(exist bool, email, nickname string) error {
 
 // checkPassword check is password is valid(up) or correct password(in)
 //	exist = true - user exist in db
-func checkPassword(exist bool, pass, login string) error {
-	if !exist {
+func checkPassword(isExist bool, pass, login string) error {
+	if !isExist {
 		if !regexp.MustCompile(`[A-Z]`).MatchString(pass) {
 			return errors.New("password must have A-Z")
 		}
@@ -54,7 +52,7 @@ func checkPassword(exist bool, pass, login string) error {
 		dbPass, e := orm.GetOneFrom(orm.SQLSelectParams{
 			What:    "password",
 			Table:   "Users",
-			Options: orm.DoSQLOption("email = ? OR nName = ?", "", "", login, login),
+			Options: orm.DoSQLOption("email = ? OR nickname = ?", "", "", login, login),
 		})
 		if e != nil {
 			return errors.New("Wrong login")
@@ -64,137 +62,85 @@ func checkPassword(exist bool, pass, login string) error {
 	return nil
 }
 
-// finish signUp proccess
-func (app *Application) SaveUser(w http.ResponseWriter, r *http.Request) (int, error) {
-	user, ok := app.UsersCode[r.PostFormValue("code")]
-	if !ok {
-		return -1, errors.New("Wrong code")
-	}
-
-	ID, e := user.Create()
-	if e != nil {
-		return -1, e
-	}
-	return ID, SessionStart(w, r, user.Email, ID)
-}
-
-func calculateAgeFromDOB(dob string) (int, error) {
-	if dob == "" {
-		return 0, errors.New("Do not have date of birth!")
-	}
-
-	date, e := time.Parse("2006-01-02", dob)
-	if e != nil {
-		return 0, errors.New("Invalid date!")
-	}
-
-	diff := time.Now().Unix() - date.Unix()
-	age := int(diff) / 86400 / 365
-	if age < 13 {
-		return 0, errors.New("Firstly growth to 13 yearl old!")
-	}
-	return age, nil
-}
-
-// SignUp check validate, start session + oauth2
+// SignUp check validate, start session
 func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[string]interface{}, error) {
-	isOauth2Path := strings.Contains(r.URL.Path, "oauth")
-	email := strings.Trim(strings.ToLower(r.PostFormValue("email")), " ")
-	pass := r.PostFormValue("password")
-	lname := r.PostFormValue("lastName")
-	fname := r.PostFormValue("firstName")
-	dob := r.PostFormValue("dob")
-	if isOauth2Path {
-		pass = StringWithCharset(8) + "1aA"
-		lname = "wnet"
-		fname = "user"
-		dob = "1999-09-09"
-	}
-	nickname := lname + "_" + fname + StringWithCharset(8)
+	phone := strings.Trim(r.PostFormValue("phone"), " ")
+	nickname := r.PostFormValue("nickname")
+	code := r.PostFormValue("code")
+	pass := ""
 
-	if e := checkEmailAndNick(false, email, nickname); e != nil {
-		return nil, e
-	}
-	if e := checkPassword(false, pass, ""); e != nil {
-		return nil, e
+	// XSS
+	if api.CheckAllXSS(nickname) != nil {
+		return nil, errors.New("It's XSS attack!")
 	}
 
-	age, e := calculateAgeFromDOB(dob)
-	if e != nil {
-		return nil, e
+	// checking code from sms
+	if validPhone, exist := app.UsersCode[code]; !exist || validPhone != phone {
+		return nil, errors.New("wrong code")
+	}
+
+	// generating password
+	for {
+		tempPass := StringWithCharset(12)
+		if e := checkPassword(false, tempPass, ""); e == nil {
+			pass = tempPass
+			break
+		}
 	}
 
 	hashPass, e := bcrypt.GenerateFromPassword([]byte(pass), 4)
 	if e != nil {
-		return nil, errors.New("Password do not saved!")
-	}
-
-	// XCSS
-	if checkAllXSS(lname, fname) != nil {
-		return nil, errors.New("It's XSS attack!")
+		return nil, errors.New("internal server error: password")
 	}
 
 	user := &orm.User{
-		FirstName: fname, LastName: lname, NickName: nickname,
-		Gender: "Default", Age: age, Avatar: "/img/default-avatar.png", Dob: dob, About: "",
-		Status: "online", IsPrivate: "0", Type: "user",
-		Email: email, Password: string(hashPass),
+		Nickname: nickname, PhoneNumber: phone, Password: string(hashPass),
 	}
-	if !isOauth2Path {
-		code := StringWithCharset(8)
-		app.m.Lock()
-		app.UsersCode[code] = user
-		app.m.Unlock()
+	userID, e := user.Create()
+	if e != nil {
+		return nil, e
+	}
 
-		mes := "To: " + email + "\nFrom: " + "wnet.soc.net@gmail.com" + "\nSubject: Verification\n\n" +
-			"You will be going to register on WNET. \nEnter this code on site: " + code +
-			"\nOr visit this: " + r.Header.Get("origin") + "/sign/s/" + code +
-			"\nBe careful this code expire today."
-		return nil, SendMail(mes, []string{email})
-	} else {
-		ID, e := user.Create()
-		if e != nil {
-			return nil, e
-		}
-		return map[string]interface{}{"id": ID, "password": pass}, SessionStart(w, r, user.Email, ID)
+	// start session
+	if e := api.SessionStart(w, r, userID); e != nil {
+		return nil, e
 	}
+
+	// send SMS with temp_password & login
+	// or mb make notify on front
+	return map[string]interface{}{"login": phone, "password": pass}, e
 }
 
 // SignIn check password and login from db and request + oauth2
 func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, error) {
-	isOauth2Path := strings.Contains(r.URL.Path, "oauth")
-	email := strings.Trim(strings.ToLower(r.PostFormValue("email")), " ")
+	phone := strings.Trim(r.PostFormValue("phone"), " ")
 	pass := r.PostFormValue("password")
 
-	if e := checkEmailAndNick(true, email, email); e != nil {
+	// checkings
+	if e := checkPhoneAndNick(true, phone, ""); e != nil {
 		return -1, e
 	}
-	if !isOauth2Path {
-		if e := checkPassword(true, pass, email); e != nil {
-			return -1, errors.New("Password is not correct!")
-		}
+	if e := checkPassword(true, pass, ""); e != nil {
+		return -1, errors.New("Password is not correct!")
 	}
 
 	res, e := orm.GetOneFrom(orm.SQLSelectParams{
 		What:    "id",
 		Table:   "Users",
-		Options: orm.DoSQLOption("email = ? OR nName = ?", "", "", email, email),
+		Options: orm.DoSQLOption("phone = ?", "", "", phone),
 		Joins:   nil,
 	})
 	if e != nil {
 		return -1, errors.New("Wrong login")
 	}
-	ID := orm.FromINT64ToINT(res[0])
 
-	if app.findUserByID(ID) != nil {
-		return -1, errors.New("User already is online!")
-	}
-	return ID, SessionStart(w, r, email, ID)
+	ID := orm.FromINT64ToINT(res[0])
+	return ID, api.SessionStart(w, r, ID)
 }
 
 // Logout user
 func (app *Application) Logout(w http.ResponseWriter, r *http.Request) error {
-	id := GetUserIDfromReq(w, r)
+	id := api.GetUserIDfromReq(w, r)
 	if id == -1 {
 		return errors.New("not logged")
 	}
@@ -206,18 +152,13 @@ func (app *Application) Logout(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("Not logouted")
 	}
 
-	u := orm.User{ID: id, Status: strconv.Itoa(int(time.Now().Unix() * 1000))}
-	u.Change()
-	app.m.Lock()
-	delete(app.OnlineUsers, id)
-	app.m.Unlock()
-	setCookie(w, "", -1)
+	api.SetCookie(w, "", -1)
 	return nil
 }
 
-// SaveNewPassword restore password
-func (app *Application) SaveNewPassword(w http.ResponseWriter, r *http.Request) error {
-	email, ok := app.RestoreCode[r.PostFormValue("code")]
+// ResetPassword send on email message code to reset password
+func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) error {
+	phone, ok := app.UsersCode[r.PostFormValue("code")]
 	if !ok {
 		return errors.New("wrong code")
 	}
@@ -230,7 +171,7 @@ func (app *Application) SaveNewPassword(w http.ResponseWriter, r *http.Request) 
 	res, e := orm.GetOneFrom(orm.SQLSelectParams{
 		What:    "id",
 		Table:   "Users",
-		Options: orm.DoSQLOption("email = ?", "", "", email),
+		Options: orm.DoSQLOption("phone = ?", "", "", phone),
 	})
 	if e != nil {
 		return errors.New("password do not changed")
@@ -240,42 +181,7 @@ func (app *Application) SaveNewPassword(w http.ResponseWriter, r *http.Request) 
 	if e != nil {
 		return errors.New("the new password do not created")
 	}
+
 	user := &orm.User{ID: orm.FromINT64ToINT(res[0]), Password: string(password)}
 	return user.Change()
-}
-
-// ResetPassword send on email message code to reset password
-func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) error {
-	email := strings.Trim(strings.ToLower(r.PostFormValue("email")), " ")
-	if e := checkEmailAndNick(true, email, ""); e != nil {
-		return e
-	}
-
-	code := StringWithCharset(8)
-	app.m.Lock()
-	app.RestoreCode[code] = email
-	app.m.Unlock()
-
-	mes := "To: " + email + "\nFrom: " + "wnet.soc.net@gmail.com" + "\nSubject: Restore password\n\n" +
-		"You will be going to restore password on WNET. \nEnter this code on site: " + code +
-		"\nOr visit this: " + r.Header.Get("origin") + "/sign/rst/" + code +
-		"\nBe careful this code retire at the end of the day."
-	if e := SendMail(mes, []string{email}); e != nil {
-		return errors.New("Wrong email")
-	}
-	return nil
-}
-
-// SendMail send msg-mail from -> to
-func SendMail(msg string, to []string) error {
-	host := "smtp.gmail.com"
-	port := ":25"
-	from := "wnet.soc.net@gmail.com"
-	pass := "tyhcheejbpzatvha"
-	auth := smtp.PlainAuth("", from, pass, host)
-
-	if e := smtp.SendMail(host+port, auth, from, to, []byte(msg)); e != nil {
-		return errors.New("Wrong email!")
-	}
-	return nil
 }

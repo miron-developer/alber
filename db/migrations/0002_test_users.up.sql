@@ -29,6 +29,6 @@ INSERT INTO Users VALUES(
 INSERT INTO Users VALUES(
     null,
     'SSRB', -- nickname
-    '87777777777', -- phoneNumber
+    '87774852999', -- phoneNumber
     'Adidas&Vodka' 
 );

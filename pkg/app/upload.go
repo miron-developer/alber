@@ -39,7 +39,7 @@ func uploadPhoto(file *multipart.File, filename, ext string) error {
 	return e
 }
 
-func uploadFile(fileFormKey, fileType string, r *http.Request) (string, string, error) {
+func uploadFile(fileFormKey string, r *http.Request) (string, string, error) {
 	file, fh, e := r.FormFile(fileFormKey)
 	defer file.Close()
 	if e != nil || fh == nil {
@@ -52,9 +52,6 @@ func uploadFile(fileFormKey, fileType string, r *http.Request) (string, string, 
 
 	fileExt := fh.Header.Get("Content-Type")
 	filePreName := StringWithCharset(8)
-	link := "/assets/" + fileType + "/" + filePreName + fh.Filename
-	if fileType == "img" {
-		e = uploadPhoto(&file, link, fileExt)
-	}
-	return link, fh.Filename, e
+	link := "/assets/img/" + filePreName + fh.Filename
+	return link, fh.Filename, uploadPhoto(&file, link, fileExt)
 }

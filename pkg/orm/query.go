@@ -23,12 +23,12 @@ func GetOneFrom(params SQLSelectParams) ([]interface{}, error) {
 	return nil, errors.New("n/d")
 }
 
-// GetWithSubqueries nested querys
-func GetWithSubqueries(mainQ SQLSelectParams, querys []SQLSelectParams, joinAs, qAs []string, sampleStruct interface{}) ([]map[string]interface{}, error) {
-	if len(querys) != len(qAs) {
+// GetWithSubqueries get nested querys
+func GetWithSubqueries(mainQ SQLSelectParams, subQuerys []SQLSelectParams, joinAs, qAs []string, sampleStruct interface{}) ([]map[string]interface{}, error) {
+	if len(subQuerys) != len(qAs) {
 		return nil, errors.New("len(querys) != len(queryAs)")
 	}
-	for i, v := range querys {
+	for i, v := range subQuerys {
 		curQ, curArgs := prepareGetQueryAndArgs(v)
 		mainQ.What += ", (" + curQ + ") AS " + qAs[i]
 		mainQ.Args = append(mainQ.Args, curArgs...)
@@ -45,6 +45,15 @@ func GetWithSubqueries(mainQ SQLSelectParams, querys []SQLSelectParams, joinAs, 
 // GetWithQueryAndArgs get with query and args
 func GetWithQueryAndArgs(query string, args []interface{}) ([][]interface{}, error) {
 	return selectSQL(query, args)
+}
+
+// GeneralGet get with one select params
+func GeneralGet(selectParams SQLSelectParams, joinAs []string, sampleStruct interface{}) []map[string]interface{} {
+	results, e := GetFrom(selectParams)
+	if e != nil || len(results) == 0 {
+		return []map[string]interface{}{}
+	}
+	return MapFromStructAndMatrix(results, sampleStruct, joinAs...)
 }
 
 // DoSQLOption create new sqloption & return
