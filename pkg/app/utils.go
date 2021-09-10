@@ -30,8 +30,6 @@ func (app *Application) DoBackup() error {
 	return cmd.Run()
 }
 
-var min = 0
-
 // CheckPerMin call SessionGC per minute that delete expired sessions and do db backup
 func (app *Application) CheckPerMin() {
 	timer := time.NewTicker(1 * time.Minute)
@@ -42,14 +40,13 @@ func (app *Application) CheckPerMin() {
 
 		// change conf app
 		app.CurrentRequestCount = 0
-		min++
+		app.CurrentMin++
 
 		// do general actions
-		if min == 60*24 {
-			min = 0
-			app.UsersCode = map[string]interface{}{}
+		if app.CurrentMin == 60*24 {
+			app.CurrentMin = 0
 		}
-		if min == 30 {
+		if app.CurrentMin == 30 {
 			if e := app.DoBackup(); e == nil {
 				app.ILog.Println("backup created!")
 			} else {
@@ -59,6 +56,17 @@ func (app *Application) CheckPerMin() {
 		if e := api.SessionGC(); e != nil {
 			app.ELog.Println(e)
 		}
+
+		// remove expired codes
+		go func() {
+			for code, v := range app.UsersCode {
+				if v.ExpireMin == app.CurrentMin {
+					app.m.Lock()
+					delete(app.UsersCode, code)
+					app.m.Unlock()
+				}
+			}
+		}()
 	}
 }
 

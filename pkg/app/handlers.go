@@ -148,6 +148,7 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 		msg := `
 			Вы собираетесь зарегистрироваться на платформе Жибек.
 			Введите этот код на сайте для подтверждения: ` + code + `
+			Внимание, код действителен всего час.
 		`
 
 		// send SMS
@@ -155,9 +156,11 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
+
 		app.m.Lock()
-		app.UsersCode[code] = phone
+		app.UsersCode[code] = &Code{Value: phone, ExpireMin: app.CurrentMin + 60*1}
 		app.m.Unlock()
+
 		api.DoJS(w, data)
 	}
 }
@@ -228,9 +231,11 @@ func (app *Application) HPreChangePasswordSMS(w http.ResponseWriter, r *http.Req
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
+
 		app.m.Lock()
-		app.UsersCode[code] = phone
+		app.UsersCode[code] = &Code{Value: phone, ExpireMin: app.CurrentMin + 60*1}
 		app.m.Unlock()
+
 		api.DoJS(w, data)
 	}
 }
@@ -295,7 +300,13 @@ func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Req
 		code := StringWithCharset(8)
 		msg := `
 			Код подтверждения измения на платформе Жибек: ` + code + `
+			Код действует в течении часа.
 		`
+
+		app.m.Lock()
+		app.UsersCode[code] = &Code{Value: phone, ExpireMin: app.CurrentMin + 60*1}
+		app.m.Unlock()
+
 		// here sending sms to abonent
 		if e := app.SendSMS(phone, msg); e != nil {
 			api.SendErrorJSON(w, data, e.Error())

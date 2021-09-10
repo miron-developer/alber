@@ -22,12 +22,12 @@ func checkPhoneAndNick(isExist bool, phone, nickname string) error {
 
 	if !isExist && len(results) > 0 {
 		if results[0][0].(string) == phone {
-			return errors.New("This phone is not empty")
+			return errors.New("this phone is not empty")
 		}
-		return errors.New("This nickname is not empty")
+		return errors.New("this nickname is not empty")
 	}
 	if isExist && len(results) == 0 {
-		return errors.New("Wrong login")
+		return errors.New("wrong login")
 	}
 	return nil
 }
@@ -55,7 +55,7 @@ func checkPassword(isExist bool, pass, login string) error {
 			Options: orm.DoSQLOption("email = ? OR nickname = ?", "", "", login, login),
 		})
 		if e != nil {
-			return errors.New("Wrong login")
+			return errors.New("wrong login")
 		}
 		return bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass))
 	}
@@ -71,11 +71,11 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 
 	// XSS
 	if api.CheckAllXSS(nickname) != nil {
-		return nil, errors.New("It's XSS attack!")
+		return nil, errors.New("danger nickname")
 	}
 
 	// checking code from sms
-	if validPhone, exist := app.UsersCode[code]; !exist || validPhone != phone {
+	if validPhone, exist := app.UsersCode[code]; !exist || validPhone.Value != phone {
 		return nil, errors.New("wrong code")
 	}
 
@@ -121,7 +121,7 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 		return -1, e
 	}
 	if e := checkPassword(true, pass, ""); e != nil {
-		return -1, errors.New("Password is not correct!")
+		return -1, errors.New("password is not correct")
 	}
 
 	res, e := orm.GetOneFrom(orm.SQLSelectParams{
@@ -131,7 +131,7 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 		Joins:   nil,
 	})
 	if e != nil {
-		return -1, errors.New("Wrong login")
+		return -1, errors.New("wrong login")
 	}
 
 	ID := orm.FromINT64ToINT(res[0])
@@ -149,7 +149,7 @@ func (app *Application) Logout(w http.ResponseWriter, r *http.Request) error {
 		Table:   "Sessions",
 		Options: orm.DoSQLOption("userID = ?", "", "", id),
 	}); e != nil {
-		return errors.New("Not logouted")
+		return errors.New("not logouted")
 	}
 
 	api.SetCookie(w, "", -1)
@@ -171,7 +171,7 @@ func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) er
 	res, e := orm.GetOneFrom(orm.SQLSelectParams{
 		What:    "id",
 		Table:   "Users",
-		Options: orm.DoSQLOption("phone = ?", "", "", phone),
+		Options: orm.DoSQLOption("phone = ?", "", "", phone.Value),
 	})
 	if e != nil {
 		return errors.New("password do not changed")

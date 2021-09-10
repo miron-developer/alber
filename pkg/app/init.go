@@ -11,6 +11,12 @@ import (
 	"zhibek/pkg/orm"
 )
 
+// Code struct for app
+type Code struct {
+	ExpireMin int
+	Value     interface{}
+}
+
 // Application this is app struct and items
 type Application struct {
 	m                   sync.Mutex
@@ -18,9 +24,10 @@ type Application struct {
 	ILog                *log.Logger
 	Port                string
 	CurrentRequestCount int
+	CurrentMin          int // how many minuts pass after start/day
 	MaxRequestCount     int
 	IsHeroku            bool
-	UsersCode           map[string]interface{}
+	UsersCode           map[string]*Code
 }
 
 // InitProg initialise
@@ -40,8 +47,9 @@ func InitProg() *Application {
 		ILog:                iLog,
 		Port:                "4330",
 		CurrentRequestCount: 0,
+		CurrentMin:          0,
 		MaxRequestCount:     1200,
 		IsHeroku:            false,
-		UsersCode:           map[string]interface{}{},
+		UsersCode:           map[string]*Code{},
 	}
 }

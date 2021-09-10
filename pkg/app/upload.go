@@ -24,14 +24,17 @@ func uploadPhoto(file *multipart.File, filename, ext string) error {
 	var img image.Image
 
 	if ext == "image/jpg" || ext == "image/jpeg" {
-		img, e = jpeg.Decode(*file)
-		e = jpeg.Encode(f, img, nil)
+		if img, e = jpeg.Decode(*file); e == nil {
+			e = jpeg.Encode(f, img, nil)
+		}
 	} else if ext == "image/png" {
-		img, e = png.Decode(*file)
-		e = png.Encode(f, img)
+		if img, e = png.Decode(*file); e == nil {
+			e = png.Encode(f, img)
+		}
 	} else if ext != "image/gif" {
-		img, e = gif.Decode(*file)
-		e = gif.Encode(f, img, nil)
+		if img, e = gif.Decode(*file); e == nil {
+			e = gif.Encode(f, img, nil)
+		}
 	} else {
 		os.Remove(filename)
 		return errors.New("dont support this type of photo")
@@ -41,10 +44,10 @@ func uploadPhoto(file *multipart.File, filename, ext string) error {
 
 func uploadFile(fileFormKey string, r *http.Request) (string, string, error) {
 	file, fh, e := r.FormFile(fileFormKey)
-	defer file.Close()
 	if e != nil || fh == nil {
 		return "", "", errors.New("file did not found")
 	}
+	defer file.Close()
 
 	if fh.Size/1024/1024 > 100 {
 		return "", "", errors.New("this size is greater than 100mb")
