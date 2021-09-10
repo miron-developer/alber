@@ -178,6 +178,12 @@ func (app *Application) HSignUp(w http.ResponseWriter, r *http.Request) {
 		if successData != nil {
 			data.Data = successData
 		}
+
+		// delete unnecessary code
+		app.m.Lock()
+		delete(app.UsersCode, r.PostFormValue("code"))
+		app.m.Unlock()
+
 		api.DoJS(w, data)
 	}
 }
@@ -242,6 +248,12 @@ func (app *Application) HResetPassword(w http.ResponseWriter, r *http.Request) {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
+
+		// delete unnecessary code
+		app.m.Lock()
+		delete(app.UsersCode, r.PostFormValue("code"))
+		app.m.Unlock()
+
 		api.DoJS(w, data)
 	}
 }
@@ -279,17 +291,22 @@ func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Req
 			Code: 200,
 		}
 
+		phone := r.PostFormValue("phone")
+		code := StringWithCharset(8)
+		msg := `
+			Код подтверждения измения на платформе Жибек: ` + code + `
+		`
 		// here sending sms to abonent
-		// if e := app.SendSMS(w, r); e != nil {
-		// 	api.SendErrorJSON(w, data, e.Error())
-		// 	return
-		// }
+		if e := app.SendSMS(phone, msg); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
 
 		api.DoJS(w, data)
 	}
 }
 
-// HChangeProfile user/group data
+// HChangeProfile user data
 func (app *Application) HChangeProfile(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		data := api.API_RESPONSE{
@@ -308,6 +325,78 @@ func (app *Application) HChangeProfile(w http.ResponseWriter, r *http.Request) {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
+
+		// delete unnecessary code
+		app.m.Lock()
+		delete(app.UsersCode, r.PostFormValue("code"))
+		app.m.Unlock()
+
+		api.DoJS(w, data)
+	}
+}
+
+// HChangeParsel parsel change data
+func (app *Application) HChangeParsel(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		data := api.API_RESPONSE{
+			Err:  "ok",
+			Data: "",
+			Code: 200,
+		}
+
+		if e := api.ChangeParsel(w, r); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+		api.DoJS(w, data)
+	}
+}
+
+// HChangeTravel travel change data
+func (app *Application) HChangeTravel(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		data := api.API_RESPONSE{
+			Err:  "ok",
+			Data: "",
+			Code: 200,
+		}
+
+		if e := api.ChangeTravel(w, r); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+		api.DoJS(w, data)
+	}
+}
+
+// here will be pay confirm
+
+// HChangeTop travel or parsel change top
+func (app *Application) HChangeTop(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		data := api.API_RESPONSE{
+			Err:  "ok",
+			Data: "",
+			Code: 200,
+		}
+
+		// check payed code
+		_, ok := app.UsersCode[r.PostFormValue("code")]
+		if !ok {
+			api.SendErrorJSON(w, data, "not payed yet")
+			return
+		}
+
+		if e := api.ChangeTop(w, r); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+
+		// delete unnecessary code
+		app.m.Lock()
+		delete(app.UsersCode, r.PostFormValue("code"))
+		app.m.Unlock()
+
 		api.DoJS(w, data)
 	}
 }

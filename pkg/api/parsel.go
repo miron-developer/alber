@@ -89,3 +89,55 @@ func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}
 	return parselID, nil
 }
+
+// ChangeParsel change one parsel
+func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
+	// get general ids
+	userID := GetUserIDfromReq(w, r)
+	if userID == -1 {
+		return errors.New("not logged")
+	}
+	parselID, e := strconv.Atoi(r.PostFormValue("id"))
+	if e != nil {
+		return errors.New("wrong parsel")
+	}
+
+	title, description := r.PostFormValue("title"), r.PostFormValue("description")
+	if CheckAllXSS(title, description) != nil {
+		return errors.New("danger content")
+	}
+
+	price, e := strconv.Atoi(r.PostFormValue("price"))
+	weight, e2 := strconv.Atoi(r.PostFormValue("weight"))
+	if (r.PostFormValue("price") != "" && e != nil && price == 0) ||
+		(r.PostFormValue("weight") != "" && e2 != nil && weight == 0) {
+		return errors.New("wrong price or weigth")
+	}
+
+	from, e := strconv.Atoi(r.PostFormValue("from"))
+	to, e2 := strconv.Atoi(r.PostFormValue("to"))
+	if (r.PostFormValue("from") != "" && e != nil && from == 0) ||
+		(r.PostFormValue("to") != "" && e2 != nil && to == 0) ||
+		(r.PostFormValue("to") != "" && r.PostFormValue("from") != "" && from == to) {
+		return errors.New("wrong from or to place")
+	}
+
+	now := int(time.Now().Unix() * 1000)
+	expire, e := strconv.Atoi(r.PostFormValue("expire"))
+	if r.PostFormValue("expire") != "" && e != nil && expire < now {
+		return errors.New("wrong expire")
+	}
+
+	isHaveWhatsUp := r.PostFormValue("isHaveWhatsUp")
+	if isHaveWhatsUp != "1" && isHaveWhatsUp != "0" && isHaveWhatsUp != "" {
+		return errors.New("wrong whatsup")
+	}
+
+	p := &orm.Parsel{
+		Title: title, Description: description, IsHaveWhatsUp: isHaveWhatsUp,
+		Price: price, Weight: weight,
+		UserID: userID, FromID: from, ToID: to, ID: parselID,
+		CreationDatetime: now, ExpireDatetime: expire,
+	}
+	return p.Change()
+}

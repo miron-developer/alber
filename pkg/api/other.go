@@ -67,3 +67,44 @@ func CreateImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}
 	return nil, nil
 }
+
+// ChangeTop change one parsel's or travel's expire on top
+func ChangeTop(w http.ResponseWriter, r *http.Request) error {
+	// get general ids
+	userID := GetUserIDfromReq(w, r)
+	if userID == -1 {
+		return errors.New("not logged")
+	}
+	ID, e := strconv.Atoi(r.PostFormValue("id"))
+	if e != nil {
+		return errors.New("wrong id")
+	}
+
+	table := r.PostFormValue("type")
+	expire, e := orm.GetOneFrom(orm.SQLSelectParams{
+		Table:   table,
+		What:    "expireDatetime",
+		Options: orm.DoSQLOption("userID = ? AND id = ?", "", "1", userID, ID),
+	})
+	if e != nil {
+		return errors.New("wrong type")
+	}
+
+	expireOnTop, e := strconv.Atoi(r.PostFormValue("expireOnTop"))
+	topID, e2 := strconv.Atoi(r.PostFormValue("topID"))
+	if e != nil || e2 != nil || expire[0].(int) < expireOnTop {
+		return errors.New("wrong try to up")
+	}
+
+	if table == "Parsels" {
+		p := &orm.Parsel{
+			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: expireOnTop,
+		}
+		return p.Change()
+	} else {
+		t := &orm.Traveler{
+			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: expireOnTop,
+		}
+		return t.Change()
+	}
+}

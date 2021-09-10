@@ -75,7 +75,11 @@ CREATE TABLE IF NOT EXISTS Parsels (
     CHECK(
         LENGTH(description) <= 400 AND
         LENGTH(title) <= 100 AND
-        isHaveWhatsUp IN (0, 1)
+        isHaveWhatsUp IN (0, 1) AND (
+            (creationDatetime < expireDatetime) OR
+            (creationDatetime < expireOnTopDatetime AND expireOnTopDatetime <= expireDatetime AND expireOnTopDatetime IS NOT NULL)
+        ) AND
+        fromID != toID
     )
 );
 
@@ -98,7 +102,11 @@ CREATE TABLE IF NOT EXISTS Travelers (
     FOREIGN KEY (fromID) REFERENCES Cities(id) ON DELETE CASCADE,
     FOREIGN KEY (toID) REFERENCES Cities(id) ON DELETE CASCADE,
     CHECK(
-        isHaveWhatsUp IN (0, 1)
+        isHaveWhatsUp IN (0, 1) AND (
+            (creationDatetime < departureDatetime AND departureDatetime < arrivalDatetime) OR
+            (creationDatetime < expireOnTopDatetime AND expireOnTopDatetime <= departureDatetime AND departureDatetime < arrivalDatetime AND expireOnTopDatetime IS NOT NULL) 
+        ) AND
+        fromID != toID
     )
 );
 

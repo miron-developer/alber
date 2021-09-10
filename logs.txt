@@ -1,11 +1,11 @@
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:32: loggers is done!
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:34: creating/configuring database
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:46: accessing database file
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:48: access completed
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:51: set up database configs
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:54: database configured
-[34m[INFO][0m	2021/09/10 00:26:52 init.go:57: making migrations
-[34m[INFO][0m	2021/09/10 00:26:56 init.go:59: migrations completed
-[34m[INFO][0m	2021/09/10 00:26:56 init.go:36: database completed!
-[34m[INFO][0m	2021/09/10 00:26:56 main.go:21: initialization completed!
-[34m[INFO][0m	2021/09/10 00:26:56 main.go:43: server listening on port 4330
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:32: loggers is done!
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:34: creating/configuring database
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:46: accessing database file
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:48: access completed
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:51: set up database configs
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:54: database configured
+[34m[INFO][0m	2021/09/10 19:52:49 init.go:57: making migrations
+[34m[INFO][0m	2021/09/10 19:52:54 init.go:59: migrations completed
+[34m[INFO][0m	2021/09/10 19:52:54 init.go:36: database completed!
+[34m[INFO][0m	2021/09/10 19:52:54 main.go:21: initialization completed!
+[34m[INFO][0m	2021/09/10 19:52:54 main.go:43: server listening on port 4330
