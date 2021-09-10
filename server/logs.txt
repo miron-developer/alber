@@ -1,0 +1,35 @@
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:39: loggers is done!
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:41: creating/configuring database
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:46: accessing database file
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:48: access completed
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:51: set up database configs
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:54: database configured
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:57: making migrations
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:59: migrations completed
+[34m[INFO][0m	2021/09/10 22:47:43 init.go:43: database completed!
+[34m[INFO][0m	2021/09/10 22:47:43 main.go:21: initialization completed!
+[34m[INFO][0m	2021/09/10 22:47:43 main.go:43: server listening on port 4330
+[34m[INFO][0m	2021/09/10 22:47:46 handlers.go:30: 127.0.0.1:49994 GET: '/api/'
+[34m[INFO][0m	2021/09/10 22:47:47 handlers.go:30: 127.0.0.1:50008 GET: '/api/'
+[34m[INFO][0m	2021/09/10 22:48:00 handlers.go:30: 127.0.0.1:50120 GET: '/api/user'
+[31m[ERROR][0m	2021/09/10 22:48:43 utils.go:57: not deleted
+[31m[ERROR][0m	2021/09/10 22:49:44 utils.go:57: not deleted
+[31m[ERROR][0m	2021/09/10 22:50:44 utils.go:57: not deleted
+[31m[ERROR][0m	2021/09/10 22:51:44 utils.go:57: not deleted
+[31m[ERROR][0m	2021/09/10 22:52:44 utils.go:57: not deleted
+[34m[INFO][0m	2021/09/10 22:52:53 handlers.go:30: 127.0.0.1:52508 GET: '/'
+[34m[INFO][0m	2021/09/10 22:52:53 handlers.go:30: 127.0.0.1:52518 GET: '/static/css/main.8af9f632.chunk.css'
+[34m[INFO][0m	2021/09/10 22:52:53 handlers.go:30: 127.0.0.1:52520 GET: '/static/js/2.4fc7b8b5.chunk.js'
+[34m[INFO][0m	2021/09/10 22:52:53 handlers.go:30: 127.0.0.1:52522 GET: '/static/js/main.2a1cbb97.chunk.js'
+[34m[INFO][0m	2021/09/10 22:52:53 handlers.go:30: 127.0.0.1:52532 GET: '/manifest.json'
+[34m[INFO][0m	2021/09/10 22:52:53 handlers.go:30: 127.0.0.1:52534 GET: '/favicon.ico'
+[31m[ERROR][0m	2021/09/10 22:53:44 utils.go:57: not deleted
+[34m[INFO][0m	2021/09/10 22:54:02 handlers.go:30: 127.0.0.1:53106 GET: '/'
+[34m[INFO][0m	2021/09/10 22:54:02 handlers.go:30: 127.0.0.1:53116 GET: '/static/css/main.8af9f632.chunk.css'
+[34m[INFO][0m	2021/09/10 22:54:02 handlers.go:30: 127.0.0.1:53118 GET: '/static/js/2.4fc7b8b5.chunk.js'
+[34m[INFO][0m	2021/09/10 22:54:02 handlers.go:30: 127.0.0.1:53120 GET: '/static/js/main.2a1cbb97.chunk.js'
+[34m[INFO][0m	2021/09/10 22:54:02 handlers.go:30: 127.0.0.1:53130 GET: '/manifest.json'
+[34m[INFO][0m	2021/09/10 22:54:02 handlers.go:30: 127.0.0.1:53132 GET: '/favicon.ico'
+[34m[INFO][0m	2021/09/10 22:54:06 handlers.go:30: 127.0.0.1:53174 GET: '/static/css/main.8af9f632.chunk.css'
+[34m[INFO][0m	2021/09/10 22:54:06 handlers.go:30: 127.0.0.1:53176 GET: '/manifest.json'
+[31m[ERROR][0m	2021/09/10 22:54:44 utils.go:57: not deleted
