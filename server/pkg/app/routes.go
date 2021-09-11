@@ -48,6 +48,10 @@ func (app *Application) SetRoutes() http.Handler {
 	saveMux.HandleFunc("/image", app.HSaveImage)
 	appMux.Handle("/s/", http.StripPrefix("/s", saveMux))
 
+	// static react get
+	static := http.FileServer(http.Dir("dist/static"))
+	appMux.Handle("/static/", http.StripPrefix("/static/", static))
+
 	// assets get
 	assets := http.FileServer(http.Dir("assets"))
 	appMux.Handle("/assets/", http.StripPrefix("/assets/", assets))

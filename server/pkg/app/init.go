@@ -7,6 +7,7 @@ package app
 import (
 	"log"
 	"os"
+	"strings"
 	"sync"
 	"zhibek/pkg/orm"
 )
@@ -17,17 +18,47 @@ type Code struct {
 	Value     interface{}
 }
 
-// Application this is app struct and items
+// AppConfig - app's configurations
+type AppConfig struct {
+	PORT              string
+	MOBIZON_API_KEY   string
+	MAX_REQUEST_COUNT string
+}
+
+// Application - app config and items
 type Application struct {
 	m                   sync.Mutex
 	ELog                *log.Logger
 	ILog                *log.Logger
-	Port                string
 	CurrentRequestCount int
 	CurrentMin          int // how many minuts pass after start/day
-	MaxRequestCount     int
 	IsHeroku            bool
 	UsersCode           map[string]*Code
+	Config              *AppConfig
+}
+
+func checkFatal(eLogger *log.Logger, e error) {
+	if e != nil {
+		eLogger.Fatal(e)
+	}
+}
+
+func GetConfigs() (*AppConfig, error) {
+	content, e := os.ReadFile(".env")
+	if e != nil {
+		return nil, e
+	}
+
+	conf := &AppConfig{}
+	confMap := map[string]interface{}{}
+	rows := strings.Split(string(content), "\n")
+	for _, row := range rows {
+		arr := strings.Split(row, "=")
+		confMap[arr[0]] = arr[1]
+	}
+
+	e = orm.FillStructFromMap(conf, confMap)
+	return conf, e
 }
 
 // InitProg initialise
@@ -39,17 +70,21 @@ func InitProg() *Application {
 	iLog.Println("loggers is done!")
 
 	iLog.Println("creating/configuring database")
-	orm.InitDB(eLog, iLog)
+	checkFatal(eLog, orm.InitDB(iLog))
 	iLog.Println("database completed!")
+
+	iLog.Println("configuring app")
+	config, e := GetConfigs()
+	checkFatal(eLog, e)
+	iLog.Println("configuring done")
 
 	return &Application{
 		ELog:                eLog,
 		ILog:                iLog,
-		Port:                "4330",
 		CurrentRequestCount: 0,
 		CurrentMin:          0,
-		MaxRequestCount:     1200,
 		IsHeroku:            false,
 		UsersCode:           map[string]*Code{},
+		Config:              config,
 	}
 }

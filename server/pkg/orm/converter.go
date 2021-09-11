@@ -1,6 +1,7 @@
 package orm
 
 import (
+	"errors"
 	"reflect"
 )
 
@@ -13,6 +14,31 @@ func MakeArrFromStruct(data interface{}) []interface{} {
 		arr = append(arr, v.Field(i).Interface())
 	}
 	return arr
+}
+
+// FillStructFromMap fill the current struct from map
+func FillStructFromMap(sampleStruct interface{}, data map[string]interface{}) error {
+	structValue := reflect.ValueOf(sampleStruct).Elem()
+
+	for k, v := range data {
+		structFieldValue := structValue.FieldByName(k)
+
+		if !structFieldValue.IsValid() {
+			return errors.New("no such field: " + k + " in obj")
+		}
+		if !structFieldValue.CanSet() {
+			return errors.New("can't set " + k + " field value")
+		}
+
+		structFieldType := structFieldValue.Type()
+		val := reflect.ValueOf(v)
+		if structFieldType != val.Type() {
+			return errors.New("provided value type didn't match obj field type")
+		}
+
+		structFieldValue.Set(val)
+	}
+	return nil
 }
 
 // MapFromStructAndMatrix [][]interface{}{} + Struct sample -> []map[string]interface{}{}

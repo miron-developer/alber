@@ -1,9 +1,13 @@
 package app
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"math/rand"
 	"net/http"
+	"net/url"
 	"os/exec"
 	"time"
 	"zhibek/pkg/api"
@@ -70,8 +74,44 @@ func (app *Application) CheckPerMin() {
 	}
 }
 
-// TODO: send SMS
+type MOBIZONE_API_RESP struct {
+	Code    int         `json:"code"`
+	Data    interface{} `json:"data"`
+	Message string      `json:"message"`
+}
+
 // SendSMS make sending sms
 func (app *Application) SendSMS(phone, msg string) error {
+	HOST := "https://api.mobizon.kz/service"
+	SERVICE := "message"
+	METHOD := "sendsmsmessage"
+
+	params := url.Values{}
+	params.Set("recipient", phone)
+	params.Set("apiKey", app.Config.MOBIZON_API_KEY)
+	params.Set("text", url.QueryEscape(msg))
+
+	// send post rq
+	resp, e := http.PostForm(HOST+SERVICE+METHOD, params)
+	if e != nil {
+		return errors.New("internal server error: api not response")
+	}
+
+	// get response data
+	content, e := io.ReadAll(resp.Body)
+	if e != nil {
+		return errors.New("internal server error: content error")
+	}
+
+	// convert data to struct
+	result := &MOBIZONE_API_RESP{}
+	if e := json.Unmarshal(content, result); e != nil {
+		return errors.New("internal server error: parse json")
+	}
+
+	// handle api errors
+	if result.Message != "" || result.Code == 1 {
+		return errors.New("wrong phone")
+	}
 	return nil
 }

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"text/template"
 	"zhibek/pkg/api"
@@ -25,7 +26,8 @@ func (app *Application) SecureHeaderMiddleware(next http.Handler) http.Handler {
 // AccessLogMiddleware logging request
 func (app *Application) AccessLogMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if app.CurrentRequestCount < app.MaxRequestCount {
+		max, _ := strconv.Atoi(app.Config.MAX_REQUEST_COUNT)
+		if app.CurrentRequestCount < max {
 			app.CurrentRequestCount++
 			app.ILog.Printf(logingReq(r))
 			next.ServeHTTP(w, r)
@@ -54,15 +56,28 @@ func (app *Application) HIndex(w http.ResponseWriter, r *http.Request) {
 
 // HUser for handle '/api/'
 func (app *Application) HApiIndex(w http.ResponseWriter, r *http.Request) {
-	api.DoJS(w, `
-		Possible routes:
-			- /user
-			- /parsels
-			- /travelers
-			- /images
-			- /search
-			- /toptypes
-	`)
+	type Route struct {
+		Path     string  `json:"route"`
+		Children []Route `json:"children"`
+	}
+
+	data := api.API_RESPONSE{
+		Err:  "",
+		Code: 200,
+		Data: Route{
+			Path: "/",
+			Children: []Route{
+				{Path: "/user"},
+				{Path: "/parsels"},
+				{Path: "/travelers"},
+				{Path: "/images"},
+				{Path: "/search"},
+				{Path: "/toptypes"},
+			},
+		},
+	}
+
+	api.DoJS(w, data)
 }
 
 // HUser for handle '/api/user/'

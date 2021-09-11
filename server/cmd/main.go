@@ -15,7 +15,7 @@ func main() {
 
 	if port != "" {
 		app.IsHeroku = true
-		app.Port = port
+		app.Config.PORT = port
 	}
 
 	app.ILog.Println("initialization completed!")
@@ -25,7 +25,7 @@ func main() {
 
 	// server
 	srv := http.Server{
-		Addr:         ":" + app.Port,
+		Addr:         ":" + app.Config.PORT,
 		ErrorLog:     app.ELog,
 		Handler:      app.SetRoutes(),
 		ReadTimeout:  10 * time.Second,
@@ -39,8 +39,8 @@ func main() {
 		},
 	}
 
-	fmt.Printf("server listening on port %v\n", app.Port)
-	app.ILog.Printf("server listening on port %v\n", app.Port)
+	fmt.Printf("server listening on port %v\n", app.Config.PORT)
+	app.ILog.Printf("server listening on port %v\n", app.Config.PORT)
 
 	// if app.IsHeroku {
 	app.ELog.Fatal(srv.ListenAndServe())
