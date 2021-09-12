@@ -1,24 +1,20 @@
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:70: loggers is done!
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:72: creating/configuring database
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:40: accessing database file
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:42: access completed
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:45: set up database configs
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:49: database configured
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:52: making migrations
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:56: migrations completed
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:74: database completed!
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:76: configuring app
-[34m[INFO][0m	2021/09/11 20:24:35 init.go:79: configuring done
-[34m[INFO][0m	2021/09/11 20:24:35 main.go:21: initialization completed!
-[34m[INFO][0m	2021/09/11 20:24:35 main.go:43: server listening on port 4330
-[34m[INFO][0m	2021/09/11 20:25:52 handlers.go:32: 127.0.0.1:33350 GET: '/'
-[34m[INFO][0m	2021/09/11 20:25:52 handlers.go:32: 127.0.0.1:33352 GET: '/static/css/main.8af9f632.chunk.css'
-[34m[INFO][0m	2021/09/11 20:25:52 handlers.go:32: 127.0.0.1:33362 GET: '/static/js/2.21eaeae8.chunk.js'
-[34m[INFO][0m	2021/09/11 20:25:52 handlers.go:32: 127.0.0.1:33364 GET: '/static/js/main.50cff46a.chunk.js'
-[34m[INFO][0m	2021/09/11 20:25:52 handlers.go:32: 127.0.0.1:33374 GET: '/manifest.json'
-[34m[INFO][0m	2021/09/11 20:25:52 handlers.go:32: 127.0.0.1:33376 GET: '/favicon.ico'
-[34m[INFO][0m	2021/09/11 20:27:01 handlers.go:32: 127.0.0.1:33392 GET: '/manifest.json'
-[34m[INFO][0m	2021/09/11 20:27:01 handlers.go:32: 127.0.0.1:33394 GET: '/static/css/main.8af9f632.chunk.css'
-[34m[INFO][0m	2021/09/11 20:27:01 handlers.go:32: 127.0.0.1:33408 GET: '/static/js/2.21eaeae8.chunk.js.map'
-[34m[INFO][0m	2021/09/11 20:27:01 handlers.go:32: 127.0.0.1:33414 GET: '/static/js/main.50cff46a.chunk.js.map'
-[34m[INFO][0m	2021/09/11 20:27:01 handlers.go:32: 127.0.0.1:33420 GET: '/static/css/main.8af9f632.chunk.css.map'
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:70: loggers is done!
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:72: creating/configuring database
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:40: accessing database file
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:42: access completed
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:45: set up database configs
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:49: database configured
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:52: making migrations
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:56: migrations completed
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:74: database completed!
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:76: configuring app
+[34m[INFO][0m	2021/09/13 01:28:20 init.go:79: configuring done
+[34m[INFO][0m	2021/09/13 01:28:20 main.go:21: initialization completed!
+[34m[INFO][0m	2021/09/13 01:28:20 main.go:43: server listening on port 4330
+[34m[INFO][0m	2021/09/13 01:28:21 handlers.go:32: 127.0.0.1:51998 POST: '/sign/status'
+[34m[INFO][0m	2021/09/13 01:28:21 handlers.go:32: 127.0.0.1:52004 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/09/13 01:28:22 handlers.go:32: 127.0.0.1:52026 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/09/13 01:29:21 handlers.go:32: 127.0.0.1:52542 POST: '/sign/status'
+[34m[INFO][0m	2021/09/13 01:36:27 handlers.go:32: 127.0.0.1:56158 GET: '/assets/app/logo512.png'
+[34m[INFO][0m	2021/09/13 01:36:32 handlers.go:32: 127.0.0.1:56234 POST: '/sign/status'
+[34m[INFO][0m	2021/09/13 01:36:32 handlers.go:32: 127.0.0.1:56246 GET: '/assets/app/favicon.ico'

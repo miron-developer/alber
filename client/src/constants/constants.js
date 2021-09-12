@@ -4,4 +4,5 @@ export const USER = {
     phone: '',
     nickname: 'nickname',
     status: '',
+    guest: false,
 };

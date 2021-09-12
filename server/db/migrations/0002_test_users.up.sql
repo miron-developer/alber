@@ -2,7 +2,7 @@ INSERT INTO Users VALUES(
     null,
     'Azki', -- nickname
     '87777777777', -- phoneNumber
-    'AZkiDiva' 
+    'AZkiDiva'
 );
 
 INSERT INTO Users VALUES(

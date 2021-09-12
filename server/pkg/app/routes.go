@@ -9,8 +9,7 @@ func (app *Application) SetRoutes() http.Handler {
 	// sign
 	signMux := http.NewServeMux()
 	signMux.HandleFunc("/", app.HIndex)
-	signMux.HandleFunc("/sms/s", app.HPreSignUpSMS)
-	signMux.HandleFunc("/up/check", app.HPreSignUpCheck)
+	signMux.HandleFunc("/sms/up", app.HPreSignUpSMS)
 	signMux.HandleFunc("/up", app.HSignUp)
 	signMux.HandleFunc("/in", app.HSignIn)
 	signMux.HandleFunc("/sms/ch", app.HPreChangePasswordSMS)
@@ -26,6 +25,7 @@ func (app *Application) SetRoutes() http.Handler {
 	apiMux.HandleFunc("/parsels", app.HParsels)
 	apiMux.HandleFunc("/travelers", app.HTravelers)
 	apiMux.HandleFunc("/toptypes", app.HTopTypes)
+	apiMux.HandleFunc("/countryCodes", app.HCountryCodes)
 	apiMux.HandleFunc("/search", app.HSearch)
 	apiMux.HandleFunc("/images", app.HClippedImages)
 	appMux.Handle("/api/", http.StripPrefix("/api", apiMux))

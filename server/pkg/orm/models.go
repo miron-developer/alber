@@ -40,6 +40,13 @@ type TopType struct {
 	Color string `json:"color"`
 }
 
+// CountryCode - table
+type CountryCode struct {
+	ID        int    `json:"id"`
+	Code      string `json:"code"`
+	CountryID int    `json:"countryID"`
+}
+
 // Parsel - table
 type Parsel struct {
 	ID                  int    `json:"id"`

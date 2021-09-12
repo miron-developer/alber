@@ -43,6 +43,15 @@ func TopTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}, nil, orm.TopType{}), nil
 }
 
+func CountryCodes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	return orm.GeneralGet(orm.SQLSelectParams{
+		Table:   "CountryCodes AS cc",
+		What:    "cc.*, c.name",
+		Options: orm.DoSQLOption("", "", ""),
+		Joins:   []orm.SQLJoin{orm.DoSQLJoin(orm.INJOINQ, "Countries AS c", "cc.countryID = c.id")},
+	}, []string{"country"}, orm.CountryCode{}), nil
+}
+
 // CreateImage create one image
 func CreateImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	userID := GetUserIDfromReq(w, r)

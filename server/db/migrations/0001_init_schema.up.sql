@@ -1,31 +1,24 @@
-CREATE TABLE IF NOT EXISTS Users (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	nickname TEXT UNIQUE,
-    phoneNumber TEXT UNIQUE,
-    password TEXT NOT NULL,
-	CHECK(
-        LENGTH(phoneNumber) == 11
-    )
-);
-
-CREATE TABLE IF not EXISTS Sessions (
-	id TEXT PRIMARY KEY,
-    expireDatetime INTEGER NOT NULL,
-    userID INTEGER UNIQUE,
-	FOREIGN KEY (userID) REFERENCES Users(id) ON DELETE CASCADE
-);
-
 -- future feature
 CREATE TABLE IF not EXISTS Countries (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE
 );
 
+-- country codes for mobile
+CREATE TABLE IF not EXISTS CountryCodes (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT NOT NULL,
+    countryID INTEGER NOT NULL,
+    FOREIGN KEY (countryID) REFERENCES Countries(id) ON DELETE CASCADE
+);
+
 -- when you need country
 -- create migrations with change
 CREATE TABLE IF not EXISTS Cities (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    name TEXT,
+    countryID INTEGER NOT NULL,
+    FOREIGN KEY (countryID) REFERENCES Countries(id) ON DELETE CASCADE
 );
 
 -- travelTypes
@@ -52,6 +45,23 @@ CREATE TABLE IF not EXISTS TopTypes (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE,
     color TEXT -- you must write correct colour)
+);
+
+CREATE TABLE IF NOT EXISTS Users (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	nickname TEXT UNIQUE,
+    phoneNumber TEXT UNIQUE,
+    password TEXT NOT NULL,
+	CHECK(
+        LENGTH(phoneNumber) == 11
+    )
+);
+
+CREATE TABLE IF not EXISTS Sessions (
+	id TEXT PRIMARY KEY,
+    expireDatetime INTEGER NOT NULL,
+    userID INTEGER UNIQUE,
+	FOREIGN KEY (userID) REFERENCES Users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Parsels (

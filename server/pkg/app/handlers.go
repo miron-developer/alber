@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"text/template"
 	"zhibek/pkg/api"
 )
@@ -100,6 +99,11 @@ func (app *Application) HTopTypes(w http.ResponseWriter, r *http.Request) {
 	api.HApi(w, r, api.TopTypes)
 }
 
+// HCountryCodes for handle '/api/countryCodes'
+func (app *Application) HCountryCodes(w http.ResponseWriter, r *http.Request) {
+	api.HApi(w, r, api.CountryCodes)
+}
+
 // HSearch for handle '/api/search'
 func (app *Application) HSearch(w http.ResponseWriter, r *http.Request) {
 	api.HApi(w, r, api.Search)
@@ -133,24 +137,6 @@ func (app *Application) HCheckUserLogged(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-// HPreSignUpCheck for handle '/sign/up/check'
-func (app *Application) HPreSignUpCheck(w http.ResponseWriter, r *http.Request) {
-	data := api.API_RESPONSE{
-		Err:  "ok",
-		Data: "",
-		Code: 200,
-	}
-
-	phone := strings.Trim(r.PostFormValue("phone"), " ")
-	nickname := r.PostFormValue("nickname")
-	// check is unique phone&nickname
-	if e := checkPhoneAndNick(false, phone, nickname); e != nil {
-		api.SendErrorJSON(w, data, e.Error())
-		return
-	}
-	api.DoJS(w, data)
-}
-
 // HPreSignUpSMS for handle '/sign/sms/s'
 func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
@@ -160,8 +146,9 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 			Code: 200,
 		}
 
-		phone := strings.Trim(r.PostFormValue("phone"), " ")
+		phone := getPhoneNumber(r.PostFormValue("phone"))
 		code := StringWithCharset(8)
+		countryCode := r.PostFormValue("countryCode")
 		msg := `
 			Вы собираетесь зарегистрироваться на платформе Жибек.
 			Введите этот код на сайте для подтверждения: ` + code + `
@@ -169,13 +156,13 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 		`
 
 		// send SMS
-		if e := app.SendSMS(phone, msg); e != nil {
+		if e := app.SendSMS(phone, countryCode, msg); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
 
 		app.m.Lock()
-		app.UsersCode[code] = &Code{Value: phone, ExpireMin: app.CurrentMin + 60*1}
+		app.UsersCode[code] = &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
 		app.m.Unlock()
 
 		api.DoJS(w, data)
@@ -193,11 +180,10 @@ func (app *Application) HSignUp(w http.ResponseWriter, r *http.Request) {
 
 		successData, e := app.SignUp(w, r)
 		if e != nil {
-			data.Err = e.Error()
+			api.SendErrorJSON(w, data, e.Error())
+			return
 		}
-		if successData != nil {
-			data.Data = successData
-		}
+		data.Data = successData
 
 		// delete unnecessary code
 		app.m.Lock()
@@ -236,21 +222,22 @@ func (app *Application) HPreChangePasswordSMS(w http.ResponseWriter, r *http.Req
 			Code: 200,
 		}
 
-		phone := strings.Trim(r.PostFormValue("phone"), " ")
+		phone := getPhoneNumber(r.PostFormValue("phone"))
 		code := StringWithCharset(8)
+		countryCode := r.PostFormValue("countryCode")
 		msg := `
 			Вы собираетесь изменить пароль на платформе Жибек.
 			Введите этот код на сайте для подтверждения: ` + code + `
 		`
 
 		// send SMS
-		if e := app.SendSMS(phone, msg); e != nil {
+		if e := app.SendSMS(phone, countryCode, msg); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
 
 		app.m.Lock()
-		app.UsersCode[code] = &Code{Value: phone, ExpireMin: app.CurrentMin + 60*1}
+		app.UsersCode[code] = &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
 		app.m.Unlock()
 
 		api.DoJS(w, data)
@@ -313,19 +300,17 @@ func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Req
 			Code: 200,
 		}
 
-		phone := r.PostFormValue("phone")
+		phone := getPhoneNumber(r.PostFormValue("phone"))
 		code := StringWithCharset(8)
-		msg := `
-			Код подтверждения измения на платформе Жибек: ` + code + `
-			Код действует в течении часа.
-		`
+		countryCode := r.PostFormValue("countryCode")
+		msg := `Код подтверждения измения на платформе Жибек: ` + code + `Код действует в течении часа.`
 
 		app.m.Lock()
-		app.UsersCode[code] = &Code{Value: phone, ExpireMin: app.CurrentMin + 60*1}
+		app.UsersCode[code] = &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
 		app.m.Unlock()
 
 		// here sending sms to abonent
-		if e := app.SendSMS(phone, msg); e != nil {
+		if e := app.SendSMS(phone, countryCode, msg); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}

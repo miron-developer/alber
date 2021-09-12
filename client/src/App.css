@@ -1,28 +1,23 @@
 :root {
     --onHoverColor: #FFFFFF;
-    --offHoverColor: #D3D3D3;
-    --purpleColor: #6B5B95;
-    --violetColor: #2F0B8D;
-    --redColor: #FF0000;
-    --darkRedColor: rgb(102, 12, 12);
-    --successBG: #02ff0075;
-    --failBG: #ff00007a;
-    --infoBG: #f9ff007d;
-    --asideBG: linear-gradient(180deg, #6B5B95 0%, #CDABB2 100%);
-    --navsBG: linear-gradient(180deg, #FFFFFF 0%, rgba(0, 0, 0, 0) 100%);
-    --mainBG: linear-gradient(180deg, rgba(135, 40, 60, 0.69) 0%, rgba(189, 53, 82, 0) 100%);
-    --onHoverBG: #E7C7CE;
-    --offHoverBG: #CDABB2;
+    --onHoverBG: #525252;
+    --offHoverColor: black;
+    --offHoverBG: #c2c2c7;
     --boxShadow: 5px 5px 10px rgb(0 0 0 / 25%);
     --transitionApp: .5s;
+    --redColor: #FF0000;
+    --darkRedColor: rgb(102, 12, 12);
+    --greyColor: #ececec;
+    --darkGreyColor: #8c8c8c;
 }
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -46,6 +41,6 @@ code {
 
 @media screen and (max-width: 600px) {
     * {
-        font-size: 10px;
+        font-size: 14px;
     }
 }

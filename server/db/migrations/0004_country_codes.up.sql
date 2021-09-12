@@ -1,0 +1,11 @@
+INSERT INTO CountryCodes VALUES(null, "+7", 1);
+INSERT INTO CountryCodes VALUES(null, "+7", 2);
+INSERT INTO CountryCodes VALUES(null, "+994", 3);
+INSERT INTO CountryCodes VALUES(null, "+374", 4);
+INSERT INTO CountryCodes VALUES(null, "+375", 5);
+INSERT INTO CountryCodes VALUES(null, "+996", 6);
+INSERT INTO CountryCodes VALUES(null, "+373", 7);
+INSERT INTO CountryCodes VALUES(null, "+992", 8);
+INSERT INTO CountryCodes VALUES(null, "+993", 9);
+INSERT INTO CountryCodes VALUES(null, "+998", 10);
+INSERT INTO CountryCodes VALUES(null, "+380", 11);

@@ -4,7 +4,6 @@ import (
 	"errors"
 	"net/http"
 	"regexp"
-	"strings"
 	"zhibek/pkg/api"
 	"zhibek/pkg/orm"
 
@@ -64,7 +63,7 @@ func checkPassword(isExist bool, pass, login string) error {
 
 // SignUp check validate, start session
 func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[string]interface{}, error) {
-	phone := strings.Trim(r.PostFormValue("phone"), " ")
+	phone := getPhoneNumber(r.PostFormValue("phone"))
 	nickname := r.PostFormValue("nickname")
 	code := r.PostFormValue("code")
 	pass := ""
@@ -77,6 +76,11 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 	// checking code from sms
 	if validPhone, exist := app.UsersCode[code]; !exist || validPhone.Value != phone {
 		return nil, errors.New("wrong code")
+	}
+
+	// check phone and nick
+	if e := checkPhoneAndNick(false, phone, nickname); e != nil {
+		return nil, e
 	}
 
 	// generating password
@@ -113,7 +117,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 
 // SignIn check password and login from db and request + oauth2
 func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, error) {
-	phone := strings.Trim(r.PostFormValue("phone"), " ")
+	phone := getPhoneNumber(r.PostFormValue("phone"))
 	pass := r.PostFormValue("password")
 
 	// checkings
