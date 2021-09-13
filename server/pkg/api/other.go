@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 	"zhibek/pkg/orm"
 )
 
@@ -32,7 +33,10 @@ func Images(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		What:    "i.*",
 		Options: orm.DoSQLOption("i.parselID=?", "", "", ID),
 	}
-	return orm.GeneralGet(mainQ, nil, orm.Image{}), nil
+	if datas := orm.GeneralGet(mainQ, nil, orm.Image{}); datas != nil {
+		return datas, nil
+	}
+	return nil, errors.New("n/d")
 }
 
 func TopTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
@@ -89,7 +93,11 @@ func ChangeTop(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("wrong id")
 	}
 
-	table := r.PostFormValue("type")
+	table := "Parsels"
+	if r.PostFormValue("type") == "traveler" {
+		table = "Travelers"
+	}
+
 	expire, e := orm.GetOneFrom(orm.SQLSelectParams{
 		Table:   table,
 		What:    "expireDatetime",
@@ -113,6 +121,33 @@ func ChangeTop(w http.ResponseWriter, r *http.Request) error {
 	} else {
 		t := &orm.Traveler{
 			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: expireOnTop,
+		}
+		return t.Change()
+	}
+}
+
+// ItemUp change one parsel's or travel's creation date
+func ItemUp(w http.ResponseWriter, r *http.Request) error {
+	// get general ids
+	userID := GetUserIDfromReq(w, r)
+	if userID == -1 {
+		return errors.New("not logged")
+	}
+	ID, e := strconv.Atoi(r.PostFormValue("id"))
+	if e != nil {
+		return errors.New("wrong id")
+	}
+
+	table := r.PostFormValue("type")
+
+	if table == "parsel" {
+		p := &orm.Parsel{
+			UserID: userID, ID: ID, CreationDatetime: int(time.Now().Unix() * 1000),
+		}
+		return p.Change()
+	} else {
+		t := &orm.Traveler{
+			UserID: userID, ID: ID, CreationDatetime: int(time.Now().Unix() * 1000),
 		}
 		return t.Change()
 	}

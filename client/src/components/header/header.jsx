@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import styled from 'styled-components';
 
 const SHeader = styled.header`
@@ -16,6 +18,38 @@ const SHeader = styled.header`
         z-index: 5;
     }
 `;
+
+const SNavLink = styled(NavLink)`
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--purpleColor);
+    border: 1px solid #231E2F;
+    border-radius: 5px;
+    color: var(--onHoverColor);
+    text-shadow: 1px 1px 5px black;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: var(--transitionApp);
+
+    &.active,
+    &:hover {
+        color: var(--purpleColor);
+        text-shadow: none;
+        background: var(--onHoverColor);
+    }
+`
+
+// Generate navlink
+const GNavLink = ({isExact, to, linkText}) => {
+    return (
+        <SNavLink exact={isExact} activeClassName="active" to={to}>
+            <span className="nav-link-text">{linkText}</span>
+        </SNavLink>
+    )
+}
 
 export default function Header() {
     return (

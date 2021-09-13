@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router';
+
 import { SubmitFormData, useInput, useTogglePassword } from 'utils/form';
 import { UserOnline } from 'utils/user';
 import { Notify } from 'components/app-notification/notification';
@@ -7,11 +9,12 @@ import SubmitBtn from 'components/submit-btn/submit';
 
 let afterStyles = []; // form handle all ::after notifications
 
-export default function SignIn({ history }) {
+export default function SignIn() {
     const login = useInput();
     const pass = useInput();
     const passToggle = useTogglePassword();
     const fields = [login, pass];
+    const history = useHistory()
 
     // custom validation
     const customValidation = () =>

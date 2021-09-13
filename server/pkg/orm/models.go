@@ -53,7 +53,7 @@ type Parsel struct {
 	Title               string `json:"title"`
 	Weight              int    `json:"weight"`
 	Price               int    `json:"price"`
-	Description         string `json:"description"`
+	ContactNumber       string `json:"contactNumber"`
 	CreationDatetime    int    `json:"creationDatetime"`
 	ExpireDatetime      int    `json:"expireDatetime"`
 	ExpireOnTopDatetime int    `json:"expireOnTopDatetime"`
@@ -67,6 +67,7 @@ type Parsel struct {
 // Traveler - table
 type Traveler struct {
 	ID                  int    `json:"id"`
+	ContactNumber       string `json:"contactNumber"`
 	Weight              int    `json:"weight"`
 	CreationDatetime    int    `json:"creationDatetime"`
 	DepartureDatetime   int    `json:"departureDatetime"`

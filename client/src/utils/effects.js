@@ -1,3 +1,7 @@
+import { Notify } from "components/app-notification/notification";
+import { PopupOpen } from "components/popup/popup";
+import { POSTRequestWithParams } from "./api";
+
 // just debounce
 export function Debounce(fn, ms) {
     let timeOut;
@@ -44,3 +48,15 @@ export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = fa
         }
     }
 }, 100);
+
+export const EditItem = async(type, data, cb) => PopupOpen('edit', { 'cb': cb, "type": type, ...data })
+
+export const RemoveItem = async(id, type, cb) => {
+    const res = await POSTRequestWithParams("/r", { 'type': type, 'id': id })
+    if (res.err && res.err !== "ok") return Notify('fail', 'Не удалено');
+    cb()
+}
+
+export const TopItem = async(id, type, cb) => PopupOpen('toptype', { 'cb': cb, "type": type, 'id': id })
+
+export const PaintItem = async(id, type, cb) => PopupOpen('up', { 'cb': cb, "type": type, 'id': id })

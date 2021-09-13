@@ -124,12 +124,12 @@ func HApi(w http.ResponseWriter, r *http.Request, f func(w http.ResponseWriter, 
 			Code: 200,
 		}
 
-		ids, e := f(w, r)
+		datas, e := f(w, r)
 		if e != nil {
 			SendErrorJSON(w, data, e.Error())
 			return
 		}
-		data.Data = ids
+		data.Data = datas
 		DoJS(w, data)
 	}
 }

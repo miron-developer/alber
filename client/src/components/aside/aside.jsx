@@ -4,35 +4,55 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { USER } from 'constants/constants';
 import { SignOut } from 'utils/user';
 
+import History from './history/history';
 import styled from 'styled-components';
 
 const SAside = styled.aside`
     grid-area: aside;
+    position: fixed;
+    left: 100vw;
     padding: 1rem;
-    max-width: 30vw;
+    width: 80vw;
+    height: 100vh;
+    background: #4e4a4a66;
+    transition: var(--transitionApp);
+    z-index: 10;
+    opacity: .9;
 
-    @media screen and (max-width: 600px) {
-        position: fixed;
-        right: -100vw;
-        height: 100vh;
-        width: 80vw;
-        max-width: 80vw;
-        z-index: 10;
-        opacity: .9;
-        transition: calc(var(--transitionApp)*2);
-        
-        &.open {
-            transform: translate(-100vw);
-        }
+    &.open {
+        transform: translate(-80vw);
+    }
+
+    & .open-btn {
+        position: absolute;
+        right: 100%;
+        top: 80%;
+        padding: 1rem;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        color: white;
+        background:var(--blueColor);
+        z-index: 15;
+        cursor: pointer;
     }
 `
 
-const SAsideTop = styled.div`
+const SUser = styled.div`
     margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > * {
+        display: flex;
+        align-items: center;
+    }
 `
 
 const SLogo = styled.div`
     margin: auto;
+    width: 10vw;
+    display: block;
     overflow: hidden;
     transition: var(--transitionApp);
 
@@ -47,24 +67,22 @@ const SLogo = styled.div`
 `
 
 const SNickname = styled.div`
-    margin: .5rem auto;
+    margin: .5rem;
     padding: .5rem;
     width: max-content;
     max-width: 100%;
     text-transform: uppercase;
-    color: var(--purpleColor);
     font-weight: bold;
     text-align: center;
     word-break: break-all;
     background: var(--onHoverColor);
     border-radius: 5px;
-    transition: .5s;
+    transition: var(--transitionApp);
 `
 
 const SLogout = styled(SNickname)`
     color: var(--redColor);
     cursor: pointer;
-    transition: var(--transitionApp);
 
     &:hover {
         background: var(--redColor);
@@ -72,70 +90,61 @@ const SLogout = styled(SNickname)`
     }
 `
 
-const SNavs = styled.nav`
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    background: var(--navsBG);
-`
+const SEdit = styled(SNickname)`
+    cursor: pointer;
 
-const SNavLink = styled(NavLink)`
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--purpleColor);
-    border: 1px solid #231E2F;
-    border-radius: 5px;
-    color: var(--onHoverColor);
-    text-shadow: 1px 1px 5px black;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: var(--transitionApp);
-
-    &.active,
     &:hover {
-        color: var(--purpleColor);
-        text-shadow: none;
-        background: var(--onHoverColor);
+        background: var(--redColor);
+        color: var(--onHoverColor);
     }
-`
-
-// Generate navlink
-const GNavLink = ({isExact, to, linkText}) => {
-    return (
-        <SNavLink exact={isExact} activeClassName="active" to={to}>
-            <span className="nav-link-text">{linkText}</span>
-        </SNavLink>
-    )
-}
+`;
 
 export default function Aside() {
     const [isOpened, setOpened] = useState(false);
     const history = useHistory();
 
     return (
-        <SAside className="aside" onClick={()=> setOpened(!isOpened)}>
-            <SAsideTop>
-                <SLogo as={NavLink} to="/" >
-                    <img src="/img/logo192.png" alt="wnet logo" />
-                </SLogo>
+        <SAside className={isOpened ? "open" : ""}>
+            {/* aside open/close btn */}
+            <div className="open-btn" onClick={() => setOpened(!isOpened)}>
+                <i className="fa fa-bars" aria-hidden="true"></i>
+            </div>
 
-                <SAsideTop>
-                    <SNickname>{USER.nickname}</SNickname>
-                    <SLogout onClick={() => SignOut(history)}></SLogout>
-                </SAsideTop>
-            </SAsideTop>
+            <SLogo as={NavLink} to="/" >
+                <img src="/assets/app/logo192.png" alt="logo" />
+            </SLogo>
 
-            <SNavs>
-                <GNavLink
-                    isExact={true}
-                    to="/" 
-                    linkText=""
-                />
-            </SNavs>
+            <SUser>
+                {
+                    USER.status === "online"
+                        ? <div>
+                            <SNickname>
+                                <i className="fa fa-user" aria-hidden="true"></i>
+                                {USER.nickname} ({USER.phoneNumber})
+                            </SNickname>
+                            <SEdit>
+                                <i className="fa fa-pencil" aria-hidden="true"></i>
+                            </SEdit>
+                        </div>
+                        : <SNickname>Здесь будет ваше имя</SNickname>
+                }
 
+                {
+                    USER.status === "online"
+                        ? <SLogout onClick={() => SignOut(history)}>
+                            <i className="fa fa-sign-out" aria-hidden="true"></i>
+                            Выход
+                        </SLogout>
+                        : <SLogout onClick={() => history.push("/sign")}>
+                            <i className="fa fa-sign-in" aria-hidden="true"></i>
+                            Войти
+                        </SLogout>
+                }
+            </SUser>
+
+            {
+                USER.status === "online" && <History />
+            }
         </SAside>
     )
 }

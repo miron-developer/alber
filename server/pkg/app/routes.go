@@ -38,6 +38,7 @@ func (app *Application) SetRoutes() http.Handler {
 	editMux.HandleFunc("/parsel", app.HChangeParsel)
 	editMux.HandleFunc("/travel", app.HChangeTravel)
 	editMux.HandleFunc("/toptype", app.HChangeTop)
+	editMux.HandleFunc("/up", app.HChangeTop)
 	appMux.Handle("/e/", http.StripPrefix("/e", editMux))
 
 	// save

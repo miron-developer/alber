@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Notify } from "components/app-notification/notification";
 
@@ -9,12 +9,13 @@ export const useFromTo = (initState = [], step = 10) => {
     const [fromToState, setFromToState] = useState({
         'start': 0,
         'isStopLoad': false,
+        'isLoaded': false,
         'datalist': initState,
     });
 
     const setDataList = state => setFromToState(Object.assign({}, fromToState, { 'datalist': state }));
 
-    const getPart = async(getWhat = "", params = {}, failText = "", isAppToEnd = true, isNeedClear = false) => {
+    const getPart = useCallback(async(getWhat = "", params = {}, failText = "", isAppToEnd = true, isNeedClear = false) => {
         if (getWhat === "" || failText === "") return Notify('fail', failText);
 
         const res = await GetDataByCrieteries(getWhat, {
@@ -25,10 +26,12 @@ export const useFromTo = (initState = [], step = 10) => {
 
         if (res.err && res.err !== 'ok') {
             fromToState.isStopLoad = true;
+            fromToState.isLoaded = true;
             setFromToState(Object.assign({}, fromToState));
             return Notify('fail', failText + " : " + res.err);
         }
 
+        if (!fromToState.isLoaded) fromToState.isLoaded = true;
         if (isNeedClear) fromToState.datalist = res;
         else if (isAppToEnd) fromToState.datalist = [...fromToState.datalist, ...res];
         else fromToState.datalist = [...res, ...fromToState.datalist];
@@ -38,17 +41,19 @@ export const useFromTo = (initState = [], step = 10) => {
 
         setFromToState(Object.assign({}, fromToState));
         return true;
-    }
+    }, [fromToState, step])
 
     const zeroState = () => setFromToState(Object.assign({}, fromToState, {
         'start': 0,
         'isStopLoad': false,
+        'isLoaded': false,
         'datalist': initState,
     }));
 
     return {
         'datalist': fromToState.datalist,
         'isStopLoad': fromToState.isStopLoad,
+        'isLoaded': fromToState.isLoaded,
         setDataList,
         getPart,
         zeroState,

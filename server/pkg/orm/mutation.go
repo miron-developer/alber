@@ -43,7 +43,7 @@ func (ses *Session) Create() error {
 
 // Create one parsel and return it's ID
 func (p *Parsel) Create() (int, error) {
-	if p.Title == "" || p.Description == "" ||
+	if p.Title == "" || p.ContactNumber == "" ||
 		p.Weight*p.Price*p.CreationDatetime*p.ExpireDatetime*p.UserID*p.FromID*p.ToID == 0 {
 		return -1, errors.New("n/d")
 	}
@@ -63,13 +63,13 @@ func (p *Parsel) Create() (int, error) {
 // Create one parsel and return it's ID
 func (t *Traveler) Create() (int, error) {
 	if t.Weight*t.CreationDatetime*t.DepartureDatetime*t.DepartureDatetime*t.ArrivalDatetime*
-		t.UserID*t.FromID*t.ToID == 0 {
+		t.UserID*t.FromID*t.ToID == 0 || t.ContactNumber == "" {
 		return -1, errors.New("n/d")
 	}
 
 	r, e := insertSQL(SQLInsertParams{
 		Table:  "Travelers",
-		Datas:  "null,?,?,?,?,?,?,?,?,?,?,?",
+		Datas:  "null,?,?,?,?,?,?,?,?,?,?,?,?",
 		Values: MakeArrFromStruct(*t)[1:],
 	})
 	if e != nil {
@@ -154,8 +154,8 @@ func (p *Parsel) Change() error {
 	if p.Title != "" {
 		params.Couples["title"] = p.Title
 	}
-	if p.Description != "" {
-		params.Couples["description"] = p.Description
+	if p.ContactNumber != "" {
+		params.Couples["contactNumber"] = p.ContactNumber
 	}
 	if p.Weight != 0 {
 		params.Couples["weight"] = strconv.Itoa(p.Weight)
@@ -205,6 +205,9 @@ func (t *Traveler) Change() error {
 		Table:   "Travelers",
 		Couples: map[string]string{},
 		Options: DoSQLOption("id=?", "", "", t.ID),
+	}
+	if t.ContactNumber != "" {
+		params.Couples["contactNumber"] = t.ContactNumber
 	}
 	if t.Weight != 0 {
 		params.Couples["weight"] = strconv.Itoa(t.Weight)

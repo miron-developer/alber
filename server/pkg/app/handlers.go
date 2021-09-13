@@ -414,6 +414,36 @@ func (app *Application) HChangeTop(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// HItemUp travel or parsel up
+func (app *Application) HItemUp(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		data := api.API_RESPONSE{
+			Err:  "ok",
+			Data: "",
+			Code: 200,
+		}
+
+		// check payed code
+		_, ok := app.UsersCode[r.PostFormValue("code")]
+		if !ok {
+			api.SendErrorJSON(w, data, "not payed yet")
+			return
+		}
+
+		if e := api.ItemUp(w, r); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+
+		// delete unnecessary code
+		app.m.Lock()
+		delete(app.UsersCode, r.PostFormValue("code"))
+		app.m.Unlock()
+
+		api.DoJS(w, data)
+	}
+}
+
 // ------------------------------------------- Save ------------------------------------------
 
 // HSaveParsel create parsel

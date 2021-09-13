@@ -13,20 +13,20 @@ import (
 // checkPhoneAndNick check if phone & nickname is empty or not
 //	exist = true - user exist in db
 func checkPhoneAndNick(isExist bool, phone, nickname string) error {
-	results, _ := orm.GetFrom(orm.SQLSelectParams{
-		What:    "phone, nickname",
+	results, e := orm.GetOneFrom(orm.SQLSelectParams{
+		What:    "phoneNumber, nickname",
 		Table:   "Users",
-		Options: orm.DoSQLOption("phone=? OR nickname=?", "", "", phone, nickname),
+		Options: orm.DoSQLOption("phoneNumber=? OR nickname=?", "", "", phone, nickname),
 	})
 
-	if !isExist && len(results) > 0 {
-		if results[0][0].(string) == phone {
+	if isExist && e != nil {
+		return errors.New("wrong login")
+	}
+	if !isExist {
+		if results[0].(string) == phone {
 			return errors.New("this phone is not empty")
 		}
 		return errors.New("this nickname is not empty")
-	}
-	if isExist && len(results) == 0 {
-		return errors.New("wrong login")
 	}
 	return nil
 }
@@ -49,14 +49,18 @@ func checkPassword(isExist bool, pass, login string) error {
 		}
 	} else {
 		dbPass, e := orm.GetOneFrom(orm.SQLSelectParams{
-			What:    "password",
 			Table:   "Users",
-			Options: orm.DoSQLOption("email = ? OR nickname = ?", "", "", login, login),
+			What:    "password",
+			Options: orm.DoSQLOption("phoneNumber = ?", "", "", login),
 		})
 		if e != nil {
 			return errors.New("wrong login")
 		}
-		return bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass))
+
+		if dbPass[0].(string) != pass { // e := bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass)); e!=nil
+			return errors.New("wrong password")
+		}
+		return nil
 	}
 	return nil
 }
@@ -124,14 +128,14 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 	if e := checkPhoneAndNick(true, phone, ""); e != nil {
 		return -1, e
 	}
-	if e := checkPassword(true, pass, ""); e != nil {
-		return -1, errors.New("password is not correct")
+	if e := checkPassword(true, pass, phone); e != nil {
+		return -1, e
 	}
 
 	res, e := orm.GetOneFrom(orm.SQLSelectParams{
 		What:    "id",
 		Table:   "Users",
-		Options: orm.DoSQLOption("phone = ?", "", "", phone),
+		Options: orm.DoSQLOption("phoneNumber = ?", "", "", phone),
 		Joins:   nil,
 	})
 	if e != nil {

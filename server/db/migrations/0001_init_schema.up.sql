@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS Parsels (
     title TEXT NOT NULL,
     weight INTEGER NOT NULL,
     price INTEGER NOT NULL,
-    description TEXT,
+    contactNumber TEXT NOT NULL,
     creationDatetime INTEGER NOT NULL,
     expireDatetime INTEGER NOT NULL,
     expireOnTopDatetime INTEGER,
@@ -83,7 +83,6 @@ CREATE TABLE IF NOT EXISTS Parsels (
     FOREIGN KEY (fromID) REFERENCES Cities(id) ON DELETE CASCADE,
     FOREIGN KEY (toID) REFERENCES Cities(id) ON DELETE CASCADE,
     CHECK(
-        LENGTH(description) <= 400 AND
         LENGTH(title) <= 100 AND
         isHaveWhatsUp IN (0, 1) AND (
             (creationDatetime < expireDatetime) OR
@@ -95,6 +94,7 @@ CREATE TABLE IF NOT EXISTS Parsels (
 
 CREATE TABLE IF NOT EXISTS Travelers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    contactNumber TEXT NOT NULL,
     weight INTEGER NOT NULL,
     creationDatetime INTEGER NOT NULL,
     departureDatetime INTEGER NOT NULL,

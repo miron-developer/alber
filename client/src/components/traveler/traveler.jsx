@@ -1,0 +1,162 @@
+import { useState } from "react";
+
+import { DateFromMilliseconds } from "utils/content";
+import { EditItem, PaintItem, RemoveItem, TopItem } from "utils/effects";
+
+import styled from "styled-components";
+
+const STraveler = styled.div`
+    position: relative;
+    padding: 1rem;
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: ${props => props.color ? props.color : 'white'};
+    border: 1px solid black;
+    border-radius: 10px;
+
+    & .info {
+        display: flex;
+        justify-content: space-between;
+
+        & .general_info {
+            display: flex;
+
+            & div {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem;
+            }
+
+            & .weigth b {
+                text-decoration: underline;
+            }
+        }
+
+        & .other_info  {
+            & .phones > * {
+                margin: .5rem;
+                padding: .5rem;
+                font-size: 4rem;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: var(--transitionApp);
+
+                &:hover {
+                    background: var(--blueColor);
+                }
+            }
+        }
+    }
+
+    & .manage {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: .5rem;
+        margin: .5rem;    
+        background: #2f3a64;
+        color: var(--onHoverColor);
+        font-size: 1rem;
+        border-radius: 5px;
+
+        & .manage-action {
+            cursor: pointer;
+            margin: .5rem;
+            transition: var(--transitionApp);
+            text-align: right;
+            vertical-align: middle;
+            
+            &:hover {
+                background: var(--darkGreyColor);
+            }
+        }
+
+        & .manage-actions {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        & .manage {
+            font-size: 1.5rem;
+        }
+    }
+`;
+
+export default function Traveler({data, isMy = false, changeItem, removeItem}) {
+    const [isOpened, setOpened] = useState(false);
+
+    return (
+        <STraveler color={data.color}>
+            <div className="info">
+                <div className="general_info">
+                    <div className="common">
+                        <span>{data.from}-{data.to}</span>
+                        <span className="weight">Заберу до: <b> {data.weight} </b> кг</span>
+                        <span>Тип транспорта: {data.travelType}</span>
+                    </div>
+
+                    <div className="dates">
+                        <span> <b> Выезд: </b> {DateFromMilliseconds(data.departureDatetime)}</span>
+                        <span> <b> Прибытие: </b> {DateFromMilliseconds(data.arrivalDatetime)}</span>
+                    </div>
+                </div>
+
+                <div className="other_info">
+                    <div className="phones">
+                        {
+                            data.isHaveWhatsUp === 1 &&
+                            <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${data.contactNumber}&text="Добрый день, пишу из приложения Жибек насчет передачи посылки"`}>
+                                <i className="fa fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                        }
+
+                        <span onClick={() => window.open("tel:" + data.contactNumber)}>
+                            <i className="fa fa-phone" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+            {
+                isMy &&
+                <div className="manage">
+                    <div className="manage-action" onClick={() => setOpened(!isOpened)}>
+                        <span>Действия</span>
+                    </div>
+
+                    {
+                        isOpened &&
+                        <div className="manage-actions">
+                            <span className="manage-action"
+                                onClick={
+                                    () =>
+                                        EditItem(
+                                            "parsel",
+                                            data,
+                                            newData => changeItem(data.id, newData)
+                                        )
+                                }
+                            >
+                                <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
+                            </span>
+                            <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem())}>
+                                <i className="fa fa-trash" aria-hidden="true">Удалить</i>
+                            </span>
+                            <span className="manage-action">
+                                <i className="fa fa-paint-brush" aria-hidden="true" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>Покрасить</i>
+                            </span>
+                            <span className="manage-action">
+                                <i className="fa fa-level-up" aria-hidden="true" onClick={() => TopItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>Поднять</i>
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+        </STraveler>
+    )
+}

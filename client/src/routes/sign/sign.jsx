@@ -94,7 +94,7 @@ export default function Sign() {
 
             <Link to="/" onClick={()=>USER.guest = true}>Войти как гость</Link>
 
-            <Link download to="/assets/name.txt">Пользовательское соглашение</Link>
+            <Link download={true} to="/assets/rights/name.txt">Пользовательское соглашение</Link>
         </SSign>
     )
 }

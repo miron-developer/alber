@@ -9,6 +9,7 @@ func GetFrom(params SQLSelectParams) ([][]interface{}, error) {
 	if params.What == "" || params.Table == "" {
 		return nil, errors.New("n/d")
 	}
+
 	if result, e := selectSQL(prepareGetQueryAndArgs(params)); len(result) != 0 && e == nil {
 		return result, nil
 	}
@@ -33,6 +34,7 @@ func GetWithSubqueries(mainQ SQLSelectParams, subQuerys []SQLSelectParams, joinA
 		mainQ.What += ", (" + curQ + ") AS " + qAs[i]
 		mainQ.Args = append(mainQ.Args, curArgs...)
 	}
+
 	joinAs = append(joinAs, qAs...)
 
 	result, e := GetFrom(mainQ)
@@ -51,7 +53,7 @@ func GetWithQueryAndArgs(query string, args []interface{}) ([][]interface{}, err
 func GeneralGet(selectParams SQLSelectParams, joinAs []string, sampleStruct interface{}) []map[string]interface{} {
 	results, e := GetFrom(selectParams)
 	if e != nil || len(results) == 0 {
-		return []map[string]interface{}{}
+		return nil
 	}
 	return MapFromStructAndMatrix(results, sampleStruct, joinAs...)
 }

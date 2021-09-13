@@ -18,16 +18,16 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	first, count := getLimits(r)
 	op := orm.DoSQLOption("", "creationDatetime DESC", "?,?", first, count)
 	if r.FormValue("type") == "user" {
-		userID, e := GetUserID(w, r, "id")
-		if e != nil {
+		userID := GetUserIDfromReq(w, r)
+		if userID == -1 {
 			return nil, errors.New("not logged")
 		}
 		op.Where = "p.userID = ?"
-		op.Args = append([]interface{}{}, userID, op.Args)
+		op.Args = append([]interface{}{userID}, op.Args...)
 	}
 
 	mainQ := orm.SQLSelectParams{
-		Table:   "Parsels as p",
+		Table:   "Parsels AS p",
 		What:    "p.*, u.nickname, cf.name, ct.name, tt.name, tt.color",
 		Options: op,
 		Joins:   []orm.SQLJoin{userJ, fromJ, toJ, topJ},
@@ -48,8 +48,8 @@ func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		return nil, errors.New("not logged")
 	}
 
-	title, description := r.PostFormValue("title"), r.PostFormValue("description")
-	if CheckAllXSS(title, description) != nil {
+	title, contactNumber, countryCode := r.PostFormValue("title"), r.PostFormValue("contactNumber"), r.PostFormValue("countryCode")
+	if CheckAllXSS(title, contactNumber, countryCode) != nil {
 		return nil, errors.New("wrong content")
 	}
 
@@ -67,7 +67,7 @@ func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}
 
 	p := &orm.Parsel{
-		Title: title, Description: description,
+		Title: title, ContactNumber: countryCode + contactNumber,
 		Price: price, Weight: weight, IsHaveWhatsUp: "0",
 		UserID: userID, FromID: from, ToID: to,
 		CreationDatetime: int(time.Now().Unix() * 1000),
@@ -102,8 +102,8 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("wrong parsel")
 	}
 
-	title, description := r.PostFormValue("title"), r.PostFormValue("description")
-	if CheckAllXSS(title, description) != nil {
+	title, contactNumber, countryCode := r.PostFormValue("title"), r.PostFormValue("contactNumber"), r.PostFormValue("countryCode")
+	if CheckAllXSS(title, contactNumber, countryCode) != nil {
 		return errors.New("danger content")
 	}
 
@@ -134,7 +134,7 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	p := &orm.Parsel{
-		Title: title, Description: description, IsHaveWhatsUp: isHaveWhatsUp,
+		Title: title, ContactNumber: countryCode + contactNumber, IsHaveWhatsUp: isHaveWhatsUp,
 		Price: price, Weight: weight,
 		UserID: userID, FromID: from, ToID: to, ID: parselID,
 		CreationDatetime: now, ExpireDatetime: expire,

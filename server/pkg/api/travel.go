@@ -10,25 +10,25 @@ import (
 
 func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	// joins
-	userJ := orm.DoSQLJoin(orm.LOJOINQ, "Users AS u", "p.userID = u.id")
-	fromJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS cf", "p.fromID = cf.id")
-	toJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS ct", "p.toID = ct.id")
-	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "p.topTypeID = tt.id")
-	typeJ := orm.DoSQLJoin(orm.LOJOINQ, "TravelTypes AS tRt", "p.topTypeID = tRt.id")
+	userJ := orm.DoSQLJoin(orm.LOJOINQ, "Users AS u", "t.userID = u.id")
+	fromJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS cf", "t.fromID = cf.id")
+	toJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS ct", "t.toID = ct.id")
+	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "t.topTypeID = tt.id")
+	typeJ := orm.DoSQLJoin(orm.LOJOINQ, "TravelTypes AS tRt", "t.travelTypeID = tRt.id")
 
 	first, count := getLimits(r)
 	op := orm.DoSQLOption("", "creationDatetime DESC", "?,?", first, count)
 	if r.FormValue("type") == "user" {
-		userID, e := GetUserID(w, r, "id")
-		if e != nil {
+		userID := GetUserIDfromReq(w, r)
+		if userID == -1 {
 			return nil, errors.New("not logged")
 		}
 		op.Where = "t.userID = ?"
-		op.Args = append([]interface{}{}, userID, op.Args)
+		op.Args = append([]interface{}{userID}, op.Args...)
 	}
 
 	mainQ := orm.SQLSelectParams{
-		Table:   "Travelers as t",
+		Table:   "Travelers AS t",
 		What:    "t.*, u.nickname, cf.name, ct.name, tt.name, tt.color, tRt.name",
 		Options: op,
 		Joins:   []orm.SQLJoin{userJ, fromJ, toJ, topJ, typeJ},
@@ -50,6 +50,11 @@ func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		return nil, errors.New("not logged")
 	}
 
+	contactNumber, countryCode := r.PostFormValue("contactNumber"), r.PostFormValue("countryCode")
+	if e := CheckAllXSS(contactNumber, countryCode); e != nil {
+		return nil, errors.New("wrong number")
+	}
+
 	weight, e := strconv.Atoi(r.PostFormValue("weight"))
 	if e != nil || weight == 0 {
 		return nil, errors.New("wrong weigth")
@@ -63,7 +68,7 @@ func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}
 
 	t := &orm.Traveler{
-		Weight: weight, IsHaveWhatsUp: "0",
+		Weight: weight, IsHaveWhatsUp: "0", ContactNumber: countryCode + contactNumber,
 		UserID: userID, FromID: from, ToID: to, TravelTypeID: travelType,
 		CreationDatetime: int(time.Now().Unix() * 1000),
 	}
@@ -99,6 +104,11 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 	travelID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
 		return errors.New("wrong id")
+	}
+
+	contactNumber, countryCode := r.PostFormValue("contactNumber"), r.PostFormValue("countryCode")
+	if e := CheckAllXSS(contactNumber, countryCode); e != nil {
+		return errors.New("wrong number")
 	}
 
 	weight, e := strconv.Atoi(r.PostFormValue("weight"))
@@ -141,7 +151,7 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	t := &orm.Traveler{
-		Weight: weight, IsHaveWhatsUp: isHaveWhatsUp,
+		Weight: weight, IsHaveWhatsUp: isHaveWhatsUp, ContactNumber: countryCode + contactNumber,
 		UserID: userID, FromID: from, ToID: to, TravelTypeID: travelType,
 		CreationDatetime: now, DepartureDatetime: departure, ArrivalDatetime: arrival,
 	}

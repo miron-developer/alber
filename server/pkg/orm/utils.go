@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -171,8 +172,8 @@ func prepareGetQueryAndArgs(params SQLSelectParams) (string, []interface{}) {
 }
 
 func selectSQL(query string, args []interface{}) ([][]interface{}, error) {
-	// fmt.Println(query, args)
-	// fmt.Println("-----------------------")
+	fmt.Println(query, args)
+	fmt.Println("-----------------------")
 	res := [][]interface{}{}
 	rows, e := ConnToDB.QueryContext(context.Background(), query, args...)
 	if e != nil {
