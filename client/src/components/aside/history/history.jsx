@@ -48,8 +48,7 @@ const configHistoryParams = tab => {
 
 export default function History() {
     const [tab, setTab] = useState(0);
-    const [prevTab, setPrevTab] = useState();
-    const { datalist, isStopLoad, isLoaded, getPart, zeroState, setDataList } = useFromTo([], 1)
+    const { datalist, isStopLoad, isLoaded, getPart, zeroState, setDataList } = useFromTo()
 
     const [getType, getTypeOnRus, Item] = configHistoryParams(tab);
 
@@ -62,20 +61,16 @@ export default function History() {
     const removeItem = id => setDataList([...datalist.filter(d => d.id !== id)])
 
     useEffect(() => {
-        if (prevTab !== tab) {
-            zeroState();
-        }
         if (datalist.length === 0 && !isLoaded) {
             loadHistory(getType, getTypeOnRus, getPart)
         }
-        setPrevTab(tab)
-    }, [datalist, isLoaded, getType, getTypeOnRus, prevTab, tab, getPart, zeroState]);
+    }, [datalist, isLoaded, getType, getTypeOnRus, tab, getPart, zeroState]);
 
     return (
         <SHistory>
             <div className="history-tabs">
-                <span className={tab === 0 ? 'active' : ''} onClick={() => setTab(0)}>Ваши посылки</span>
-                <span className={tab === 1 ? 'active' : ''} onClick={() => setTab(1)}>Ваши путешествия</span>
+                <span className={tab === 0 ? 'active' : ''} onClick={() => setTab(0) || zeroState()}>Ваши посылки</span>
+                <span className={tab === 1 ? 'active' : ''} onClick={() => setTab(1) || zeroState()}>Ваши путешествия</span>
             </div>
 
             {

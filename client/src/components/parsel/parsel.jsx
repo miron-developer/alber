@@ -116,8 +116,6 @@ export default function Parsel({data, isMy = false, changeItem, removeItem}) {
         return setPhotos(res?.data || res);
     }, [data]);
 
-    console.log(photos);
-
     useEffect(() => {
         if (photos === undefined) return getPhotos()
     }, [getPhotos, photos])

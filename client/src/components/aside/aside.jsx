@@ -110,40 +110,45 @@ export default function Aside() {
                 <i className="fa fa-bars" aria-hidden="true"></i>
             </div>
 
-            <SLogo as={NavLink} to="/" >
-                <img src="/assets/app/logo192.png" alt="logo" />
-            </SLogo>
-
-            <SUser>
-                {
-                    USER.status === "online"
-                        ? <div>
-                            <SNickname>
-                                <i className="fa fa-user" aria-hidden="true"></i>
-                                {USER.nickname} ({USER.phoneNumber})
-                            </SNickname>
-                            <SEdit>
-                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                            </SEdit>
-                        </div>
-                        : <SNickname>Здесь будет ваше имя</SNickname>
-                }
-
-                {
-                    USER.status === "online"
-                        ? <SLogout onClick={() => SignOut(history)}>
-                            <i className="fa fa-sign-out" aria-hidden="true"></i>
-                            Выход
-                        </SLogout>
-                        : <SLogout onClick={() => history.push("/sign")}>
-                            <i className="fa fa-sign-in" aria-hidden="true"></i>
-                            Войти
-                        </SLogout>
-                }
-            </SUser>
-
             {
-                USER.status === "online" && <History />
+                isOpened &&
+                <>
+                    <SLogo as={NavLink} to="/" >
+                        <img src="/assets/app/logo192.png" alt="logo" />
+                    </SLogo>
+
+                    <SUser>
+                        {
+                            USER.status === "online"
+                                ? <div>
+                                    <SNickname>
+                                        <i className="fa fa-user" aria-hidden="true"></i>
+                                        {USER.nickname} ({USER.phoneNumber})
+                                    </SNickname>
+                                    <SEdit>
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                    </SEdit>
+                                </div>
+                                : <SNickname>Здесь будет ваше имя</SNickname>
+                        }
+
+                        {
+                            USER.status === "online"
+                                ? <SLogout onClick={() => SignOut(history)}>
+                                    <i className="fa fa-sign-out" aria-hidden="true"></i>
+                                    Выход
+                                </SLogout>
+                                : <SLogout onClick={() => history.push("/sign")}>
+                                    <i className="fa fa-sign-in" aria-hidden="true"></i>
+                                    Войти
+                                </SLogout>
+                        }
+                    </SUser>
+
+                    {
+                        USER.status === "online" && <History />
+                    }
+                </>
             }
         </SAside>
     )
