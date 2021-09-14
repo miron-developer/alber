@@ -45,15 +45,14 @@ export default function SignUp() {
             }}>
                 <h3>Регистрация(шаг 2)</h3>
 
-                <Input disabled={true} index="0" id="sign-up-phone" type="tel" name="phone" base={phone.base} labelText="Телефон:"/>
-                <Input index="2" id="sign-up-code" type="text" name="code" base={code.base} labelText="8-значный код:"
-                    minLength="8" maxLength="8" placeholder="Mfa7sd45"
-                />
-                <Input index="1" id="sign-up-nickname" type="text" name="nickname" base={nickname.base} labelText="Имя(никнейм):"
+                <Input disabled={true} index="0" id="phone" type="tel" name="phone" base={phone.base} labelText="Телефон:"/>
+                <Input index="1" id="nickname" type="text" name="nickname" base={nickname.base} labelText="Имя(никнейм):"
                     minLength="3" maxLength="20" placeholder="Miron"
+                />
+                <Input index="2" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
+                    minLength="8" maxLength="8" placeholder="Mfa7sd45"
                 />
                 <SubmitBtn value="Отправить!" />
             </form>
-
     )
 }

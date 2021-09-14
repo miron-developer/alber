@@ -20,11 +20,11 @@ export default function Restore() {
     const fields = [phone, pass, code]; // fields for reset
 
     const onSuccessStep1 = () => {
-        Notify('success', "Отправлено смс на номер " + phone.base.value + ". Возьмите оттуда код подтверждения")
+        Notify('success', "Отправлено смс на номер " + phone.base.value + ". Возьмите оттуда код подтверждения");
         setStep(2);
     }
     const onSuccessStep2 = () => {
-        Notify('success', "Пароль успешно изменен.")
+        Notify('success', "Пароль успешно изменен.");
         history.push("/")
     }
     const onFail = err => Notify('fail', 'Ошибка восстановления:' + err);
@@ -45,12 +45,11 @@ export default function Restore() {
         }}>
             <h3>Восстановление пароля(шаг 2)</h3>
 
-            <Input disabled={true} index="0" id="sign-up-phone" type="tel" name="phone" base={phone.base} labelText="Телефон:"
-            />
-            <Input index="2" id="sign-up-code" type="text" name="code" base={code.base} labelText="8-значный код:"
+            <Input disabled={true} index="0" id="phone" type="tel" name="phone" base={phone.base} labelText="Телефон:"/>
+            <Input index="2" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
                 minLength="8" maxLength="8" placeholder="Mfa7sd45"
             />
-            <PasswordField index="2" id="sign-in-password" name="password" labelText="Новый пароль:"
+            <PasswordField index="1" id="password" name="password" labelText="Новый пароль:"
                 placeholder="User1234" pass={pass} passToggle={passToggle}
             />
             <SubmitBtn value="Отправить!" />

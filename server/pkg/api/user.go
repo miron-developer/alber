@@ -58,9 +58,11 @@ func ChangeProfile(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	if pass != "" {
-		if hashPass, e := bcrypt.GenerateFromPassword([]byte(pass), 4); e != nil {
-			u.Password = string(hashPass)
+		hashPass, e := bcrypt.GenerateFromPassword([]byte(pass), 4)
+		if e != nil {
+			return errors.New("cant change password, try later")
 		}
+		u.Password = string(hashPass)
 	}
 
 	return u.Change()

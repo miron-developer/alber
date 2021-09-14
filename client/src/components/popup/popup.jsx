@@ -15,7 +15,6 @@ const SPopup = styled.div`
     width: 0;
     height: 0;
     ${SDisplayFlexCenter};
-    background: #000000ab;
     border-radius: 5px;
     transition: var(--transitionApp);
     opacity: 0;
@@ -29,6 +28,14 @@ const SPopup = styled.div`
         opacity: 1;
         z-index: 20;
     }
+`;
+
+
+const SPopupBG = styled.div`
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: #000000ab;
 `;
 
 const SPopupClose = styled.div`
@@ -58,6 +65,7 @@ const SContentWrapper = styled.div`
     flex-direction: column;
     border-radius: 10px;
     background: #ffffffc7;
+    z-index: 20;
 `;
 
 let add = ()=>{};
@@ -80,6 +88,8 @@ export default function Popup() {
     
     return (
         <SPopup className={`${isOpened ? 'opened' : ''}`} >
+            <SPopupBG onClick={close}/>
+
             <SPopupClose onClick={close}>
                 <i className="fa fa-times" aria-hidden="true"></i>
             </SPopupClose>

@@ -21,20 +21,23 @@ const SPasswordWrapper = styled.div`
     }
 `;
 
-export default function PasswordField({index, id, required, labelText, placeholder, pass, passToggle}) {
+export default function PasswordField({ index, id, required, hidden = false, labelText, placeholder, pass, passToggle }) {
     return (
         <SPasswordWrapper>
             <Input index={index} id={id} type="password" name="password" base={pass.base} required={required}
-                minLength="8" maxLength="30" placeholder={placeholder} labelText={labelText}
+                minLength="8" maxLength="30" placeholder={placeholder} labelText={labelText} hidden={hidden}
             />
-            
-            <i  className="fa fa-eye fa-eye-slash" 
-                aria-hidden="true" 
-                title="show/hide password"
-                onClick={ e => {
-                    ShowAndHidePassword(e, document.getElementById(id), passToggle);
-                }} 
-            ></i>
+
+            {
+                !hidden &&
+                <i className="fa fa-eye fa-eye-slash"
+                    aria-hidden="true"
+                    title="show/hide password"
+                    onClick={e => {
+                        ShowAndHidePassword(e, document.getElementById(id), passToggle);
+                    }}
+                ></i>
+            }
         </SPasswordWrapper>
     )
 }

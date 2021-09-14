@@ -46,30 +46,32 @@ const SFormInputNotification = styled.div`
     color: var(--darkRedColor);
 `;
 
-export const Label = ({required, id, labelText}) => 
-    <SFormInputLabel className={required?'required':''} htmlFor={id} > {labelText} </SFormInputLabel>
+export const Label = ({ required, id, labelText }) =>
+    <SFormInputLabel className={required ? 'required' : ''} htmlFor={id} > {labelText} </SFormInputLabel>
 
-export default function Input({index, id, type = "text", name, labelText, base, minLength, maxLength, min, max, required = true, disabled = false, placeholder = ""}) {
-    return (
-        <SFormField className={'form-field-'+index}>
-            <SFormInputWrapper>
-                <Label required={required} id={id} labelText={labelText} />
-                <SFormInput 
-                    className="form-input" 
-                    id={id} 
-                    type={type} 
-                    name={name}
-                    required={required} 
-                    min={min} 
-                    max={max} 
-                    minLength={minLength} 
-                    maxLength={maxLength}
-                    placeholder={placeholder} 
-                    disabled={disabled}
-                    {...base} 
-                />
-            </SFormInputWrapper>
-            <SFormInputNotification className="form-input-notification" />
-        </SFormField>
-    )
+export default function Input({ index, id, type = "text", name, labelText, base, minLength, maxLength, min, max, required = true, hidden = false, placeholder = "" }) {
+    return hidden
+        ? <input type={type} value={base.value} name={name} hidden />
+        : (
+            <SFormField className={'form-field-' + index}>
+                <SFormInputWrapper>
+                    <Label required={required} id={id} labelText={labelText} />
+                    <SFormInput
+                        className="form-input"
+                        id={id}
+                        type={type}
+                        name={name}
+                        required={required}
+                        min={min}
+                        max={max}
+                        minLength={minLength}
+                        maxLength={maxLength}
+                        placeholder={placeholder}
+                        hidden={hidden}
+                        {...base}
+                    />
+                </SFormInputWrapper>
+                <SFormInputNotification className="form-input-notification" />
+            </SFormField>
+        )
 }

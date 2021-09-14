@@ -25,7 +25,7 @@ const SLalel = styled.label`
     }
 `;
 
-export default function PhoneField({ index, base }) {
+export default function PhoneField({ index, base, required }) {
     const [codes, setCodes] = useState();
 
     const getCodes = useCallback(async () => {
@@ -38,11 +38,12 @@ export default function PhoneField({ index, base }) {
         if (codes === undefined) return getCodes()
     }, [getCodes, codes])
 
-    // if (!codes) return null;
+
+    if (!codes) return null;
     return (
         <div>
-            <Input index={index} id="sign-up-phone" type="tel" name="phone" base={base} labelText="Телефон:"
-                minLength="10" maxLength="15" placeholder="7777777777"
+            <Input index={index} id="phone" type="tel" name="phone" base={base} labelText="Телефон:"
+                minLength="10" maxLength="15" placeholder="7777777777" required={required}
             />
 
             <SLalel>

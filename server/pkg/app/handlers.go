@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"text/template"
 	"zhibek/pkg/api"
+	"zhibek/pkg/orm"
 )
 
 // SecureHeaderMiddleware set secure header option
@@ -300,13 +301,35 @@ func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Req
 			Code: 200,
 		}
 
+		userID := api.GetUserIDfromReq(w, r)
+		if userID == -1 {
+			api.SendErrorJSON(w, data, "not logged")
+			return
+		}
+
 		phone := getPhoneNumber(r.PostFormValue("phone"))
-		code := StringWithCharset(8)
 		countryCode := r.PostFormValue("countryCode")
+		code := StringWithCharset(8)
+		cd := &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
 		msg := `Код подтверждения измения на платформе Жибек: ` + code + `Код действует в течении часа.`
 
+		if phone == "" {
+			phoneDB, e := orm.GetOneFrom(orm.SQLSelectParams{
+				Table:   "Users",
+				What:    "phoneNumber",
+				Options: orm.DoSQLOption("id=?", "", "", userID),
+			})
+			if e != nil {
+				api.SendErrorJSON(w, data, "not logged")
+				return
+			}
+			phone = phoneDB[0].(string)
+			countryCode = ""
+			cd.Value = ""
+		}
+
 		app.m.Lock()
-		app.UsersCode[code] = &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
+		app.UsersCode[code] = cd
 		app.m.Unlock()
 
 		// here sending sms to abonent
@@ -328,11 +351,14 @@ func (app *Application) HChangeProfile(w http.ResponseWriter, r *http.Request) {
 			Code: 200,
 		}
 
-		_, ok := app.UsersCode[r.PostFormValue("code")]
+		phone, ok := app.UsersCode[r.PostFormValue("code")]
 		if !ok {
 			api.SendErrorJSON(w, data, "wrong code")
 			return
 		}
+
+		// set correct phone
+		r.PostForm.Set("phone", phone.Value.(string))
 
 		if e := api.ChangeProfile(w, r); e != nil {
 			api.SendErrorJSON(w, data, e.Error())

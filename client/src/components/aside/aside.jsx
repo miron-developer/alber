@@ -3,8 +3,10 @@ import { NavLink, useHistory } from 'react-router-dom';
 
 import { USER } from 'constants/constants';
 import { SignOut } from 'utils/user';
+import { PopupOpen } from 'components/popup/popup';
 
 import History from './history/history';
+import EditProfile from './edit-profile/profile';
 import styled from 'styled-components';
 
 const SAside = styled.aside`
@@ -125,7 +127,7 @@ export default function Aside() {
                                         <i className="fa fa-user" aria-hidden="true"></i>
                                         {USER.nickname} ({USER.phoneNumber})
                                     </SNickname>
-                                    <SEdit>
+                                    <SEdit onClick={()=>PopupOpen(EditProfile, {})}>
                                         <i className="fa fa-pencil" aria-hidden="true"></i>
                                     </SEdit>
                                 </div>
