@@ -9,9 +9,8 @@ export const IsTwoDigit = data => parseInt(data) < 10 ? "0".concat(data) : data;
 // generate date(15/12/2020 09:09) from milliseconds
 export const DateFromMilliseconds = milliseconds => {
     const datetime = new Date(parseInt(milliseconds));
-    return [IsTwoDigit(datetime.getDate()), IsTwoDigit(datetime.getMonth() + 1), datetime.getFullYear()].join('/') +
-        " " +
-        [IsTwoDigit(datetime.getHours()), IsTwoDigit(datetime.getMinutes())].join(':');
+    if (isNaN(datetime)) return;
+    return [datetime.getFullYear(), IsTwoDigit(datetime.getMonth() + 1), IsTwoDigit(datetime.getDate())].join('-');
 }
 
 // calculate time after thing created

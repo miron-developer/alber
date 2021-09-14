@@ -16,7 +16,7 @@ const SAside = styled.aside`
     padding: 1rem;
     width: 80vw;
     height: 100vh;
-    background: #4e4a4a66;
+    background: #2b2b2be0;
     transition: var(--transitionApp);
     z-index: 10;
     opacity: .9;

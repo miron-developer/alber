@@ -49,7 +49,7 @@ const SFormInputNotification = styled.div`
 export const Label = ({ required, id, labelText }) =>
     <SFormInputLabel className={required ? 'required' : ''} htmlFor={id} > {labelText} </SFormInputLabel>
 
-export default function Input({ index, id, type = "text", name, labelText, base, minLength, maxLength, min, max, required = true, hidden = false, placeholder = "" }) {
+export default function Input({ index, id, type = "text", name, labelText, base, minLength, maxLength, list, min, max, required = true, hidden = false, placeholder = "" }) {
     return hidden
         ? <input type={type} value={base.value} name={name} hidden />
         : (
@@ -68,6 +68,7 @@ export default function Input({ index, id, type = "text", name, labelText, base,
                         maxLength={maxLength}
                         placeholder={placeholder}
                         hidden={hidden}
+                        list={list}
                         {...base}
                     />
                 </SFormInputWrapper>

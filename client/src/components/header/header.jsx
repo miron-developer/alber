@@ -4,28 +4,26 @@ import styled from 'styled-components';
 
 const SHeader = styled.header`
     grid-area: header;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 7vh;
     padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--purpleColor);
-
-    @media screen and (max-width: 600px) {
-        position: fixed;
-        left: 0;
-        right: 0;
-        height: 7vh;
-        z-index: 5;
-    }
+    background: var(--blueColor);
+    z-index: 5;
 `;
 
 const SNavLink = styled(NavLink)`
     margin: 0.5rem 0;
     padding: 0.5rem;
+    flex-basis: 20%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background: var(--purpleColor);
+    justify-content: center;
     border: 1px solid #231E2F;
     border-radius: 5px;
     color: var(--onHoverColor);
@@ -36,8 +34,6 @@ const SNavLink = styled(NavLink)`
 
     &.active,
     &:hover {
-        color: var(--purpleColor);
-        text-shadow: none;
         background: var(--onHoverColor);
     }
 `
@@ -54,7 +50,10 @@ const GNavLink = ({isExact, to, linkText}) => {
 export default function Header() {
     return (
         <SHeader>
-            
+            <GNavLink isExact={true} to="/parsel"       linkText="Отправит посылку" />
+            <GNavLink isExact={true} to="/parsels"      linkText="Лента посылок" />
+            <GNavLink isExact={true} to="/traveler"     linkText="Я попутчик" />
+            <GNavLink isExact={true} to="/travelers"    linkText="Лента попутчиков" />
         </SHeader>
     )
 }

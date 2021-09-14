@@ -24,7 +24,7 @@ export default function SignUp() {
     }
     const onSuccessStep2 = data => {
         Notify('success', `Вы успешно зарегистрированы. Ваш логин: "${phone.base.value}" и временный пароль:"${data?.password}"`, false)
-        history.push("/")
+        history.push("/parsel")
     }
     const onFail = err => Notify('fail', 'Ошибка регистрации:' + err);
 
@@ -45,7 +45,6 @@ export default function SignUp() {
             }}>
                 <h3>Регистрация(шаг 2)</h3>
 
-                <Input disabled={true} index="0" id="phone" type="tel" name="phone" base={phone.base} labelText="Телефон:"/>
                 <Input index="1" id="nickname" type="text" name="nickname" base={nickname.base} labelText="Имя(никнейм):"
                     minLength="3" maxLength="20" placeholder="Miron"
                 />

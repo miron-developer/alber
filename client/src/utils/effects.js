@@ -1,6 +1,9 @@
 import { Notify } from "components/app-notification/notification";
 import { PopupOpen } from "components/popup/popup";
-import { POSTRequestWithParams } from "./api";
+import EditTraveler from "components/traveler/edit/edit";
+import ManageParsel from "components/parsel/manage/manage";
+
+import { GetDataByCrieteries, POSTRequestWithParams } from "./api";
 
 // just debounce
 export function Debounce(fn, ms) {
@@ -10,6 +13,23 @@ export function Debounce(fn, ms) {
         timeOut = setTimeout(() => { fn(...args) }, ms)
     }
 }
+
+export const DbnceCities = Debounce(async(e) => {
+    const res = await GetDataByCrieteries("search", { 'type': 'cities', 'q': e.target.value });
+    if (res.err) return Notify("fail", "Не удалось загрузить города");
+
+    const options = res.map(({ id, name }) => {
+        const op = document.createElement("option");
+        op.value = name;
+        op.textContent = id;
+        return op;
+    })
+
+    const dt = document.getElementById(e.target.list.id);
+    if (!dt) return;
+    dt.innerHTML = "";
+    dt.append(...options);
+}, 500)
 
 // show & hide password by changing input type
 export const ShowAndHidePassword = (e, passElem, passwordToggle) => {
@@ -49,7 +69,8 @@ export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = fa
     }
 }, 100);
 
-export const EditItem = async(type, data, cb) => PopupOpen('edit', { 'cb': cb, "type": type, ...data })
+export const EditItem = async(type, data, cb) =>
+    PopupOpen(type === "parsel" ? ManageParsel : EditTraveler, { 'cb': cb, 'data': data, 'type': 'edit' })
 
 export const RemoveItem = async(id, type, cb) => {
     const res = await POSTRequestWithParams("/r", { 'type': type, 'id': id })

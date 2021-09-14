@@ -67,7 +67,6 @@ func checkPassword(isExist bool, pass, login string) error {
 
 // SignUp check validate, start session
 func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[string]interface{}, error) {
-	phone := getPhoneNumber(r.PostFormValue("phone"))
 	nickname := r.PostFormValue("nickname")
 	code := r.PostFormValue("code")
 	pass := ""
@@ -77,13 +76,14 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 		return nil, errors.New("danger nickname")
 	}
 
+	validPhone, ok := app.UsersCode[code]
 	// checking code from sms
-	if validPhone, exist := app.UsersCode[code]; !exist || validPhone.Value != phone {
+	if !ok {
 		return nil, errors.New("wrong code")
 	}
 
 	// check phone and nick
-	if e := checkPhoneAndNick(false, phone, nickname); e != nil {
+	if e := checkPhoneAndNick(false, validPhone.Value.(string), nickname); e != nil {
 		return nil, e
 	}
 
@@ -102,7 +102,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 	}
 
 	user := &orm.User{
-		Nickname: nickname, PhoneNumber: phone, Password: string(hashPass),
+		Nickname: nickname, PhoneNumber: validPhone.Value.(string), Password: string(hashPass),
 	}
 	userID, e := user.Create()
 	if e != nil {
@@ -116,7 +116,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 
 	// send SMS with temp_password & login
 	// or mb make notify on front
-	return map[string]interface{}{"login": phone, "password": pass}, e
+	return map[string]interface{}{"login": validPhone.Value.(string), "password": pass}, e
 }
 
 // SignIn check password and login from db and request + oauth2

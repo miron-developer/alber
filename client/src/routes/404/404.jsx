@@ -32,7 +32,7 @@ export default function Page404() {
             <h2>404</h2>
             <h3>Not found</h3>
 
-            <Link to="/">Go home</Link>
+            <Link to="/parsel">Go home</Link>
         </S404>
     )
 }

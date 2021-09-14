@@ -39,7 +39,7 @@ export const UserOffline = async() => await changeUserData();
 export const SignOut = async(history) => {
     Notify('info', "Производится выход...");
     const res = await POSTRequestWithParams("/sign/out");
-    if (res.err !== "ok") return false;
+    if (res.err !== "ok") return Notify('fail', "Ошибка: выход не произведен");;
     const isSignOuted = await UserOffline();
     if (!isSignOuted) return;
     history.push('/sign/in');

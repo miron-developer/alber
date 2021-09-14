@@ -24,7 +24,7 @@ export default function SignIn() {
         const isOnline = await UserOnline(data.id);
         if (isOnline) {
             Notify('success', "Вход произведен");
-            history.push('/');
+            history.push('/parsel');
         } else Notify('fail', "Ошибка входа")
     }
     const onFail = err => Notify('fail', "Ошибка входа:" + err);

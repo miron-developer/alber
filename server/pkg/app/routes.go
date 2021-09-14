@@ -33,8 +33,8 @@ func (app *Application) SetRoutes() http.Handler {
 	// edit
 	editMux := http.NewServeMux()
 	editMux.HandleFunc("/", app.HApiIndex)
-	editMux.HandleFunc("/user", app.HChangeProfile)
 	editMux.HandleFunc("/user/confirm", app.HConfirmChangeProfile)
+	editMux.HandleFunc("/user", app.HChangeProfile)
 	editMux.HandleFunc("/parsel", app.HChangeParsel)
 	editMux.HandleFunc("/travel", app.HChangeTravel)
 	editMux.HandleFunc("/toptype", app.HChangeTop)

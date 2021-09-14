@@ -16,7 +16,7 @@ func SearchCity(r *http.Request) (interface{}, error) {
 
 	q := orm.SQLSelectParams{
 		Table:   "Cities AS c",
-		What:    "c.name",
+		What:    "c.*",
 		Options: op,
 	}
 	return doSearch(r, q, orm.City{}, nil, nil, nil)

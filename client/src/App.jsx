@@ -31,7 +31,7 @@ export default function App() {
     const history = useHistory();
 
     useEffect(() => {
-        if (USER.status === "online") return isSign && history.push("/")
+        if (USER.status === "online") return isSign && history.push("/parsel")
         if (!USER.guest) return history.push('/sign');
     }, [history, isSign]);
 

@@ -18,13 +18,13 @@ const SHistory = styled.section`
         & span {
             margin: .5rem;
             padding: 1rem;
+            color: var(--onHoverColor);
             border-radius: 10px;
             transition: var(--transitionApp);
             cursor: pointer;
 
             &.active,
             &:hover {
-                color: white;
                 background: var(--blueColor);
             }
         }
