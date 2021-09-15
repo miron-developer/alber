@@ -1,7 +1,7 @@
 import { Notify } from "components/app-notification/notification";
 import { PopupOpen } from "components/popup/popup";
-import EditTraveler from "components/traveler/edit/edit";
 import ManageParsel from "components/parsel/manage/manage";
+import ManageTraveler from "components/traveler/manage/manage";
 
 import { GetDataByCrieteries, POSTRequestWithParams } from "./api";
 
@@ -44,7 +44,6 @@ export const ShowAndHidePassword = (e, passElem, passwordToggle) => {
  * for lazy load and keeping focus with scrolling
  * @param e event
  * @param isStopLoad stop load or no
- * @param className for getting priorEdgeChild
  * @param isScrollingToTop load on scroll to top or bottom
  * @param loadCallback what do after react edge
  */
@@ -70,10 +69,10 @@ export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = fa
 }, 100);
 
 export const EditItem = async(type, data, cb) =>
-    PopupOpen(type === "parsel" ? ManageParsel : EditTraveler, { 'cb': cb, 'data': data, 'type': 'edit' })
+    PopupOpen(type === "parsel" ? ManageParsel : ManageTraveler, { 'cb': cb, 'data': data, 'type': 'edit' })
 
 export const RemoveItem = async(id, type, cb) => {
-    const res = await POSTRequestWithParams("/r", { 'type': type, 'id': id })
+    const res = await POSTRequestWithParams("/r/" + (type === "parsel" ? "parsel" : 'travel'), { 'id': id })
     if (res.err && res.err !== "ok") return Notify('fail', 'Не удалено');
     cb()
 }
@@ -81,3 +80,13 @@ export const RemoveItem = async(id, type, cb) => {
 export const TopItem = async(id, type, cb) => PopupOpen('toptype', { 'cb': cb, "type": type, 'id': id })
 
 export const PaintItem = async(id, type, cb) => PopupOpen('up', { 'cb': cb, "type": type, 'id': id })
+
+export const CompareParams = (newParams, currentParams) => {
+    const res = {};
+    for (let [k, v] of Object.entries(newParams)) {
+        if (newParams[k] !== currentParams[k]) {
+            res[k] = v;
+        }
+    }
+    return res;
+}

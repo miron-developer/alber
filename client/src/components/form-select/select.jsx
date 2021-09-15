@@ -21,11 +21,11 @@ const SLalel = styled.label`
         box-shadow: 4px 4px 3px 0 #00000029;
     }
 `;
-export default function Select({ name, text, required, options, onChange }) {
+export default function Select({ name, text, required = true, options, onChange }) {
     return (
         <SLalel>
             <span>{text}</span>
-            <select name={name} required={required} onChange={onChange}>
+            <select name={name} value={options.selected} required={required} onChange={onChange}>
                 {options?.data?.map((opt) => <option key={RandomKey()} value={opt[options.value]}>{options.makeText(opt)}</option>)}
             </select>
         </SLalel>

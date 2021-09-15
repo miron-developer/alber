@@ -59,7 +59,7 @@ const SRemoveFile = styled.div`
 const RenderClippedFile = ({ id, filename, src, size, onClick = () => { }, removeFile }) => {
     return (
         <SClippedFileWrapper size={size} onClick={onClick} >
-            <SRemoveFile onClick={e => e.stopPropagation() || removeFile(id)}>
+            <SRemoveFile onClick={e => e.stopPropagation() || removeFile(id, src)}>
                 <i className="fa fa-times" aria-hidden="true"></i>
             </SRemoveFile>
 

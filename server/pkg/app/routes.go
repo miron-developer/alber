@@ -25,6 +25,7 @@ func (app *Application) SetRoutes() http.Handler {
 	apiMux.HandleFunc("/parsels", app.HParsels)
 	apiMux.HandleFunc("/travelers", app.HTravelers)
 	apiMux.HandleFunc("/toptypes", app.HTopTypes)
+	apiMux.HandleFunc("/travelTypes", app.HTravelTypes)
 	apiMux.HandleFunc("/countryCodes", app.HCountryCodes)
 	apiMux.HandleFunc("/search", app.HSearch)
 	apiMux.HandleFunc("/images", app.HClippedImages)
@@ -43,11 +44,19 @@ func (app *Application) SetRoutes() http.Handler {
 
 	// save
 	saveMux := http.NewServeMux()
-	saveMux.HandleFunc("/", app.HIndex)
+	saveMux.HandleFunc("/", app.HApiIndex)
 	saveMux.HandleFunc("/parsel", app.HSaveParsel)
 	saveMux.HandleFunc("/travel", app.HSaveTravel)
 	saveMux.HandleFunc("/image", app.HSaveImage)
 	appMux.Handle("/s/", http.StripPrefix("/s", saveMux))
+
+	// remove
+	removeMux := http.NewServeMux()
+	removeMux.HandleFunc("/", app.HApiIndex)
+	removeMux.HandleFunc("/parsel", app.HRemoveParsel)
+	removeMux.HandleFunc("/travel", app.HRemoveTravel)
+	removeMux.HandleFunc("/image", app.HRemoveImage)
+	appMux.Handle("/r/", http.StripPrefix("/r", removeMux))
 
 	// static react get
 	static := http.FileServer(http.Dir("dist/static"))

@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router';
 import { Switch, Route } from 'react-router-dom';
 
 import { RandomKey } from 'utils/content';
@@ -27,10 +28,6 @@ const ROUTES = [{
     isExact: true,
     component: ParselPage,
 },{
-    href: "/",
-    isExact: true,
-    component: ParselPage,
-},{
     href: "/parsels",
     isExact: true,
     component: ParselsPage,
@@ -45,6 +42,9 @@ const ROUTES = [{
 }]
 
 export default function DefineRoutes() {
+    const history = useHistory();
+
+    if (history.location.pathname === "/") return history.push("/parsel")
     return (
         <SMain>
             <Switch>

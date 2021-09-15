@@ -141,3 +141,21 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 	}
 	return p.Change()
 }
+
+// RemoveParsel remove one parsel
+func RemoveParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	// get general ids
+	userID := GetUserIDfromReq(w, r)
+	if userID == -1 {
+		return nil, errors.New("not logged")
+	}
+	parselID, e := strconv.Atoi(r.PostFormValue("id"))
+	if e != nil {
+		return nil, errors.New("wrong parsel")
+	}
+
+	return nil, orm.DeleteByParams(orm.SQLDeleteParams{
+		Table:   "Parsels",
+		Options: orm.DoSQLOption("id=? AND userID = ?", "", "", parselID, userID),
+	})
+}

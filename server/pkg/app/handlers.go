@@ -100,6 +100,11 @@ func (app *Application) HTopTypes(w http.ResponseWriter, r *http.Request) {
 	api.HApi(w, r, api.TopTypes)
 }
 
+// HTravelTypes for handle '/api/travelTypes'
+func (app *Application) HTravelTypes(w http.ResponseWriter, r *http.Request) {
+	api.HApi(w, r, api.TravelTypes)
+}
+
 // HCountryCodes for handle '/api/countryCodes'
 func (app *Application) HCountryCodes(w http.ResponseWriter, r *http.Request) {
 	api.HApi(w, r, api.CountryCodes)
@@ -474,12 +479,12 @@ func (app *Application) HItemUp(w http.ResponseWriter, r *http.Request) {
 
 // HSaveParsel create parsel
 func (app *Application) HSaveParsel(w http.ResponseWriter, r *http.Request) {
-	api.HSaves(w, r, api.CreateParsel)
+	api.HApi(w, r, api.CreateParsel)
 }
 
 // HSaveTravel create parsel
 func (app *Application) HSaveTravel(w http.ResponseWriter, r *http.Request) {
-	api.HSaves(w, r, api.CreateTravel)
+	api.HApi(w, r, api.CreateTravel)
 }
 
 // HSaveImage save one image
@@ -490,5 +495,21 @@ func (app *Application) HSaveImage(w http.ResponseWriter, r *http.Request) {
 	}
 	r.PostForm.Set("link", link)
 	r.PostForm.Set("filename", name)
-	api.HSaves(w, r, api.CreateImage)
+	api.HApi(w, r, api.CreateImage)
+}
+
+// ------------------------------------------- Remove ----------------------------------------
+// HRemoveParsel create parsel
+func (app *Application) HRemoveParsel(w http.ResponseWriter, r *http.Request) {
+	api.HApi(w, r, api.RemoveParsel)
+}
+
+// HRemoveTravel create parsel
+func (app *Application) HRemoveTravel(w http.ResponseWriter, r *http.Request) {
+	api.HApi(w, r, api.RemoveTraveler)
+}
+
+// HRemoveImage save one image
+func (app *Application) HRemoveImage(w http.ResponseWriter, r *http.Request) {
+	api.HApi(w, r, api.RemoveImage)
 }

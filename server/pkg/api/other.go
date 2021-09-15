@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 	"zhibek/pkg/orm"
@@ -37,6 +38,14 @@ func Images(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		return datas, nil
 	}
 	return nil, errors.New("n/d")
+}
+
+func TravelTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	return orm.GeneralGet(orm.SQLSelectParams{
+		Table:   "TravelTypes AS tRt",
+		What:    "tRt.*",
+		Options: orm.DoSQLOption("", "id ASC", ""),
+	}, nil, orm.TravelType{}), nil
 }
 
 func TopTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
@@ -151,4 +160,28 @@ func ItemUp(w http.ResponseWriter, r *http.Request) error {
 		}
 		return t.Change()
 	}
+}
+
+// RemoveImage remove one image
+func RemoveImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	// get general ids
+	userID := GetUserIDfromReq(w, r)
+	if userID == -1 {
+		return nil, errors.New("not logged")
+	}
+	parselID, e := strconv.Atoi(r.PostFormValue("parselID"))
+	if e != nil {
+		return nil, errors.New("wrong parsel id")
+	}
+	imgID, e := strconv.Atoi(r.PostFormValue("id"))
+	if e != nil {
+		return nil, errors.New("wrong image id")
+	}
+
+	os.Remove(r.PostFormValue("src"))
+
+	return nil, orm.DeleteByParams(orm.SQLDeleteParams{
+		Table:   "Images",
+		Options: orm.DoSQLOption("id=? AND userID=? AND parselID=?", "", "", imgID, userID, parselID),
+	})
 }

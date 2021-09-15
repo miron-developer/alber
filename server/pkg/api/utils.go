@@ -133,22 +133,3 @@ func HApi(w http.ResponseWriter, r *http.Request, f func(w http.ResponseWriter, 
 		DoJS(w, data)
 	}
 }
-
-// HSaves general handler for all save paths
-func HSaves(w http.ResponseWriter, r *http.Request, f func(w http.ResponseWriter, r *http.Request) (interface{}, error)) {
-	if r.Method == "POST" {
-		data := API_RESPONSE{
-			Err:  "ok",
-			Data: "",
-			Code: 200,
-		}
-
-		datas, e := f(w, r)
-		if e != nil {
-			SendErrorJSON(w, data, e.Error())
-			return
-		}
-		data.Data = datas
-		DoJS(w, data)
-	}
-}

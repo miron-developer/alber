@@ -29,7 +29,7 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 
 	mainQ := orm.SQLSelectParams{
 		Table:   "Travelers AS t",
-		What:    "t.*, u.nickname, cf.name, ct.name, tt.name, tt.color, tRt.name",
+		What:    "t.*, u.nickname, cf.name, ct.name, tt.name, tt.color, tRt.name, tRt.id",
 		Options: op,
 		Joins:   []orm.SQLJoin{userJ, fromJ, toJ, topJ, typeJ},
 	}
@@ -37,7 +37,7 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	return orm.GetWithSubqueries(
 		mainQ,
 		nil,
-		[]string{"nickname", "from", "to", "onTop", "color", "travelType"},
+		[]string{"nickname", "from", "to", "onTop", "color", "travelType", "travelTypeID"},
 		nil,
 		orm.Traveler{},
 	)
@@ -156,4 +156,22 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 		CreationDatetime: now, DepartureDatetime: departure, ArrivalDatetime: arrival,
 	}
 	return t.Change()
+}
+
+// RemoveTraveler remove one traveler
+func RemoveTraveler(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	// get general ids
+	userID := GetUserIDfromReq(w, r)
+	if userID == -1 {
+		return nil, errors.New("not logged")
+	}
+	parselID, e := strconv.Atoi(r.PostFormValue("id"))
+	if e != nil {
+		return nil, errors.New("wrong traveler")
+	}
+
+	return nil, orm.DeleteByParams(orm.SQLDeleteParams{
+		Table:   "Travelers",
+		Options: orm.DoSQLOption("id=? AND userID=?", "", "", parselID, userID),
+	})
 }

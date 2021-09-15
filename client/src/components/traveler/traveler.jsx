@@ -86,7 +86,7 @@ const STraveler = styled.div`
     }
 `;
 
-export default function Traveler({data, isMy = false, changeItem, removeItem}) {
+export default function Traveler({ data, isMy = false, changeItem, removeItem }) {
     const [isOpened, setOpened] = useState(false);
 
     return (
@@ -136,7 +136,7 @@ export default function Traveler({data, isMy = false, changeItem, removeItem}) {
                                 onClick={
                                     () =>
                                         EditItem(
-                                            "parsel",
+                                            "traveler",
                                             data,
                                             newData => changeItem(data.id, newData)
                                         )
@@ -144,14 +144,14 @@ export default function Traveler({data, isMy = false, changeItem, removeItem}) {
                             >
                                 <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
                             </span>
-                            <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem())}>
+                            <span className="manage-action" onClick={() => RemoveItem(data.id, "traveler", () => removeItem())}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
-                            <span className="manage-action">
-                                <i className="fa fa-paint-brush" aria-hidden="true" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>Покрасить</i>
+                            <span className="manage-action" onClick={() => PaintItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+                                <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
                             </span>
-                            <span className="manage-action">
-                                <i className="fa fa-level-up" aria-hidden="true" onClick={() => TopItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>Поднять</i>
+                            <span className="manage-action" onClick={() => TopItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+                                <i className="fa fa-level-up" aria-hidden="true">Поднять</i>
                             </span>
                         </div>
                     }

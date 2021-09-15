@@ -168,22 +168,18 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                         isOpened &&
                         <div className="manage-actions">
                             <span className="manage-action"
-                                onClick={() => EditItem("parsel", data, newData => changeItem(data.id, newData))}
+                                onClick={() => EditItem("parsel", {...data, 'photos': photos}, newData => changeItem(data.id, newData))}
                             >
                                 <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
                             </span>
                             <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem())}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
-                            <span className="manage-action">
-                                <i className="fa fa-paint-brush" aria-hidden="true"
-                                    onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}
-                                >Покрасить</i>
+                            <span className="manage-action" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+                                <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
                             </span>
-                            <span className="manage-action">
-                                <i className="fa fa-level-up" aria-hidden="true"
-                                    onClick={() => TopItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}
-                                >Поднять</i>
+                            <span className="manage-action" onClick={() => TopItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+                                <i className="fa fa-level-up" aria-hidden="true">Поднять</i>
                             </span>
                         </div>
                     }
