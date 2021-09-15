@@ -52,7 +52,7 @@ func TopTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	return orm.GeneralGet(orm.SQLSelectParams{
 		Table:   "TopTypes AS tt",
 		What:    "tt.*",
-		Options: orm.DoSQLOption("", "id DESC", ""),
+		Options: orm.DoSQLOption("", "id ASC", ""),
 	}, nil, orm.TopType{}), nil
 }
 
@@ -107,29 +107,41 @@ func ChangeTop(w http.ResponseWriter, r *http.Request) error {
 		table = "Travelers"
 	}
 
+	topID, e := strconv.Atoi(r.PostFormValue("topID"))
+	if e != nil {
+		return errors.New("wrong try to up")
+	}
+	duration, e := orm.GetOneFrom(orm.SQLSelectParams{
+		Table:   "TopTypes",
+		What:    "duration",
+		Options: orm.DoSQLOption("id = ?", "", "", topID),
+	})
+	if e != nil {
+		return errors.New("internal server error: toptype")
+	}
+
+	newExpire := int(time.Now().Unix()*1000) + duration[0].(int)
 	expire, e := orm.GetOneFrom(orm.SQLSelectParams{
 		Table:   table,
 		What:    "expireDatetime",
 		Options: orm.DoSQLOption("userID = ? AND id = ?", "", "1", userID, ID),
 	})
 	if e != nil {
-		return errors.New("wrong type")
+		return errors.New("wrong id")
 	}
 
-	expireOnTop, e := strconv.Atoi(r.PostFormValue("expireOnTop"))
-	topID, e2 := strconv.Atoi(r.PostFormValue("topID"))
-	if e != nil || e2 != nil || expire[0].(int) < expireOnTop {
-		return errors.New("wrong try to up")
+	if expire[0].(int) < newExpire {
+		newExpire = expire[0].(int)
 	}
 
 	if table == "Parsels" {
 		p := &orm.Parsel{
-			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: expireOnTop,
+			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: newExpire,
 		}
 		return p.Change()
 	} else {
 		t := &orm.Traveler{
-			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: expireOnTop,
+			UserID: userID, ID: ID, TopTypeID: topID, ExpireOnTopDatetime: newExpire,
 		}
 		return t.Change()
 	}
@@ -147,7 +159,10 @@ func ItemUp(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("wrong id")
 	}
 
-	table := r.PostFormValue("type")
+	table := "Parsels"
+	if r.PostFormValue("type") == "traveler" {
+		table = "Travelers"
+	}
 
 	if table == "parsel" {
 		p := &orm.Parsel{

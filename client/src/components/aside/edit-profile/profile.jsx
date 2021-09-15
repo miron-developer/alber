@@ -58,9 +58,9 @@ export default function EditProfile() {
             }}>
                 <h3>Смена данных(шаг 2)</h3>
 
-                <Input hidden={true} index="0" id="phone" type="tel" name="phone" base={phone.base} labelText="Телефон:" required={false} />
-                <Input hidden={true} index="1" id="nickname" type="text" name="nickname" base={nickname.base} labelText="Имя(никнейм):" required={false} />
-                <PasswordField index="2" id="password" name="password" labelText="Пароль:" pass={pass} passToggle={passToggle} required={false} hidden={true}/>
+                <input hidden type="tel" name="phone" {...phone.base} />
+                <input hidden type="text" name="nickname" {...nickname.base} />
+                <input hidden type="password" {...pass.base} />
         
                 <Input index="3" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
                     minLength="8" maxLength="8" placeholder="Mfa7sd45"

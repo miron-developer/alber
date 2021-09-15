@@ -1,33 +1,107 @@
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:70: loggers is done!
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:72: creating/configuring database
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:40: accessing database file
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:42: access completed
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:45: set up database configs
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:49: database configured
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:52: making migrations
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:56: migrations completed
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:74: database completed!
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:76: configuring app
-[34m[INFO][0m	2021/09/15 19:32:43 init.go:79: configuring done
-[34m[INFO][0m	2021/09/15 19:32:43 main.go:21: initialization completed!
-[34m[INFO][0m	2021/09/15 19:32:43 main.go:43: server listening on port 4330
-[34m[INFO][0m	2021/09/15 19:32:45 handlers.go:32: 127.0.0.1:37718 POST: '/sign/status'
-[34m[INFO][0m	2021/09/15 19:32:45 handlers.go:32: 127.0.0.1:37736 GET: '/api/user?id=1'
-[34m[INFO][0m	2021/09/15 19:32:45 handlers.go:32: 127.0.0.1:37742 GET: '/assets/app/favicon.ico'
-[34m[INFO][0m	2021/09/15 19:32:45 handlers.go:32: 127.0.0.1:37748 GET: '/api/travelTypes?'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37766 GET: '/assets/app/logo192.png'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37776 GET: '/api/parsels?type=user&from=0&step=10'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37834 GET: '/api/images?id=1'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37836 GET: '/api/images?id=3'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37838 GET: '/api/images?id=5'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37842 GET: '/api/images?id=9'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37840 GET: '/api/images?id=10'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37852 GET: '/api/images?id=6'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37882 GET: '/api/images?id=8'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37884 GET: '/api/images?id=4'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37886 GET: '/api/images?id=11'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37888 GET: '/api/images?id=7'
-[34m[INFO][0m	2021/09/15 19:32:46 handlers.go:32: 127.0.0.1:37894 GET: '/assets/img/logo192.png'
-[34m[INFO][0m	2021/09/15 19:32:48 handlers.go:32: 127.0.0.1:37912 GET: '/api/travelers?type=user&from=0&step=10'
-[34m[INFO][0m	2021/09/15 19:32:49 handlers.go:32: 127.0.0.1:37930 GET: '/api/travelTypes?'
-[34m[INFO][0m	2021/09/15 19:32:59 handlers.go:32: 127.0.0.1:38026 POST: '/e/travel'
+[34m[INFO][0m	2021/09/16 00:18:01 init.go:70: loggers is done!
+[34m[INFO][0m	2021/09/16 00:18:01 init.go:72: creating/configuring database
+[34m[INFO][0m	2021/09/16 00:18:01 init.go:40: accessing database file
+[34m[INFO][0m	2021/09/16 00:18:01 init.go:42: access completed
+[34m[INFO][0m	2021/09/16 00:18:01 init.go:45: set up database configs
+[34m[INFO][0m	2021/09/16 00:18:02 init.go:49: database configured
+[34m[INFO][0m	2021/09/16 00:18:02 init.go:52: making migrations
+[34m[INFO][0m	2021/09/16 00:18:07 init.go:56: migrations completed
+[34m[INFO][0m	2021/09/16 00:18:07 init.go:74: database completed!
+[34m[INFO][0m	2021/09/16 00:18:07 init.go:76: configuring app
+[34m[INFO][0m	2021/09/16 00:18:07 init.go:79: configuring done
+[34m[INFO][0m	2021/09/16 00:18:07 main.go:21: initialization completed!
+[34m[INFO][0m	2021/09/16 00:18:07 main.go:43: server listening on port 4330
+[34m[INFO][0m	2021/09/16 00:25:13 handlers.go:32: 127.0.0.1:42452 GET: '/api/price?'
+[34m[INFO][0m	2021/09/16 00:25:27 handlers.go:32: 127.0.0.1:42604 POST: '/sign/status'
+[34m[INFO][0m	2021/09/16 00:25:27 handlers.go:32: 127.0.0.1:42606 GET: '/assets/app/logo512.png'
+[34m[INFO][0m	2021/09/16 00:25:28 handlers.go:32: 127.0.0.1:42622 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/09/16 00:25:40 handlers.go:32: 127.0.0.1:42740 POST: '/sign/in'
+[34m[INFO][0m	2021/09/16 00:25:47 handlers.go:32: 127.0.0.1:42810 POST: '/sign/in'
+[34m[INFO][0m	2021/09/16 00:25:47 handlers.go:32: 127.0.0.1:42822 GET: '/api/user?id=1'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:42936 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43000 GET: '/api/images?id=9'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:42998 GET: '/api/images?id=1'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43002 GET: '/api/images?id=4'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43004 GET: '/api/images?id=11'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43010 GET: '/api/images?id=5'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43020 GET: '/api/images?id=6'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43026 GET: '/api/images?id=7'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43032 GET: '/api/images?id=3'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43028 GET: '/api/images?id=8'
+[34m[INFO][0m	2021/09/16 00:25:57 handlers.go:32: 127.0.0.1:43030 GET: '/api/images?id=10'
+[34m[INFO][0m	2021/09/16 00:26:00 handlers.go:32: 127.0.0.1:43066 GET: '/api/toptypes?'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43228 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43262 GET: '/api/images?id=1'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43292 GET: '/api/images?id=3'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43298 GET: '/api/images?id=6'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43296 GET: '/api/images?id=5'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43294 GET: '/api/images?id=4'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43320 GET: '/api/images?id=7'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43324 GET: '/api/images?id=9'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43326 GET: '/api/images?id=10'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43322 GET: '/api/images?id=8'
+[34m[INFO][0m	2021/09/16 00:26:14 handlers.go:32: 127.0.0.1:43328 GET: '/api/images?id=11'
+[34m[INFO][0m	2021/09/16 00:26:17 handlers.go:32: 127.0.0.1:43354 GET: '/api/toptypes?'
+[34m[INFO][0m	2021/09/16 00:26:44 handlers.go:32: 127.0.0.1:43594 GET: '/api/toptypes?'
+[34m[INFO][0m	2021/09/16 00:27:04 handlers.go:32: 127.0.0.1:43766 GET: '/api/toptypes?'
+[34m[INFO][0m	2021/09/16 00:36:54 handlers.go:32: 127.0.0.1:48854 GET: '/api/toptypes?'
+[34m[INFO][0m	2021/09/16 00:48:07 utils.go:53: backup created!
+[34m[INFO][0m	2021/09/16 01:15:07 handlers.go:32: 127.0.0.1:39630 POST: '/sign/status'
+[34m[INFO][0m	2021/09/16 01:15:07 handlers.go:32: 127.0.0.1:39632 GET: '/api/user?id=1'
+[34m[INFO][0m	2021/09/16 01:15:08 handlers.go:32: 127.0.0.1:39650 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/09/16 01:20:20 handlers.go:32: 127.0.0.1:42390 GET: '/api/search?type=cities&q=asd'
+[34m[INFO][0m	2021/09/16 01:20:22 handlers.go:32: 127.0.0.1:42408 GET: '/api/search?type=cities&q='
+[34m[INFO][0m	2021/09/16 01:30:40 handlers.go:32: 127.0.0.1:47660 GET: '/api/search?type=cities&q=%!D(MISSING)0%!A(MISSING)F%!D(MISSING)1%D0%!B(MISSING)8%!D(MISSING)0%!B(MISSING)D%!D(MISSING)0%!B(MISSING)E%!D(MISSING)0%!B(MISSING)2%!D(MISSING)0%!B(MISSING)0%!D(MISSING)1%D0%!B(MISSING)0%!D(MISSING)1%!F(MISSING)'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47750 GET: '/assets/app/logo192.png'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47760 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47790 GET: '/api/images?id=1'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47804 GET: '/api/images?id=3'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47810 GET: '/api/images?id=4'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47814 GET: '/api/images?id=6'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47812 GET: '/api/images?id=5'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47852 GET: '/api/images?id=7'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47860 GET: '/api/images?id=11'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47858 GET: '/api/images?id=10'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47856 GET: '/api/images?id=9'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47854 GET: '/api/images?id=8'
+[34m[INFO][0m	2021/09/16 01:30:50 handlers.go:32: 127.0.0.1:47870 GET: '/assets/img/logo192.png'
+[34m[INFO][0m	2021/09/16 01:30:53 handlers.go:32: 127.0.0.1:47904 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/09/16 01:30:56 handlers.go:32: 127.0.0.1:47938 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/09/16 01:31:08 handlers.go:32: 127.0.0.1:48078 POST: '/sign/status'
+[34m[INFO][0m	2021/09/16 01:31:08 handlers.go:32: 127.0.0.1:48088 GET: '/api/user?id=1'
+[34m[INFO][0m	2021/09/16 01:31:08 handlers.go:32: 127.0.0.1:48102 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48116 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48154 GET: '/api/images?id=1'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48174 GET: '/api/images?id=3'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48186 GET: '/api/images?id=9'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48188 GET: '/api/images?id=6'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48190 GET: '/api/images?id=5'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48194 GET: '/api/images?id=10'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48196 GET: '/api/images?id=11'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48208 GET: '/api/images?id=8'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48210 GET: '/api/images?id=4'
+[34m[INFO][0m	2021/09/16 01:31:10 handlers.go:32: 127.0.0.1:48212 GET: '/api/images?id=7'
+[34m[INFO][0m	2021/09/16 01:31:11 handlers.go:32: 127.0.0.1:48238 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/09/16 01:31:13 handlers.go:32: 127.0.0.1:48256 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/09/16 01:35:04 handlers.go:32: 127.0.0.1:50192 POST: '/sign/status'
+[34m[INFO][0m	2021/09/16 01:35:05 handlers.go:32: 127.0.0.1:50194 GET: '/api/user?id=1'
+[34m[INFO][0m	2021/09/16 01:35:05 handlers.go:32: 127.0.0.1:50196 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50222 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50264 GET: '/api/images?id=1'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50282 GET: '/api/images?id=3'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50284 GET: '/api/images?id=4'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50318 GET: '/api/images?id=11'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50320 GET: '/api/images?id=8'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50322 GET: '/api/images?id=5'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50324 GET: '/api/images?id=10'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50326 GET: '/api/images?id=6'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50328 GET: '/api/images?id=7'
+[34m[INFO][0m	2021/09/16 01:35:06 handlers.go:32: 127.0.0.1:50334 GET: '/api/images?id=9'
+[34m[INFO][0m	2021/09/16 01:35:07 handlers.go:32: 127.0.0.1:50362 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/09/16 01:35:09 handlers.go:32: 127.0.0.1:50388 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/09/16 01:35:12 handlers.go:32: 127.0.0.1:50422 POST: '/sign/out'
+[34m[INFO][0m	2021/09/16 01:35:12 handlers.go:32: 127.0.0.1:50432 GET: '/assets/app/logo512.png'
+[34m[INFO][0m	2021/09/16 01:35:14 handlers.go:32: 127.0.0.1:50458 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/09/16 01:35:18 handlers.go:32: 127.0.0.1:50492 POST: '/sign/sms/up'
+[34m[INFO][0m	2021/09/16 01:35:25 handlers.go:32: 127.0.0.1:50558 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/09/16 01:35:27 handlers.go:32: 127.0.0.1:50584 POST: '/sign/sms/ch'

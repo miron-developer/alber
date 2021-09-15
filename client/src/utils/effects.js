@@ -2,9 +2,11 @@ import { Notify } from "components/app-notification/notification";
 import { PopupOpen } from "components/popup/popup";
 import ManageParsel from "components/parsel/manage/manage";
 import ManageTraveler from "components/traveler/manage/manage";
+import ToTopType from "components/to-toptype/toptype";
+import ToUp from "components/to-up/up";
+
 
 import { GetDataByCrieteries, POSTRequestWithParams } from "./api";
-
 // just debounce
 export function Debounce(fn, ms) {
     let timeOut;
@@ -77,9 +79,9 @@ export const RemoveItem = async(id, type, cb) => {
     cb()
 }
 
-export const TopItem = async(id, type, cb) => PopupOpen('toptype', { 'cb': cb, "type": type, 'id': id })
+export const TopItem = async(id, type, cb) => PopupOpen(ToUp, { 'cb': cb, "type": type, 'id': id })
 
-export const PaintItem = async(id, type, cb) => PopupOpen('up', { 'cb': cb, "type": type, 'id': id })
+export const PaintItem = async(id, type, cb) => PopupOpen(ToTopType, { 'cb': cb, "type": type, 'id': id })
 
 export const CompareParams = (newParams, currentParams) => {
     const res = {};
@@ -89,4 +91,13 @@ export const CompareParams = (newParams, currentParams) => {
         }
     }
     return res;
+}
+
+export const OnChangeTransitPoint = async(point, e, setID) => {
+    point.setCertainValue(e.target.value);
+    DbnceCities(e);
+    const dt = Array.from(document.getElementById(e.target.list.id).childNodes)
+    if (dt.length === 0) return;
+    const op = dt.find(option => option.value.includes(e.target.value));
+    if (op) setID(op.textContent);
 }

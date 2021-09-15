@@ -22,6 +22,6 @@ const SSubmitBtn = styled.input`
     }
 `;
 
-export default function SubmitBtn({value}) {
-    return <SSubmitBtn type="submit" value={value} />
+export default function SubmitBtn({value, onClick}) {
+    return <SSubmitBtn type="submit" value={value} onClick={onClick} />
 }

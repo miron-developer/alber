@@ -44,7 +44,9 @@ CREATE TABLE IF not EXISTS TravelTypes (
 CREATE TABLE IF not EXISTS TopTypes (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE,
-    color TEXT -- you must write correct colour)
+    color TEXT UNIQUE, -- you must write correct colour)
+    duration INTEGER NOT NULL,
+    cost INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Users (

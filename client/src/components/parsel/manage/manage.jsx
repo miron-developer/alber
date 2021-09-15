@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import { CompareParams, DbnceCities } from "utils/effects";
+import { CompareParams, OnChangeTransitPoint } from "utils/effects";
 import { POSTRequestWithParams } from "utils/api";
 import { useInput } from "utils/form";
 import { DateFromMilliseconds } from "utils/content";
@@ -54,15 +54,6 @@ const SParsel = styled.form`
     }
 `;
 
-const onChangeTransitPoint = async (point, e, setID) => {
-    point.setCertainValue(e.target.value);
-    DbnceCities(e);
-    const dt = Array.from(document.getElementById(e.target.list.id).childNodes)
-    if (dt.length === 0) return;
-    const op = dt.find(option => option?.value?.includes(e.target.value));
-    if (op) setID(op.textContent);
-}
-
 const removeFile = async (id, src) => {
     const res = await POSTRequestWithParams("/r/image", { 'id': id, 'src': src });
     if (res?.err !== "ok") return Notify('fail', "Фото не удалилось, попробуйте позднее, или сообщите в службу поддрежки")
@@ -81,8 +72,8 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
     const toID = useInput(data?.toID);
     const [isHaveWhatsup, setHaveWhatsup] = useState(data?.isHaveWhatsup === 1);
 
-    from.base.onChange = e => onChangeTransitPoint(from, e, fromID.setCertainValue);
-    to.base.onChange = e => onChangeTransitPoint(to, e, toID.setCertainValue);
+    from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
+    to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
 
     const [photos, setPhotos] = useState(data?.photos);
 

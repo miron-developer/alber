@@ -16,8 +16,7 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "t.topTypeID = tt.id")
 	typeJ := orm.DoSQLJoin(orm.LOJOINQ, "TravelTypes AS tRt", "t.travelTypeID = tRt.id")
 
-	first, count := getLimits(r)
-	op := orm.DoSQLOption("", "creationDatetime DESC", "?,?", first, count)
+	op := orm.DoSQLOption("", "t.creationDatetime DESC AND tt.id DESC", "?,?")
 	if r.FormValue("type") == "user" {
 		userID := GetUserIDfromReq(w, r)
 		if userID == -1 {
@@ -26,6 +25,15 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		op.Where = "t.userID = ?"
 		op.Args = append([]interface{}{userID}, op.Args...)
 	}
+
+	// add filters
+	searchGetCountFilter(" t.fromID =", r.FormValue("from"), 1, &op)
+	searchGetCountFilter(" t.toID =", r.FormValue("to"), 2, &op)
+	searchGetCountFilter(" t.departureDatetime >=", r.FormValue("departure"), 0, &op)
+	searchGetCountFilter(" t.arrivalDatetime <=", r.FormValue("arrival"), int(time.Now().Unix())*1000, &op)
+
+	first, count := getLimits(r)
+	op.Args = append(op.Args, first, count)
 
 	mainQ := orm.SQLSelectParams{
 		Table:   "Travelers AS t",

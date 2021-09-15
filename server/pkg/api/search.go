@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"net/http"
+	"strconv"
 	"strings"
 	"zhibek/pkg/orm"
 )
@@ -16,6 +17,17 @@ func doSearch(r *http.Request, q orm.SQLSelectParams, sampleStruct interface{}, 
 func removeLastFromStr(src, delim string) string {
 	splitted := strings.Split(src, delim)
 	return strings.Join(splitted[:len(splitted)-1], delim)
+}
+
+func searchGetCountFilter(where, formVal string, defVal int, op *orm.SQLOption) {
+	if formVal != "" {
+		val, e := strconv.Atoi(formVal)
+		if e != nil {
+			val = defVal
+		}
+		op.Where += where + " ? AND"
+		op.Args = append(op.Args, val)
+	}
 }
 
 func searchGetTextFilter(q string, searchFields []string, op *orm.SQLOption) error {

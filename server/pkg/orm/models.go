@@ -35,9 +35,11 @@ type TravelType struct {
 
 // TopType - table
 type TopType struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
-	Color string `json:"color"`
+	ID       int    `json:"id"`
+	Name     string `json:"name"`
+	Color    string `json:"color"`
+	Duration string `json:"duration"`
+	Cost     string `json:"cost"`
 }
 
 // CountryCode - table

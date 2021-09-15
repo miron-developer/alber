@@ -66,6 +66,10 @@ const SContentWrapper = styled.div`
     border-radius: 10px;
     background: #ffffffc7;
     z-index: 20;
+
+    & > * {
+        overflow: auto;
+    }
 `;
 
 let add = ()=>{};

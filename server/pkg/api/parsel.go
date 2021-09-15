@@ -15,16 +15,24 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	toJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS ct", "p.toID = ct.id")
 	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "p.topTypeID = tt.id")
 
-	first, count := getLimits(r)
-	op := orm.DoSQLOption("", "creationDatetime DESC", "?,?", first, count)
+	op := orm.DoSQLOption("", "p.creationDatetime DESC AND tt.id DESC", "?,?")
 	if r.FormValue("type") == "user" {
 		userID := GetUserIDfromReq(w, r)
 		if userID == -1 {
 			return nil, errors.New("not logged")
 		}
 		op.Where = "p.userID = ?"
-		op.Args = append([]interface{}{userID}, op.Args...)
+		op.Args = append(op.Args, userID)
 	}
+
+	// add filters
+	searchGetCountFilter(" p.fromID =", r.FormValue("from"), 1, &op)
+	searchGetCountFilter(" p.toID =", r.FormValue("to"), 2, &op)
+	searchGetCountFilter(" p.creationDatetime >=", r.FormValue("startDT"), 0, &op)
+	searchGetCountFilter(" p.creationDatetime <=", r.FormValue("endDT"), int(time.Now().Unix())*1000, &op)
+
+	first, count := getLimits(r)
+	op.Args = append(op.Args, first, count)
 
 	mainQ := orm.SQLSelectParams{
 		Table:   "Parsels AS p",
