@@ -53,10 +53,7 @@ CREATE TABLE IF NOT EXISTS Users (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	nickname TEXT UNIQUE,
     phoneNumber TEXT UNIQUE,
-    password TEXT NOT NULL,
-	CHECK(
-        LENGTH(phoneNumber) == 11
-    )
+    password TEXT NOT NULL
 );
 
 CREATE TABLE IF not EXISTS Sessions (
@@ -77,9 +74,9 @@ CREATE TABLE IF NOT EXISTS Parsels (
     expireOnTopDatetime INTEGER,
     isHaveWhatsUp INTEGER NOT NULL,
     userID INTEGER NOT NULL,
-    topTypeID INTEGER,
     fromID INTEGER NOT NULL,
     toID INTEGER NOT NULL,
+    topTypeID INTEGER,
     FOREIGN KEY (userID) REFERENCES Users(id) ON DELETE CASCADE,
     FOREIGN KEY (topTypeID) REFERENCES TopTypes(id) ON DELETE CASCADE,
     FOREIGN KEY (fromID) REFERENCES Cities(id) ON DELETE CASCADE,
@@ -104,10 +101,10 @@ CREATE TABLE IF NOT EXISTS Travelers (
     expireOnTopDatetime INTEGER,
     isHaveWhatsUp INTEGER NOT NULL,
     userID INTEGER NOT NULL,
-    topTypeID INTEGER,
     travelTypeID INTEGER NOT NULL,
     fromID INTEGER NOT NULL,
     toID INTEGER NOT NULL,
+    topTypeID INTEGER,
     FOREIGN KEY (userID) REFERENCES Users(id) ON DELETE CASCADE,
     FOREIGN KEY (travelTypeID) REFERENCES TravelTypes(id) ON DELETE CASCADE,
     FOREIGN KEY (topTypeID) REFERENCES TopTypes(id) ON DELETE CASCADE,

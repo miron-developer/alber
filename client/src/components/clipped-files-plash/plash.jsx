@@ -75,7 +75,7 @@ export default function ClippedFiles({ files = [], removeFile}) {
     return (
         <SFilesPlash>
             {
-                files.map(
+                files?.map(
                     file => <RenderClippedFile key={RandomKey()} {...file} 
                         onClick={e => e.preventDefault() || PopupOpen(RenderClippedFile, { ...file, 'size': '100%' })} 
                         removeFile={removeFile}

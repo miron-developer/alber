@@ -32,9 +32,14 @@ const SToUp = styled.div`
             background: var(--blueColor);
             border-radius: 10px;
             cursor: pointer;
+            transition: var(--transtionApp);
 
             &:nth-child(2) {
                 background: red;
+            }
+
+            &:hover{
+                background: var(--onHoverBG);
             }
         }
     }

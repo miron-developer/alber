@@ -3,6 +3,7 @@ package api
 import (
 	"errors"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 	"zhibek/pkg/orm"
@@ -15,7 +16,7 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	toJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS ct", "p.toID = ct.id")
 	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "p.topTypeID = tt.id")
 
-	op := orm.DoSQLOption("", "p.creationDatetime DESC AND tt.id DESC", "?,?")
+	op := orm.DoSQLOption("", "p.creationDatetime DESC, tt.id DESC", "?,?")
 	if r.FormValue("type") == "user" {
 		userID := GetUserIDfromReq(w, r)
 		if userID == -1 {
@@ -23,13 +24,14 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		}
 		op.Where = "p.userID = ?"
 		op.Args = append(op.Args, userID)
+	} else {
+		// add filters
+		searchGetCountFilter(" p.fromID =", r.FormValue("from"), 1, &op)
+		searchGetCountFilter(" p.toID =", r.FormValue("to"), 2, &op)
+		searchGetCountFilter(" p.creationDatetime >=", r.FormValue("startDT"), 0, &op)
+		searchGetCountFilter(" p.creationDatetime <=", r.FormValue("endDT"), int(time.Now().Unix())*1000, &op)
+		op.Where = removeLastFromStr(op.Where, "AND")
 	}
-
-	// add filters
-	searchGetCountFilter(" p.fromID =", r.FormValue("from"), 1, &op)
-	searchGetCountFilter(" p.toID =", r.FormValue("to"), 2, &op)
-	searchGetCountFilter(" p.creationDatetime >=", r.FormValue("startDT"), 0, &op)
-	searchGetCountFilter(" p.creationDatetime <=", r.FormValue("endDT"), int(time.Now().Unix())*1000, &op)
 
 	first, count := getLimits(r)
 	op.Args = append(op.Args, first, count)
@@ -68,8 +70,8 @@ func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		return nil, errors.New("wrong price or weigth")
 	}
 
-	from, e := strconv.Atoi(r.PostFormValue("from"))
-	to, e2 := strconv.Atoi(r.PostFormValue("to"))
+	from, e := strconv.Atoi(r.PostFormValue("fromID"))
+	to, e2 := strconv.Atoi(r.PostFormValue("toID"))
 	if e != nil || e2 != nil || from*to == 0 {
 		return nil, errors.New("wrong from or to")
 	}
@@ -81,7 +83,7 @@ func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		CreationDatetime: int(time.Now().Unix() * 1000),
 	}
 
-	expire, e := strconv.Atoi(r.PostFormValue("expire"))
+	expire, e := strconv.Atoi(r.PostFormValue("expireDatetime"))
 	if e != nil || expire < p.CreationDatetime {
 		return nil, errors.New("wrong expire")
 	}
@@ -122,11 +124,11 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("wrong price or weigth")
 	}
 
-	from, e := strconv.Atoi(r.PostFormValue("from"))
-	to, e2 := strconv.Atoi(r.PostFormValue("to"))
-	if (r.PostFormValue("from") != "" && e != nil && from == 0) ||
-		(r.PostFormValue("to") != "" && e2 != nil && to == 0) ||
-		(r.PostFormValue("to") != "" && r.PostFormValue("from") != "" && from == to) {
+	from, e := strconv.Atoi(r.PostFormValue("fromID"))
+	to, e2 := strconv.Atoi(r.PostFormValue("toID"))
+	if (r.PostFormValue("fromID") != "" && e != nil && from == 0) ||
+		(r.PostFormValue("toID") != "" && e2 != nil && to == 0) ||
+		(r.PostFormValue("toID") != "" && r.PostFormValue("fromID") != "" && from == to) {
 		return errors.New("wrong from or to place")
 	}
 
@@ -160,6 +162,18 @@ func RemoveParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	parselID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
 		return nil, errors.New("wrong parsel")
+	}
+
+	// removing clipped photos
+	if photos, e := orm.GetFrom(orm.SQLSelectParams{
+		Table:   "Images",
+		What:    "src",
+		Options: orm.DoSQLOption("parselID = ?", "", "", parselID),
+	}); e == nil && len(photos) > 0 {
+		wd, _ := os.Getwd()
+		for _, src := range photos {
+			os.Remove(wd + src[0].(string))
+		}
 	}
 
 	return nil, orm.DeleteByParams(orm.SQLDeleteParams{

@@ -45,14 +45,17 @@ export const ShowAndHidePassword = (e, passElem, passwordToggle) => {
 /**
  * for lazy load and keeping focus with scrolling
  * @param e event
+ * @param childrenClass get parent by childs classnames
  * @param isStopLoad stop load or no
  * @param isScrollingToTop load on scroll to top or bottom
  * @param loadCallback what do after react edge
  */
-export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = false, loadCallback = async() => {}) => {
+export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = false, loadCallback = async() => {}, childrenClass) => {
     if (isStopLoad) return;
 
     const parent = e.target;
+
+    console.log('par', parent);
     const pRec = parent.getBoundingClientRect();
     if (
         (isScrollingToTop && parent.scrollTop === 0) ||
@@ -83,8 +86,15 @@ export const TopItem = async(id, type, cb) => PopupOpen(ToUp, { 'cb': cb, "type"
 
 export const PaintItem = async(id, type, cb) => PopupOpen(ToTopType, { 'cb': cb, "type": type, 'id': id })
 
+const removeEmptyFields = (obj = {}) => {
+    for (let [k, v] of Object.entries(obj))
+        if (v === "" || !v) delete obj[k];
+    return obj
+}
+
 export const CompareParams = (newParams, currentParams) => {
     const res = {};
+    newParams = removeEmptyFields(newParams);
     for (let [k, v] of Object.entries(newParams)) {
         if (newParams[k] !== currentParams[k]) {
             res[k] = v;
@@ -93,11 +103,14 @@ export const CompareParams = (newParams, currentParams) => {
     return res;
 }
 
-export const OnChangeTransitPoint = async(point, e, setID) => {
+export const GetValueFromListByIDAndInputValue = (listID, inputValue) => {
+    const dt = Array.from(document.getElementById(listID).childNodes)
+    if (dt.length === 0) return;
+    const op = dt.find(option => option.value.includes(inputValue));
+    if (op) return op.textContent;
+}
+
+export const OnChangeTransitPoint = async(point, e) => {
     point.setCertainValue(e.target.value);
     DbnceCities(e);
-    const dt = Array.from(document.getElementById(e.target.list.id).childNodes)
-    if (dt.length === 0) return;
-    const op = dt.find(option => option.value.includes(e.target.value));
-    if (op) setID(op.textContent);
 }

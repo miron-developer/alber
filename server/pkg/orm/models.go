@@ -61,9 +61,9 @@ type Parsel struct {
 	ExpireOnTopDatetime int    `json:"expireOnTopDatetime"`
 	IsHaveWhatsUp       string `json:"isHaveWhatsUp"`
 	UserID              int    `json:"userID"`
-	TopTypeID           int    `json:"topTypeID"`
 	FromID              int    `json:"fromID"`
 	ToID                int    `json:"toID"`
+	TopTypeID           int    `json:"topTypeID"`
 }
 
 // Traveler - table
@@ -77,10 +77,10 @@ type Traveler struct {
 	ExpireOnTopDatetime int    `json:"expireOnTopDatetime"`
 	IsHaveWhatsUp       string `json:"isHaveWhatsUp"`
 	UserID              int    `json:"userID"`
-	TopTypeID           int    `json:"topTypeID"`
 	TravelTypeID        int    `json:"travelTypeID"`
 	FromID              int    `json:"fromID"`
 	ToID                int    `json:"toID"`
+	TopTypeID           int    `json:"topTypeID"`
 }
 
 // Image - table

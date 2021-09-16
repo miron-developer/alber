@@ -1,9 +1,13 @@
 package app
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"math/rand"
 	"net/http"
+	"net/url"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -48,7 +52,7 @@ func (app *Application) CheckPerMin() {
 		if app.CurrentMin == 60*24 {
 			app.CurrentMin = 0
 		}
-		if app.CurrentMin == 30 {
+		if app.CurrentMin%30 == 0 {
 			if e := app.DoBackup(); e == nil {
 				app.ILog.Println("backup created!")
 			} else {
@@ -80,41 +84,41 @@ type MOBIZONE_API_RESP struct {
 
 // SendSMS make sending sms
 func (app *Application) SendSMS(phone, code, msg string) error {
-	// HOST := "https://api.mobizon.kz/service"
-	// SERVICE := "message"
-	// METHOD := "sendsmsmessage"
+	HOST := "https://api.mobizon.kz/service"
+	SERVICE := "message"
+	METHOD := "sendsmsmessage"
 
-	// params := url.Values{}
-	// params.Set("recipient", code+phone)
-	// params.Set("apiKey", app.Config.MOBIZON_API_KEY)
-	// params.Set("text", msg)
+	params := url.Values{}
+	params.Set("recipient", code+phone)
+	params.Set("apiKey", app.Config.MOBIZON_API_KEY)
+	params.Set("text", msg)
 
-	// // send post rq
-	// resp, e := http.PostForm(strings.Join([]string{HOST, SERVICE, METHOD}, "/"), params)
-	// if e != nil {
-	// 	return errors.New("internal server error: api not response")
-	// }
+	// send post rq
+	resp, e := http.PostForm(strings.Join([]string{HOST, SERVICE, METHOD}, "/"), params)
+	if e != nil {
+		return errors.New("internal server error: api not response")
+	}
 
-	// // get response data
-	// content, e := io.ReadAll(resp.Body)
-	// if e != nil {
-	// 	return errors.New("internal server error: content error")
-	// }
+	// get response data
+	content, e := io.ReadAll(resp.Body)
+	if e != nil {
+		return errors.New("internal server error: content error")
+	}
 
-	// // convert data to struct
-	// result := &MOBIZONE_API_RESP{}
-	// if e := json.Unmarshal(content, result); e != nil {
-	// 	return errors.New("internal server error: parse json")
-	// }
+	// convert data to struct
+	result := &MOBIZONE_API_RESP{}
+	if e := json.Unmarshal(content, result); e != nil {
+		return errors.New("internal server error: parse json")
+	}
 
-	// // handle api errors
-	// if result.Message != "" || result.Code == 1 {
-	// 	return errors.New("wrong phone")
-	// }
+	// handle api errors
+	if result.Message != "" || result.Code == 1 {
+		return errors.New("wrong phone")
+	}
 	return nil
 }
 
 func getPhoneNumber(phone string) string {
-	rg := regexp.MustCompile(`[\d]+`)
+	rg := regexp.MustCompile(`[\d+]+`)
 	return strings.Join(rg.FindAllString(phone, -1), "")
 }

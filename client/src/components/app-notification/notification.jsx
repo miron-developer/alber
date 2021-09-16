@@ -24,7 +24,8 @@ const SAppNotification = styled.div`
     padding: 1rem;
     color: white;
     border-radius: 5px;
-    background: var(--blueColor);
+    background: #596d8c;
+    box-shadow: var(--boxShadow);
 `;
 
 const SCloseNotification = styled.div`

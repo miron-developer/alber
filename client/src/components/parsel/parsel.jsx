@@ -41,6 +41,7 @@ const SParsel = styled.div`
                 transition: var(--transitionApp);
 
                 &:hover {
+                    color: var(--onHoverColor);
                     background: var(--blueColor);
                 }
             }
@@ -58,13 +59,13 @@ const SParsel = styled.div`
         & span {
             max-width: 20vw;
             display: block;
+            align-self: end;
             margin: 5px;
             border-radius: 5px;
             background: #000000a3;
 
             & img {
                 width: 100%;
-                height: 100%;
             }
         }
     }
@@ -126,7 +127,7 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                 <div className="general_info">
                     <span>{data.from}-{data.to}</span>
                     <span>{data.title}</span>
-                    <span>Вес: {data.weight} кг</span>
+                    <span>Вес: {data.weight/1000} кг</span>
                     <span className="price">Цена: <b> {data.price} </b> тг</span>
                 </div>
 
@@ -144,7 +145,7 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                         </span>
                     </div>
                     <div className="expire">
-                        <span>Надо доставить до: {DateFromMilliseconds(data.expireDatetime)}</span>
+                        <span>Надо доставить до: {DateFromMilliseconds(data.expireDatetime, false)}</span>
                     </div>
                 </div>
             </div>
@@ -172,7 +173,7 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                             >
                                 <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
                             </span>
-                            <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem())}>
+                            <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem(data.id))}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
                             <span className="manage-action" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>

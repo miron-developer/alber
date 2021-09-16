@@ -36,7 +36,7 @@ export default function SignIn() {
             <h3>Вход</h3>
 
             <Input index="0" id="login" name="phone" type="tel" base={login.base} labelText="Логин:"
-                minLength="11" maxLength="11" placeholder="87777777777"
+                minLength="11" maxLength="15" placeholder="87777777777"
             />
             <PasswordField index="1" id="password" name="password" labelText="Пароль:"
                 placeholder="User1234" pass={pass} passToggle={passToggle}

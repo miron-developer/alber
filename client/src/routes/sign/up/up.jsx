@@ -23,7 +23,7 @@ export default function SignUp() {
         setStep(2);
     }
     const onSuccessStep2 = data => {
-        Notify('success', `Вы успешно зарегистрированы. Ваш логин: "${phone.base.value}" и временный пароль:"${data?.password}"`, false)
+        Notify('success', `Вы успешно зарегистрированы. Ваш логин: "${data?.login}" и временный пароль:"${data?.password}"`, false)
         history.push("/parsel")
     }
     const onFail = err => Notify('fail', 'Ошибка регистрации:' + err);

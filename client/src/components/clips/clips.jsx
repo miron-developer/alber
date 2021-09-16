@@ -35,9 +35,9 @@ export default function ClipPlash({ preloadedFiles = [], setFiles = () => { } })
     const addToPlash = (...files) => setFiles([...preloadedFiles, ...files]);
     const removeFile = filename => setFiles(preloadedFiles.filter(file => file.filename !== filename))
 
-    const preloadedCB = (file, src) => {
+    const preloadedCB = (file, src, type) => {
         addToPlash({
-            'type': "image",
+            'type': type,
             'file': file,
             'src': src,
             'filename': file.name,

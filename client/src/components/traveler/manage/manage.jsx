@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { CompareParams, OnChangeTransitPoint } from "utils/effects";
+import { CompareParams, GetValueFromListByIDAndInputValue, OnChangeTransitPoint } from "utils/effects";
 import { GetDataByCrieteries, POSTRequestWithParams } from "utils/api";
 import { useInput } from "utils/form";
 import { DateFromMilliseconds } from "utils/content";
 import { Notify } from "components/app-notification/notification";
+import { ClosePopup } from "components/popup/popup";
 import Input from "components/form-input/input";
 import SubmitBtn from "components/submit-btn/submit";
 
@@ -40,7 +41,17 @@ const STravel = styled.form`
     }
 `;
 
-const onChangeTravelType = (e, setID) => setID(e.target.value)
+const onChangeTravelType = (e, setID, setTravel) => {
+    console.log(e);
+    setID(e.target.value);
+    const op = Array.from(e.target.options).find(op => op.selected)
+    if (op) setTravel(op.textContent);
+}
+
+const clearAll = (fields = [], setHaveWhatsUp) => {
+    fields.forEach(f => f.resetField());
+    setHaveWhatsUp(false);
+}
 
 export default function ManageTraveler({ type = "create", cb, failText, successText, data }) {
     const weight = useInput(data?.weight);
@@ -49,10 +60,11 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
     const contactNumber = useInput(data?.contactNumber);
     const from = useInput(data?.from);
     const to = useInput(data?.to);
-    const travelTypeID = useInput(data?.travelTypeID);
+    const travelType = useInput(data?.travelType);
+    const travelTypeID = useInput(data?.travelTypeID || 1);
     const fromID = useInput(data?.fromID);
     const toID = useInput(data?.toID);
-    const [isHaveWhatsup, setHaveWhatsup] = useState(data?.isHaveWhatsup === 1);
+    const [isHaveWhatsUp, setHaveWhatsUp] = useState(data?.isHaveWhatsup === 1);
     const [travelTypes, setTravelTypes] = useState();
 
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
@@ -67,38 +79,57 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
     const onSubmit = useCallback(async (e) => {
         e.preventDefault();
 
-        const comparedParams = CompareParams({
-            'travelType': travelTypeID.base.value,
-            'from': fromID.base.value,
-            'to': toID.base.value,
-            'weight': weight.base.value,
-            'departureDatetime': Date.parse(departure.base.value),
-            'arrivalDatetime': Date.parse(arrival.base.value),
-            'contactNumber': contactNumber.base.value,
-            'isHaveWhatsup': isHaveWhatsup ? 1 : 0,
-        }, {
-            'travelType': data?.travelTypeID,
-            'from': data?.fromID,
-            'to': data?.toID,
+        const oldParams = {
+            'travelType': data?.travelType,
+            'travelTypeID': data?.travelTypeID,
+            'fromID': data?.fromID,
+            'toID': data?.toID,
+            'from': data?.from,
+            'to': data?.to,
             'weight': data?.weight,
             'departureDatetime': data?.departureDatetime,
             'arrivalDatetime': data?.arrivalDatetime,
             'contactNumber': data?.contactNumber,
-            'isHaveWhatsup': data?.isHaveWhatsup,
-        });
-        if (Object.values(comparedParams).length === 0) return Notify('info', 'Нет изменений');
-        const res = await POSTRequestWithParams("/" + (type === "create" ? "s" : "e") + "/travel", comparedParams);
+            'isHaveWhatsUp': data?.isHaveWhatsUp,
+        }
+        const comparedParams = CompareParams({
+            'id': data?.id,
+            'travelType': travelType.base.value,
+            'travelTypeID': travelTypeID.base.value,
+            'fromID': GetValueFromListByIDAndInputValue('from-list', from.base.value),
+            'toID': GetValueFromListByIDAndInputValue('to-list', to.base.value),
+            'from': from.base.value,
+            'to': to.base.value,
+            'weight': weight.base.value,
+            'departureDatetime': Date.parse(departure.base.value),
+            'arrivalDatetime': Date.parse(arrival.base.value),
+            'contactNumber': contactNumber.base.value,
+            'isHaveWhatsUp': isHaveWhatsUp ? 1 : 0,
+        }, oldParams);
 
-        if (res?.err !== "ok") return Notify('fail', failText);
+        // bcs we have id on new, so <= 1
+        if (Object.values(comparedParams).length <= 1) return Notify('info', 'Нет изменений');
+
+        // send
+        const res = await POSTRequestWithParams("/" + (type === "create" ? "s" : "e") + "/travel", comparedParams);
+        if (res?.err !== "ok") return Notify('fail', failText + ":" + res?.err);
         Notify('success', successText);
-        cb(comparedParams)
-    }, [travelTypeID, fromID, toID, weight, departure, arrival, contactNumber, isHaveWhatsup, type, cb, failText, successText, data]);
+
+        // do callback if edit
+        if (cb) {
+            // finally params will be
+            cb(Object.assign(oldParams, comparedParams));
+            ClosePopup()
+        } else {
+            // or clear all if create
+            const fields = [weight, departure, arrival, travelTypeID, travelType, contactNumber, from, to, fromID, toID];
+            clearAll(fields, setHaveWhatsUp)
+        }
+    }, [travelTypeID, travelType, from, to, fromID, toID, weight, departure, arrival, contactNumber, isHaveWhatsUp, type, cb, failText, successText, data]);
 
     useEffect(() => {
         if (travelTypes === undefined) return getTravelTypes()
     }, [getTravelTypes, travelTypes])
-
-    console.log('trvtype', travelTypeID);
 
     return (
         <STravel onSubmit={onSubmit}>
@@ -111,24 +142,24 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
             </div>
 
             <div className="travelType_weigth">
-                <Input type="number" name="weight" base={weight.base} labelText="Вес (в кг)" />
+                <Input type="number" name="weight" base={weight.base} labelText="Заберу до (в г)" />
                 <Select name="travelType" text="Тип транспорта" options={{
                     data: travelTypes,
                     value: "id",
                     selected: travelTypeID.base.value,
                     makeText: ({ name }) => name
-                }} onChange={e=>onChangeTravelType(e, travelTypeID.setCertainValue)} />
+                }} onChange={e => onChangeTravelType(e, travelTypeID.setCertainValue, travelType.setCertainValue)} />
             </div>
 
             <div className="departure_arrival">
-                <Input type="date" name="departureDatetime" base={departure.base} labelText="Выезд" />
-                <Input type="date" name="arrivalDatetime" base={arrival.base} labelText="Прибытие" />
+                <Input type="datetime-local" name="departureDatetime" base={departure.base} labelText="Выезд" />
+                <Input type="datetime-local" name="arrivalDatetime" base={arrival.base} labelText="Прибытие" />
             </div>
 
             <div className="contactNumber">
                 <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
                 <span>
-                    <input onChange={() => setHaveWhatsup(!isHaveWhatsup)} type="checkbox" name="isHaveWhatsup" /> Есть WhatsUp?
+                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} type="checkbox" name="isHaveWhatsUp" /> Есть WhatsUp?
                 </span>
             </div>
 

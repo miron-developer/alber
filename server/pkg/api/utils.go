@@ -117,19 +117,17 @@ func SendErrorJSON(w http.ResponseWriter, data API_RESPONSE, err string) {
 
 // HApi general handler from api
 func HApi(w http.ResponseWriter, r *http.Request, f func(w http.ResponseWriter, r *http.Request) (interface{}, error)) {
-	if r.Method == "GET" {
-		data := API_RESPONSE{
-			Err:  "ok",
-			Data: "",
-			Code: 200,
-		}
-
-		datas, e := f(w, r)
-		if e != nil {
-			SendErrorJSON(w, data, e.Error())
-			return
-		}
-		data.Data = datas
-		DoJS(w, data)
+	data := API_RESPONSE{
+		Err:  "ok",
+		Data: "",
+		Code: 200,
 	}
+
+	datas, e := f(w, r)
+	if e != nil {
+		SendErrorJSON(w, data, e.Error())
+		return
+	}
+	data.Data = datas
+	DoJS(w, data)
 }

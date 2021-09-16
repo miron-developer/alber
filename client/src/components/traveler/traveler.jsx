@@ -44,6 +44,7 @@ const STraveler = styled.div`
                 transition: var(--transitionApp);
 
                 &:hover {
+                    color: var(--onHoverColor);
                     background: var(--blueColor);
                 }
             }
@@ -95,13 +96,13 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
                 <div className="general_info">
                     <div className="common">
                         <span>{data.from}-{data.to}</span>
-                        <span className="weight">Заберу до: <b> {data.weight} </b> кг</span>
+                        <span className="weight">Заберу до: <b> {data.weight/1000} </b> кг</span>
                         <span>Тип транспорта: {data.travelType}</span>
                     </div>
 
                     <div className="dates">
-                        <span> <b> Выезд: </b> {DateFromMilliseconds(data.departureDatetime)}</span>
-                        <span> <b> Прибытие: </b> {DateFromMilliseconds(data.arrivalDatetime)}</span>
+                        <span> <b> Выезд: </b> {DateFromMilliseconds(data.departureDatetime, false)}</span>
+                        <span> <b> Прибытие: </b> {DateFromMilliseconds(data.arrivalDatetime, false)}</span>
                     </div>
                 </div>
 
@@ -144,7 +145,7 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
                             >
                                 <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
                             </span>
-                            <span className="manage-action" onClick={() => RemoveItem(data.id, "traveler", () => removeItem())}>
+                            <span className="manage-action" onClick={() => RemoveItem(data.id, "traveler", () => removeItem(data.id))}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
                             <span className="manage-action" onClick={() => PaintItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>

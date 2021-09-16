@@ -1,10 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
-import { OnChangeTransitPoint } from "utils/effects";
-import { GetDataByCrieteries } from "utils/api";
+import { GetValueFromListByIDAndInputValue, OnChangeTransitPoint, ScrollHandler } from "utils/effects";
 import { useInput } from "utils/form";
 import { RandomKey } from "utils/content";
-import { Notify } from "components/app-notification/notification";
+import { useFromTo } from "utils/hooks";
 import Input from "components/form-input/input";
 import Parsel from "components/parsel/parsel";
 
@@ -45,6 +44,7 @@ const SParsels = styled.section`
     }
 `;
 
+
 export default function ParselsPage() {
     const from = useInput('');
     const to = useInput('');
@@ -56,18 +56,14 @@ export default function ParselsPage() {
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
 
-    const [parsels, setParsels] = useState();
+    const { datalist, isStopLoad, getPart } = useFromTo()
 
-    const getParsels = useCallback(async () => {
-        const res = await GetDataByCrieteries('parsels', {
-            'from': fromID.base.value,
-            'to': toID.base.value,
-            'startDT': startDT.base.value,
-            'endDT': endDT.base.value
-        });
-        if (res.err && res.err !== "ok") return Notify('fail', "Посылок не найдено");
-        setParsels(res)
-    }, [fromID, toID, startDT, endDT])
+    const loadParsels = useCallback(() => getPart("parsels", {
+        'from': GetValueFromListByIDAndInputValue("from-list", from.base.value),
+        'to':  GetValueFromListByIDAndInputValue("to-list", to.base.value),
+        'startDT': Date.parse(startDT.base.value),
+        'endDT': Date.parse(endDT.base.value)
+    }, 'Не удалось загрузить посылки'), [from, to, startDT, endDT, getPart])
 
     return (
         <SParsels>
@@ -78,18 +74,18 @@ export default function ParselsPage() {
                 <Input id="to" type="text" name="to" list="to-list" base={to.base} labelText="Куда" />
                 <datalist id="to-list"></datalist>
 
-                <Input type="date" name="startDT" base={startDT.base} labelText="С:" />
-                <Input type="date" name="endDT" base={endDT.base} labelText="До:" />
+                <Input type="date" name="startDT" base={startDT.base} required={false} labelText="С:" />
+                <Input type="date" name="endDT" base={endDT.base} required={false} labelText="До:" />
 
-                <span className="search_btn" onClick={getParsels}>
+                <span className="search_btn" onClick={loadParsels}>
                     <i className="fa fa-search" aria-hidden="true"></i>
                 </span>
             </div>
 
             {
-                parsels &&
-                <div className="parsels">
-                    {parsels?.map(p => <Parsel key={RandomKey()} data={p} />)}
+                datalist &&
+                <div className="parsels" onScroll={e => ScrollHandler(e, isStopLoad, false, loadParsels)}>
+                    {datalist?.map(p => <Parsel key={RandomKey()} data={p} />)}
                 </div>
             }
         </SParsels>

@@ -31,17 +31,6 @@ func (app *Application) SetRoutes() http.Handler {
 	apiMux.HandleFunc("/images", app.HClippedImages)
 	appMux.Handle("/api/", http.StripPrefix("/api", apiMux))
 
-	// edit
-	editMux := http.NewServeMux()
-	editMux.HandleFunc("/", app.HApiIndex)
-	editMux.HandleFunc("/user/confirm", app.HConfirmChangeProfile)
-	editMux.HandleFunc("/user", app.HChangeProfile)
-	editMux.HandleFunc("/parsel", app.HChangeParsel)
-	editMux.HandleFunc("/travel", app.HChangeTravel)
-	editMux.HandleFunc("/toptype", app.HChangeTop)
-	editMux.HandleFunc("/up", app.HItemUp)
-	appMux.Handle("/e/", http.StripPrefix("/e", editMux))
-
 	// save
 	saveMux := http.NewServeMux()
 	saveMux.HandleFunc("/", app.HApiIndex)
@@ -49,6 +38,17 @@ func (app *Application) SetRoutes() http.Handler {
 	saveMux.HandleFunc("/travel", app.HSaveTravel)
 	saveMux.HandleFunc("/image", app.HSaveImage)
 	appMux.Handle("/s/", http.StripPrefix("/s", saveMux))
+
+	// edit
+	editMux := http.NewServeMux()
+	editMux.HandleFunc("/", app.HApiIndex)
+	editMux.HandleFunc("/user/confirm", app.HPreChangeProfileSMS)
+	editMux.HandleFunc("/user", app.HChangeProfile)
+	editMux.HandleFunc("/parsel", app.HChangeParsel)
+	editMux.HandleFunc("/travel", app.HChangeTravel)
+	editMux.HandleFunc("/toptype", app.HChangeTop)
+	editMux.HandleFunc("/up", app.HItemUp)
+	appMux.Handle("/e/", http.StripPrefix("/e", editMux))
 
 	// remove
 	removeMux := http.NewServeMux()

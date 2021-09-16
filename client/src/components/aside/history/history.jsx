@@ -74,10 +74,11 @@ export default function History() {
             </div>
 
             {
-                datalist.length > 0 &&
-                <div className="history" onScroll={e => ScrollHandler(e, isStopLoad, false, () => loadHistory(getType, getTypeOnRus, getPart))}>
+                datalist.length > 0
+                ? <div className="history" onScroll={e => ScrollHandler(e, isStopLoad, false, () => loadHistory(getType, getTypeOnRus, getPart))}>
                     {datalist.map(d => <Item key={RandomKey()} data={d} isMy={true} changeItem={changeItem} removeItem={removeItem} />)}
                 </div>
+                : <div className="history">Отсутствует</div>
             }
         </SHistory>
 

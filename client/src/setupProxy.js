@@ -11,6 +11,9 @@ module.exports = function(app) {
         createProxyMiddleware("/e/", { target: "http://localhost:4330/" })
     );
     app.use(
+        createProxyMiddleware("/r/", { target: "http://localhost:4330/" })
+    );
+    app.use(
         createProxyMiddleware("/s/", { target: "http://localhost:4330/" })
     );
     app.use(

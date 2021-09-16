@@ -7,10 +7,13 @@ export const IS_SIGN = () => GET_CUR_PATHNAME().split('/').includes("sign");
 export const IsTwoDigit = data => parseInt(data) < 10 ? "0".concat(data) : data;
 
 // generate date(15/12/2020 09:09) from milliseconds
-export const DateFromMilliseconds = milliseconds => {
+export const DateFromMilliseconds = (milliseconds, isForInput = true) => {
     const datetime = new Date(parseInt(milliseconds));
     if (isNaN(datetime)) return;
-    return [datetime.getFullYear(), IsTwoDigit(datetime.getMonth() + 1), IsTwoDigit(datetime.getDate())].join('-');
+    const str = [datetime.getFullYear(), IsTwoDigit(datetime.getMonth() + 1), IsTwoDigit(datetime.getDate())].join('-') +
+        (isForInput ? "T" : " ") +
+        [IsTwoDigit(datetime.getHours()), IsTwoDigit(datetime.getMinutes())].join(":")
+    return str;
 }
 
 // calculate time after thing created

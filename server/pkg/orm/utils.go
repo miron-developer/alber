@@ -177,7 +177,7 @@ func selectSQL(query string, args []interface{}) ([][]interface{}, error) {
 	res := [][]interface{}{}
 	rows, e := ConnToDB.QueryContext(context.Background(), query, args...)
 	if e != nil {
-		return nil, e
+		return nil, errors.New("n/d")
 	}
 	cols, _ := rows.Columns()
 

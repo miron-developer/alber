@@ -33,7 +33,7 @@ export default function ParselPage() {
                 Заполните данные, и ваша посылка попадет в ленту посылок, оттуда люди могут увидеть и забрать Вашу посылку
             </div>
 
-            <ManageParsel />
+            <ManageParsel failText="Не удалось создать посылку" successText="Создана посылка" />
         </SParsel>
     )
 }

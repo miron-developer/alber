@@ -72,19 +72,21 @@ func CreateImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		return nil, errors.New("not logged")
 	}
 
-	link, name := r.PostFormValue("link"), r.PostFormValue("name")
+	link, name := r.PostFormValue("link"), r.PostFormValue("filename")
 	i := &orm.Image{
 		Source: link, Name: name,
 		UserID: userID,
 	}
 
-	parselID, e := strconv.Atoi(r.PostFormValue("parselID"))
+	parselID, e := strconv.Atoi(r.PostFormValue("whomID"))
 	if e != nil {
 		return nil, errors.New("wrong parsel")
 	}
 	i.ParselID = parselID
 
 	if _, e = i.Create(); e != nil {
+		wd, _ := os.Getwd()
+		os.Remove(wd + i.Source)
 		return nil, errors.New("not create clipped image")
 	}
 	return nil, nil
@@ -184,19 +186,16 @@ func RemoveImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	if userID == -1 {
 		return nil, errors.New("not logged")
 	}
-	parselID, e := strconv.Atoi(r.PostFormValue("parselID"))
-	if e != nil {
-		return nil, errors.New("wrong parsel id")
-	}
 	imgID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
 		return nil, errors.New("wrong image id")
 	}
 
-	os.Remove(r.PostFormValue("src"))
+	wd, _ := os.Getwd()
+	os.Remove(wd + r.PostFormValue("src"))
 
 	return nil, orm.DeleteByParams(orm.SQLDeleteParams{
 		Table:   "Images",
-		Options: orm.DoSQLOption("id=? AND userID=? AND parselID=?", "", "", imgID, userID, parselID),
+		Options: orm.DoSQLOption("id=? AND userID=?", "", "", imgID, userID),
 	})
 }

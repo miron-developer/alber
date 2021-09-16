@@ -14,13 +14,16 @@ import (
 //	exist = true - user exist in db
 func checkPhoneAndNick(isExist bool, phone, nickname string) error {
 	results, e := orm.GetOneFrom(orm.SQLSelectParams{
-		What:    "phoneNumber, nickname",
 		Table:   "Users",
+		What:    "phoneNumber, nickname",
 		Options: orm.DoSQLOption("phoneNumber=? OR nickname=?", "", "", phone, nickname),
 	})
 
-	if isExist && e != nil {
+	if e != nil && isExist {
 		return errors.New("wrong login")
+	}
+	if e != nil && !isExist {
+		return nil
 	}
 	if !isExist {
 		if results[0].(string) == phone {
@@ -57,7 +60,7 @@ func checkPassword(isExist bool, pass, login string) error {
 			return errors.New("wrong login")
 		}
 
-		if dbPass[0].(string) != pass { // e := bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass)); e!=nil
+		if e := bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass)); e != nil {
 			return errors.New("wrong password")
 		}
 		return nil
@@ -76,8 +79,8 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 		return nil, errors.New("danger nickname")
 	}
 
-	validPhone, ok := app.UsersCode[code]
 	// checking code from sms
+	validPhone, ok := app.UsersCode[code]
 	if !ok {
 		return nil, errors.New("wrong code")
 	}
@@ -106,7 +109,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 	}
 	userID, e := user.Create()
 	if e != nil {
-		return nil, e
+		return nil, errors.New("internal server error: create user")
 	}
 
 	// start session
@@ -125,7 +128,7 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 	pass := r.PostFormValue("password")
 
 	// checkings
-	if e := checkPhoneAndNick(true, phone, ""); e != nil {
+	if e := checkPhoneAndNick(true, phone, phone); e != nil {
 		return -1, e
 	}
 	if e := checkPassword(true, pass, phone); e != nil {
@@ -179,10 +182,10 @@ func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) er
 	res, e := orm.GetOneFrom(orm.SQLSelectParams{
 		What:    "id",
 		Table:   "Users",
-		Options: orm.DoSQLOption("phone = ?", "", "", phone.Value),
+		Options: orm.DoSQLOption("phoneNumber = ?", "", "", phone.Value),
 	})
 	if e != nil {
-		return errors.New("password do not changed")
+		return errors.New("wrong phone")
 	}
 
 	password, e := bcrypt.GenerateFromPassword([]byte(newPass), 4)

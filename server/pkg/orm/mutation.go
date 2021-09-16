@@ -3,7 +3,38 @@ package orm
 import (
 	"errors"
 	"strconv"
+	"strings"
 )
+
+// if have choise whom belong creation data, then this func prepare needed options
+// 	for ex post creation. post may belong to user or group.
+// 	if to user: null,?,?,?,?,?,null
+// 	if to group: null,?,?,?,?,null,?
+// 	default = first choose
+func chooseForeingKeys(datas string, values []interface{}, options []int) (string, []interface{}) {
+	valuesCount := len(values)                 // all values
+	optionsCount := len(options)               // choose values
+	FKsFromIndex := valuesCount - optionsCount // last count will be throw out
+
+	values = values[:FKsFromIndex] // here throw out choose values
+	arrFromDatas := strings.Split(datas, ",")
+
+	// here fill throw outed values with null
+	for i := FKsFromIndex; i < len(arrFromDatas); i++ {
+		arrFromDatas[i] = "null"
+	}
+
+	// and choose and fill
+	for i, v := range options {
+		if v != 0 {
+			arrFromDatas[i+FKsFromIndex] = "?"
+			values = append(values, options[i])
+		}
+	}
+
+	datas = strings.Join(arrFromDatas, ",")
+	return datas, values
+}
 
 // ---------------------Create funcs---------------------------
 
@@ -48,11 +79,15 @@ func (p *Parsel) Create() (int, error) {
 		return -1, errors.New("n/d")
 	}
 
-	r, e := insertSQL(SQLInsertParams{
+	params := SQLInsertParams{
 		Table:  "Parsels",
 		Datas:  "null,?,?,?,?,?,?,?,?,?,?,?,?",
-		Values: MakeArrFromStruct(*p)[1:],
-	})
+		Values: MakeArrFromStruct(*p),
+	}
+	params.Datas, params.Values = chooseForeingKeys(params.Datas, params.Values, []int{p.TopTypeID})
+	params.Values = params.Values[1:]
+
+	r, e := insertSQL(params)
 	if e != nil {
 		return -1, e
 	}
@@ -67,11 +102,15 @@ func (t *Traveler) Create() (int, error) {
 		return -1, errors.New("n/d")
 	}
 
-	r, e := insertSQL(SQLInsertParams{
+	params := SQLInsertParams{
 		Table:  "Travelers",
 		Datas:  "null,?,?,?,?,?,?,?,?,?,?,?,?",
-		Values: MakeArrFromStruct(*t)[1:],
-	})
+		Values: MakeArrFromStruct(*t),
+	}
+	params.Datas, params.Values = chooseForeingKeys(params.Datas, params.Values, []int{t.TopTypeID})
+	params.Values = params.Values[1:]
+
+	r, e := insertSQL(params)
 	if e != nil {
 		return -1, e
 	}
@@ -132,7 +171,7 @@ func (s *Session) Change() error {
 
 	_, e := updateSQL(SQLUpdateParams{
 		Table:   "Sessions",
-		Couples: map[string]string{"expire": s.Expire},
+		Couples: map[string]string{"expireDatetime": s.Expire},
 		Options: DoSQLOption("id=?", "", "", s.ID),
 	})
 	return e

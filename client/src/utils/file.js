@@ -11,7 +11,7 @@ export const PreloadFile = (accept, cb = (file, src, type) => {}) => {
         e.stopImmediatePropagation();
         const file = input.files[0];
 
-        if (file) cb(file, URL.createObjectURL(file), file.type.split('/')[0]);
+        if (file) cb(file, URL.createObjectURL(file), file.type);
     });
 }
 
@@ -19,7 +19,7 @@ export const PreloadFile = (accept, cb = (file, src, type) => {}) => {
 export const UploadFile = async(type, file, whomFile, whomID) => {
     if (!type || !file || !whomFile) return { err: 'deficite data' };
     const params = {
-        'type': type.split('/')[0],
+        'type': type,
         'file': file,
         'whomFile': whomFile,
     }

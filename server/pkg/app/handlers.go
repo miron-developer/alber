@@ -155,11 +155,7 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 		phone := getPhoneNumber(r.PostFormValue("phone"))
 		code := StringWithCharset(8)
 		countryCode := r.PostFormValue("countryCode")
-		msg := `
-			Вы собираетесь зарегистрироваться на платформе Жибек.
-			Введите этот код на сайте для подтверждения: ` + code + `
-			Внимание, код действителен всего час.
-		`
+		msg := "Регистрирация на платформе Жибек. Код подтверждения: " + code
 
 		// send SMS
 		if e := app.SendSMS(phone, countryCode, msg); e != nil {
@@ -231,10 +227,7 @@ func (app *Application) HPreChangePasswordSMS(w http.ResponseWriter, r *http.Req
 		phone := getPhoneNumber(r.PostFormValue("phone"))
 		code := StringWithCharset(8)
 		countryCode := r.PostFormValue("countryCode")
-		msg := `
-			Вы собираетесь изменить пароль на платформе Жибек.
-			Введите этот код на сайте для подтверждения: ` + code + `
-		`
+		msg := "Изменение пароля на платформе Жибек. Код подтверждения: " + code
 
 		// send SMS
 		if e := app.SendSMS(phone, countryCode, msg); e != nil {
@@ -298,7 +291,7 @@ func (app *Application) HLogout(w http.ResponseWriter, r *http.Request) {
 // ------------------------------------------- Change ------------------------------------------
 
 // HConfirmChangeProfile save user settings
-func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Request) {
+func (app *Application) HPreChangeProfileSMS(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		data := api.API_RESPONSE{
 			Err:  "ok",
@@ -316,7 +309,7 @@ func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Req
 		countryCode := r.PostFormValue("countryCode")
 		code := StringWithCharset(8)
 		cd := &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
-		msg := `Код подтверждения измения на платформе Жибек: ` + code + `Код действует в течении часа.`
+		msg := "Изменение аккаунта на платформе Жибек. Код подтверждения: " + code
 
 		if phone == "" {
 			phoneDB, e := orm.GetOneFrom(orm.SQLSelectParams{
@@ -332,6 +325,8 @@ func (app *Application) HConfirmChangeProfile(w http.ResponseWriter, r *http.Req
 			countryCode = ""
 			cd.Value = ""
 		}
+
+		data.Data = map[string]string{"login": countryCode + phone}
 
 		app.m.Lock()
 		app.UsersCode[code] = cd

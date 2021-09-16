@@ -27,11 +27,14 @@ export default function EditProfile() {
 
     const fields = [phone, nickname, pass, code]; // fields for reset
 
-    const onSuccessStep1 = () => {
-        Notify('success', "Отправлено смс на номер " + phone.base.value + ". Возьмите оттуда код подтверждения")
+    const onSuccessStep1 = (data) => {
+        Notify('success', "Отправлено смс на номер " + data?.login + ". Возьмите оттуда код подтверждения")
         setStep(2);
     }
-    const onSuccessStep2 = () => Notify('success', `Вы успешно изменили ваши данные.`) || UserOnline(USER.id)
+    const onSuccessStep2 = () => {
+        UserOnline(USER.id)
+        Notify('success', `Вы успешно изменили ваши данные.`)
+    }
     const onFail = err => Notify('fail', 'Ошибка регистрации:' + err);
 
     return (
@@ -44,7 +47,7 @@ export default function EditProfile() {
                 <PhoneField index="0" base={phone.base} required={false} />
 
                 <Input index="1" id="nickname" type="text" name="nickname" base={nickname.base} labelText="Имя(никнейм):"
-                    minLength="3" maxLength="20" placeholder="Miron" required={false}
+                    minLength="3" maxLength="20" placeholder={USER.nickname} required={false}
                 />
                 <PasswordField index="2" id="password" name="password" labelText="Пароль:"
                     placeholder="User1234" pass={pass} passToggle={passToggle} required={false}
@@ -60,7 +63,7 @@ export default function EditProfile() {
 
                 <input hidden type="tel" name="phone" {...phone.base} />
                 <input hidden type="text" name="nickname" {...nickname.base} />
-                <input hidden type="password" {...pass.base} />
+                <input hidden type="password"  name="password" {...pass.base} />
         
                 <Input index="3" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
                     minLength="8" maxLength="8" placeholder="Mfa7sd45"
