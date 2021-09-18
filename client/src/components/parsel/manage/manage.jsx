@@ -165,7 +165,7 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             <div className="contactNumber">
                 <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
                 <span>
-                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} defaultChecked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsup" /> Есть WhatsUp?
+                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} checked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsup" /> Есть WhatsUp?
                 </span>
             </div>
 

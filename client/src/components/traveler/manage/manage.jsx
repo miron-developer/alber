@@ -42,7 +42,6 @@ const STravel = styled.form`
 `;
 
 const onChangeTravelType = (e, setID, setTravel) => {
-    console.log(e);
     setID(e.target.value);
     const op = Array.from(e.target.options).find(op => op.selected)
     if (op) setTravel(op.textContent);
@@ -122,7 +121,7 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
             ClosePopup()
         } else {
             // or clear all if create
-            const fields = [weight, departure, arrival, travelTypeID, travelType, contactNumber, from, to, fromID, toID];
+            const fields = [weight, departure, arrival, travelType, contactNumber, from, to, fromID, toID];
             clearAll(fields, setHaveWhatsUp)
         }
     }, [travelTypeID, travelType, from, to, fromID, toID, weight, departure, arrival, contactNumber, isHaveWhatsUp, type, cb, failText, successText, data]);
@@ -159,7 +158,7 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
             <div className="contactNumber">
                 <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
                 <span>
-                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} type="checkbox" name="isHaveWhatsUp" /> Есть WhatsUp?
+                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} checked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsUp" /> Есть WhatsUp?
                 </span>
             </div>
 

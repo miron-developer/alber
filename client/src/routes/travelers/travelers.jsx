@@ -54,7 +54,7 @@ export default function TravelersPage() {
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
 
-    const { datalist, isStopLoad, getPart } = useFromTo()
+    const { datalist, isStopLoad, getPart } = useFromTo([], 5)
 
     const loadTravelers = useCallback((clear = false) => {
         const params = ValidateParselTravelerSearch(
