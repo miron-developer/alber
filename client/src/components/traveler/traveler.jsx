@@ -81,6 +81,16 @@ const STraveler = styled.div`
     }
 
     @media screen and (max-width: 600px) {
+        & .info {
+            flex-direction: column;
+
+            & .phones {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+        }
+
         & .manage {
             font-size: 1.5rem;
         }
@@ -91,12 +101,13 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
     const [isOpened, setOpened] = useState(false);
 
     return (
-        <STraveler color={data.color}>
+        <STraveler className="traveler" color={data.color}>
             <div className="info">
                 <div className="general_info">
                     <div className="common">
+                        <span>Имя: {data.nickname}</span>
                         <span>{data.from}-{data.to}</span>
-                        <span className="weight">Заберу до: <b> {data.weight/1000} </b> кг</span>
+                        <span className="weight">Заберу до: <b> {data.weight / 1000} </b> кг</span>
                         <span>Тип транспорта: {data.travelType}</span>
                     </div>
 

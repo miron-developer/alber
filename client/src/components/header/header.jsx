@@ -8,7 +8,6 @@ const SHeader = styled.header`
     left: 0;
     right: 0;
     bottom: 0;
-    height: 7vh;
     padding: 1rem;
     display: flex;
     align-items: center;

@@ -100,6 +100,16 @@ const SParsel = styled.div`
     }
 
     @media screen and (max-width: 600px) {
+        & .info {
+            flex-direction: column;
+
+            & .phones {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+        }
+
         & .manage {
             font-size: 1.5rem;
         }
@@ -122,9 +132,10 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
     }, [getPhotos, photos])
 
     return (
-        <SParsel color={data.color}>
+        <SParsel className="parsel" color={data.color}>
             <div className="info">
                 <div className="general_info">
+                    <span>Имя: {data.nickname}</span>
                     <span>{data.from}-{data.to}</span>
                     <span>{data.title}</span>
                     <span>Вес: {data.weight/1000} кг</span>

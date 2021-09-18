@@ -20,7 +20,7 @@ export const useFromTo = (initState = [], step = 10) => {
 
         const res = await GetDataByCrieteries(getWhat, {
             ...params,
-            'from': fromToState.start,
+            'from': isNeedClear ? 0 : fromToState.start,
             'step': step
         });
 
@@ -32,8 +32,11 @@ export const useFromTo = (initState = [], step = 10) => {
         }
 
         if (!fromToState.isLoaded) fromToState.isLoaded = true;
-        if (isNeedClear) fromToState.datalist = res;
-        else if (isAppToEnd) fromToState.datalist = [...fromToState.datalist, ...res];
+        if (isNeedClear) {
+            fromToState.start = 0;
+            fromToState.datalist = res;
+            fromToState.isStopLoad = false;
+        } else if (isAppToEnd) fromToState.datalist = [...fromToState.datalist, ...res];
         else fromToState.datalist = [...res, ...fromToState.datalist];
 
         if (res.length < step) fromToState.isStopLoad = true;
@@ -43,12 +46,12 @@ export const useFromTo = (initState = [], step = 10) => {
         return true;
     }, [fromToState, step])
 
-    const zeroState = () => setFromToState(Object.assign({}, fromToState, {
+    const zeroState = async() => setFromToState({
         'start': 0,
         'isStopLoad': false,
         'isLoaded': false,
         'datalist': initState,
-    }));
+    });
 
     return {
         'datalist': fromToState.datalist,

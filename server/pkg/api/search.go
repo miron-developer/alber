@@ -19,15 +19,26 @@ func removeLastFromStr(src, delim string) string {
 	return strings.Join(splitted[:len(splitted)-1], delim)
 }
 
-func searchGetCountFilter(where, formVal string, defVal int, op *orm.SQLOption) {
-	if formVal != "" {
-		val, e := strconv.Atoi(formVal)
-		if e != nil {
-			val = defVal
-		}
-		op.Where += where + " ? AND"
-		op.Args = append(op.Args, val)
+// searchGetCountFilter add filter where to options
+// 	var where - add where condition to options if var formVal is correct
+// 	var defWhere - add default where condition to options if var formVal empty or not correct
+// 	var formVal - value from request form
+// 	var defVal - value, add when formVal empty or wrong
+// 	var omitEmptyVal - if formVal is empty shoud continue add condition to options or not
+func searchGetCountFilter(where, defWhere, formVal string, defVal int, omitEmptyVal bool, op *orm.SQLOption) {
+	if formVal == "" && !omitEmptyVal {
+		return
 	}
+
+	val, e := strconv.Atoi(formVal)
+	if e != nil {
+		val = defVal
+		op.Where += defWhere
+	} else {
+		op.Where += where
+	}
+	op.Where += " AND "
+	op.Args = append(op.Args, val)
 }
 
 func searchGetTextFilter(q string, searchFields []string, op *orm.SQLOption) error {

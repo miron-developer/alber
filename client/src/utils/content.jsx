@@ -1,5 +1,7 @@
 import { useLocation } from "react-router";
 
+import { Notify } from "components/app-notification/notification";
+
 export const GET_CUR_PATHNAME = () => decodeURI(useLocation().pathname);
 export const IS_SIGN = () => GET_CUR_PATHNAME().split('/').includes("sign");
 
@@ -57,3 +59,17 @@ export const CalculateRelativeDatetime = (datetime = Date.now().toString()) => {
 }
 
 export const RandomKey = () => Math.round(Math.random() * Math.random() * 100000000);
+
+export const ValidateParselTravelerSearch = (from, to, min, max) => {
+    // filter dates, check exist, > now, min < max
+    if (min < Date.now()-86400000000 || min > max || isNaN(min) || isNaN(max)) return Notify('fail', 'Ошибка даты')
+
+    // filter transit points, check exist, !=
+    if (from === to || !to || !from) return Notify('fail', "Ошибка пунктов отправки и назначения")
+    return {
+        'fromID': from,
+        'toID': to,
+        'startDT': min || '',
+        'endDT': max || '',
+    }
+}

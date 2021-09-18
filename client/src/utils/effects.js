@@ -53,9 +53,7 @@ export const ShowAndHidePassword = (e, passElem, passwordToggle) => {
 export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = false, loadCallback = async() => {}, childrenClass) => {
     if (isStopLoad) return;
 
-    const parent = e.target;
-
-    console.log('par', parent);
+    const parent = childrenClass ? document.getElementsByClassName(childrenClass)[0].parentNode : e.target;
     const pRec = parent.getBoundingClientRect();
     if (
         (isScrollingToTop && parent.scrollTop === 0) ||
@@ -104,8 +102,9 @@ export const CompareParams = (newParams, currentParams) => {
 }
 
 export const GetValueFromListByIDAndInputValue = (listID, inputValue) => {
-    const dt = Array.from(document.getElementById(listID).childNodes)
-    if (dt.length === 0) return;
+    const list = document.getElementById(listID);
+    if (!list) return;
+    const dt = Array.from(list.childNodes)
     const op = dt.find(option => option.value.includes(inputValue));
     if (op) return op.textContent;
 }

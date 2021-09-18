@@ -1,24 +1,22 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
-import { OnChangeTransitPoint } from "utils/effects";
-import { GetDataByCrieteries } from "utils/api";
+import { GetValueFromListByIDAndInputValue, OnChangeTransitPoint, ScrollHandler } from "utils/effects";
 import { useInput } from "utils/form";
-import { RandomKey } from "utils/content";
-import { Notify } from "components/app-notification/notification";
+import { RandomKey, ValidateParselTravelerSearch } from "utils/content";
+import { useFromTo } from "utils/hooks";
 import Input from "components/form-input/input";
 import Traveler from "components/traveler/traveler";
 
 import styled from "styled-components";
 
-const SParsels = styled.section`
-    padding: 1rem;
-    background: var(--blueColor);
-
+const STravelers = styled.section`
     & .filters {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-evenly;
+        padding: 1rem;
+        background: var(--blueColor);
 
         & * {
             color: var(--onHoverColor);
@@ -56,21 +54,22 @@ export default function TravelersPage() {
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
 
-    const [travelers, setTravelers] = useState();
+    const { datalist, isStopLoad, getPart } = useFromTo()
 
-    const getTravelers = useCallback(async () => {
-        const res = await GetDataByCrieteries('travelers', {
-            'from': fromID.base.value,
-            'to': toID.base.value,
-            'departure': departure.base.value,
-            'arrival': arrival.base.value
-        });
-        if (res.err && res.err !== "ok") return Notify('fail', "Попутчиков не найдено");
-        setTravelers(res)
-    }, [fromID, toID, departure, arrival])
+    const loadTravelers = useCallback((clear = false) => {
+        const params = ValidateParselTravelerSearch(
+            GetValueFromListByIDAndInputValue("from-list", from.base.value), GetValueFromListByIDAndInputValue("to-list", to.base.value),
+            Date.parse(departure.base.value), Date.parse(arrival.base.value)
+        )
+        if (!params) return;
+        getPart("travelers", params, 'Не удалось загрузить попутчиков', true, clear === true ? true : false)
+    }, [from, to, departure, arrival, getPart])
+
+    // set scroll handler
+    document.body.onscroll = e => ScrollHandler(e, isStopLoad, false, loadTravelers, "traveler");
 
     return (
-        <SParsels>
+        <STravelers>
             <div className="filters">
                 <Input id="from" type="text" name="from" list="from-list" base={from.base} labelText="Откуда" />
                 <datalist id="from-list"></datalist>
@@ -81,17 +80,17 @@ export default function TravelersPage() {
                 <Input type="date" name="departure" base={departure.base} labelText="Выезд:" />
                 <Input type="date" name="arrival" base={arrival.base} labelText="Прибытие:" />
 
-                <span className="search_btn" onClick={getTravelers}>
+                <span className="search_btn" onClick={() => loadTravelers(true)}>
                     <i className="fa fa-search" aria-hidden="true"></i>
                 </span>
             </div>
 
             {
-                travelers &&
+                datalist &&
                 <div className="travelers">
-                    {travelers?.map(p => <Traveler key={RandomKey()} data={p} />)}
+                    {datalist?.map(p => <Traveler key={RandomKey()} data={p} />)}
                 </div>
             }
-        </SParsels>
+        </STravelers>
     )
 }

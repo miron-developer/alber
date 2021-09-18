@@ -16,20 +16,28 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	toJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS ct", "p.toID = ct.id")
 	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "p.topTypeID = tt.id")
 
+	// get not my
+	userID := GetUserIDfromReq(w, r)
 	op := orm.DoSQLOption("", "p.creationDatetime DESC, tt.id DESC", "?,?")
+	if userID != -1 {
+		op.Where = "p.userID != ? AND"
+		op.Args = append(op.Args, userID)
+	}
+
 	if r.FormValue("type") == "user" {
-		userID := GetUserIDfromReq(w, r)
 		if userID == -1 {
 			return nil, errors.New("not logged")
 		}
 		op.Where = "p.userID = ?"
-		op.Args = append(op.Args, userID)
 	} else {
 		// add filters
-		searchGetCountFilter(" p.fromID =", r.FormValue("from"), 1, &op)
-		searchGetCountFilter(" p.toID =", r.FormValue("to"), 2, &op)
-		searchGetCountFilter(" p.creationDatetime >=", r.FormValue("startDT"), 0, &op)
-		searchGetCountFilter(" p.creationDatetime <=", r.FormValue("endDT"), int(time.Now().Unix())*1000, &op)
+		// from Almaty to Astana by default
+		searchGetCountFilter(" p.fromID = ?", "p.fromID > ?", r.FormValue("fromID"), 0, true, &op)
+		searchGetCountFilter(" p.toID = ?", "p.toID > ?", r.FormValue("toID"), 0, true, &op)
+
+		// expires date between now and in 1 month
+		searchGetCountFilter(" p.expireDatetime >= ?", " p.expireDatetime >= ?", r.FormValue("startDT"), int(time.Now().Unix())*1000, true, &op)
+		searchGetCountFilter(" p.expireDatetime <= ?", " p.expireDatetime <= ?", r.FormValue("endDT"), int(time.Now().Unix())*1000+86400000*30, true, &op)
 		op.Where = removeLastFromStr(op.Where, "AND")
 	}
 

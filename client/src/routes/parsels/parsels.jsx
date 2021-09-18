@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import { GetValueFromListByIDAndInputValue, OnChangeTransitPoint, ScrollHandler } from "utils/effects";
 import { useInput } from "utils/form";
-import { RandomKey } from "utils/content";
+import { RandomKey, ValidateParselTravelerSearch } from "utils/content";
 import { useFromTo } from "utils/hooks";
 import Input from "components/form-input/input";
 import Parsel from "components/parsel/parsel";
@@ -10,14 +10,13 @@ import Parsel from "components/parsel/parsel";
 import styled from "styled-components";
 
 const SParsels = styled.section`
-    padding: 1rem;
-    background: var(--blueColor);
-
     & .filters {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-evenly;
+        padding: 1rem;
+        background: var(--blueColor);
 
         & * {
             color: var(--onHoverColor);
@@ -44,7 +43,6 @@ const SParsels = styled.section`
     }
 `;
 
-
 export default function ParselsPage() {
     const from = useInput('');
     const to = useInput('');
@@ -56,14 +54,19 @@ export default function ParselsPage() {
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
 
-    const { datalist, isStopLoad, getPart } = useFromTo()
+    const { datalist, isStopLoad, getPart } = useFromTo([], 5);
 
-    const loadParsels = useCallback(() => getPart("parsels", {
-        'from': GetValueFromListByIDAndInputValue("from-list", from.base.value),
-        'to':  GetValueFromListByIDAndInputValue("to-list", to.base.value),
-        'startDT': Date.parse(startDT.base.value),
-        'endDT': Date.parse(endDT.base.value)
-    }, 'Не удалось загрузить посылки'), [from, to, startDT, endDT, getPart])
+    const loadParsels = useCallback((clear = false) => {
+        const params = ValidateParselTravelerSearch(
+            GetValueFromListByIDAndInputValue("from-list", from.base.value), GetValueFromListByIDAndInputValue("to-list", to.base.value),
+            Date.parse(startDT.base.value), Date.parse(endDT.base.value)
+        )
+        if (!params) return;
+        getPart("parsels", params, 'Не удалось загрузить посылки', true, clear === true ? true : false)
+    }, [from, to, startDT, endDT, getPart])
+
+    // set scroll handler
+    document.body.onscroll = e => ScrollHandler(e, isStopLoad, false, loadParsels, "parsel");
 
     return (
         <SParsels>
@@ -77,14 +80,14 @@ export default function ParselsPage() {
                 <Input type="date" name="startDT" base={startDT.base} required={false} labelText="С:" />
                 <Input type="date" name="endDT" base={endDT.base} required={false} labelText="До:" />
 
-                <span className="search_btn" onClick={loadParsels}>
+                <span className="search_btn" onClick={() => loadParsels(true)}>
                     <i className="fa fa-search" aria-hidden="true"></i>
                 </span>
             </div>
 
             {
                 datalist &&
-                <div className="parsels" onScroll={e => ScrollHandler(e, isStopLoad, false, loadParsels)}>
+                <div className="parsels">
                     {datalist?.map(p => <Parsel key={RandomKey()} data={p} />)}
                 </div>
             }

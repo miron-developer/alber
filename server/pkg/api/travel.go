@@ -16,20 +16,28 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "t.topTypeID = tt.id")
 	typeJ := orm.DoSQLJoin(orm.LOJOINQ, "TravelTypes AS tRt", "t.travelTypeID = tRt.id")
 
+	// get not my
+	userID := GetUserIDfromReq(w, r)
 	op := orm.DoSQLOption("", "t.creationDatetime DESC, tt.id DESC", "?,?")
+	if userID != -1 {
+		op.Where = "t.userID != ? AND"
+		op.Args = append(op.Args, userID)
+	}
+
 	if r.FormValue("type") == "user" {
-		userID := GetUserIDfromReq(w, r)
 		if userID == -1 {
 			return nil, errors.New("not logged")
 		}
 		op.Where = "t.userID = ?"
-		op.Args = append([]interface{}{userID}, op.Args...)
 	} else {
 		// add filters
-		searchGetCountFilter(" t.fromID =", r.FormValue("from"), 1, &op)
-		searchGetCountFilter(" t.toID =", r.FormValue("to"), 2, &op)
-		searchGetCountFilter(" t.departureDatetime >=", r.FormValue("departure"), 0, &op)
-		searchGetCountFilter(" t.arrivalDatetime <=", r.FormValue("arrival"), int(time.Now().Unix())*1000, &op)
+		// from Almaty to Astana by default
+		searchGetCountFilter(" t.fromID = ?", "t.fromID > ?", r.FormValue("fromID"), 0, true, &op)
+		searchGetCountFilter(" t.toID = ?", "t.toID > ?", r.FormValue("toID"), 0, true, &op)
+
+		// dates between now and in 1 month
+		searchGetCountFilter(" t.departureDatetime >= ?", " t.departureDatetime >= ?", r.FormValue("startDT"), int(time.Now().Unix())*1000, true, &op)
+		searchGetCountFilter(" t.arrivalDatetime <= ?", "  t.arrivalDatetime <= ?", r.FormValue("endDT"), int(time.Now().Unix())*1000+86400000*30, true, &op)
 		op.Where = removeLastFromStr(op.Where, "AND")
 	}
 
