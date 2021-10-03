@@ -36,6 +36,7 @@ const SPopupBG = styled.div`
     width: 100vw;
     height: 100vh;
     background: #000000ab;
+    backdrop-filter: blur(1px);
 `;
 
 const SPopupClose = styled.div`

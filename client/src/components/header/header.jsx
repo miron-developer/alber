@@ -26,7 +26,6 @@ const SNavLink = styled(NavLink)`
     border: 1px solid #231E2F;
     border-radius: 5px;
     color: var(--onHoverColor);
-    text-shadow: 1px 1px 5px black;
     text-decoration: none;
     text-transform: uppercase;
     transition: var(--transitionApp);
@@ -34,6 +33,7 @@ const SNavLink = styled(NavLink)`
     &.active,
     &:hover {
         background: var(--onHoverColor);
+        color: #192955;
     }
 `
 

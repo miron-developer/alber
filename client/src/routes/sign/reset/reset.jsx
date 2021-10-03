@@ -25,7 +25,7 @@ export default function Restore() {
     }
     const onSuccessStep2 = () => {
         Notify('success', "Пароль успешно изменен.");
-        history.push("/parsel")
+        history.push("/sign")
     }
     const onFail = err => Notify('fail', 'Ошибка восстановления:' + err);
 
@@ -33,7 +33,7 @@ export default function Restore() {
         ? <form action="/sign/sms/ch" onSubmit={async (e) => {
             afterStyles = await SubmitFormData(e, afterStyles, fields, undefined, onSuccessStep1, onFail, false);
         }}>
-            <h3>Восстановление пароля(шаг 1)</h3>
+            <h3>Восстановление пароля (шаг 1)</h3>
 
             <PhoneField index="0" base={phone.base} />
 
@@ -43,14 +43,14 @@ export default function Restore() {
         : <form action="/sign/re" onSubmit={async (e) => {
             afterStyles = await SubmitFormData(e, afterStyles, fields, undefined, onSuccessStep2, onFail);
         }}>
-            <h3>Восстановление пароля(шаг 2)</h3>
+            <h3>Восстановление пароля (шаг 2)</h3>
 
             <PasswordField index="1" id="password" name="password" labelText="Новый пароль:"
                 placeholder="User1234" pass={pass} passToggle={passToggle}
             />
 
-            <Input index="2" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
-                minLength="8" maxLength="8" placeholder="Mfa7sd45"
+            <Input index="2" id="code" type="text" name="code" base={code.base} labelText="6-значный код:"
+                minLength="6" maxLength="6" placeholder="123456"
             />
             <SubmitBtn value="Отправить!" />
         </form>

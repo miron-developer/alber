@@ -1,26 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { CompareParams, GetValueFromListByIDAndInputValue, OnChangeTransitPoint } from "utils/effects";
-import { GetDataByCrieteries, POSTRequestWithParams } from "utils/api";
+import { POSTRequestWithParams } from "utils/api";
 import { useInput } from "utils/form";
-import { DateFromMilliseconds } from "utils/content";
 import { Notify } from "components/app-notification/notification";
 import { ClosePopup } from "components/popup/popup";
 import Input from "components/form-input/input";
 import SubmitBtn from "components/submit-btn/submit";
 
 import styled from "styled-components";
-import Select from "components/form-select/select";
 
 const STravel = styled.form`
     padding: 1rem;
     margin: 1rem;
     min-width: 80vw;
 
-    & .transit_points,
-    & .travelType_weigth,
-    & .departure_arrival,
-    & .contactNumber {
+    & > div {
+        margin: 1rem;
+    }
+
+    & .transit_points {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -30,78 +29,84 @@ const STravel = styled.form`
         }
     }
 
+    & .travel_type {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .travel_type-item {
+            width: 4rem;
+            height: 4rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            border: 1px solid;
+            border-radius: 50%;
+            transition: .5s;
+            cursor: pointer;
+            box-shadow: var(--boxShadow);
+
+            &.active,
+            &:hover{
+                background: #192955;
+            }
+        }
+    }
+
     @media screen and (max-width: 600px) {
         & .transit_points,
-        & .travelType_weigth,
-        & .departure_arrival,
-        & .contactNumber {
+        & .travelType_weigth {
             align-items: unset;
             flex-direction: column;
         }
     }
 `;
 
-const onChangeTravelType = (e, setID, setTravel) => {
-    setID(e.target.value);
-    const op = Array.from(e.target.options).find(op => op.selected)
-    if (op) setTravel(op.textContent);
-}
-
-const clearAll = (fields = [], setHaveWhatsUp) => {
+const clearAll = (fields = [], setHaveWhatsUp, setTravelType) => {
     fields.forEach(f => f.resetField());
     setHaveWhatsUp(false);
+    setTravelType(0);
 }
 
 export default function ManageTraveler({ type = "create", cb, failText, successText, data }) {
-    const weight = useInput(data?.weight);
-    const departure = useInput(DateFromMilliseconds(data?.departureDatetime));
-    const arrival = useInput(DateFromMilliseconds(data?.arrivalDatetime));
+    const description = useInput(data?.description);
     const contactNumber = useInput(data?.contactNumber);
     const from = useInput(data?.from);
     const to = useInput(data?.to);
-    const travelType = useInput(data?.travelType);
-    const travelTypeID = useInput(data?.travelTypeID || 1);
+    const travelTypeID = useInput(data?.travelTypeID || 0);
     const fromID = useInput(data?.fromID);
     const toID = useInput(data?.toID);
     const [isHaveWhatsUp, setHaveWhatsUp] = useState(data?.isHaveWhatsup === 1);
-    const [travelTypes, setTravelTypes] = useState();
+
+    const [travelType, setTravelType] = useState(data?.travelTypeID || 0);
 
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
-
-    const getTravelTypes = useCallback(async () => {
-        const res = await GetDataByCrieteries('travelTypes');
-        if (res.err && res?.err !== "ok") return setTravelTypes(null);
-        return setTravelTypes(res)
-    }, [])
 
     const onSubmit = useCallback(async (e) => {
         e.preventDefault();
 
         const oldParams = {
-            'travelType': data?.travelType,
             'travelTypeID': data?.travelTypeID,
             'fromID': data?.fromID,
             'toID': data?.toID,
             'from': data?.from,
             'to': data?.to,
-            'weight': data?.weight,
-            'departureDatetime': data?.departureDatetime,
-            'arrivalDatetime': data?.arrivalDatetime,
+            'description': data?.description,
             'contactNumber': data?.contactNumber,
             'isHaveWhatsUp': data?.isHaveWhatsUp,
         }
         const comparedParams = CompareParams({
             'id': data?.id,
-            'travelType': travelType.base.value,
             'travelTypeID': travelTypeID.base.value,
             'fromID': GetValueFromListByIDAndInputValue('from-list', from.base.value),
             'toID': GetValueFromListByIDAndInputValue('to-list', to.base.value),
             'from': from.base.value,
             'to': to.base.value,
-            'weight': weight.base.value,
-            'departureDatetime': Date.parse(departure.base.value),
-            'arrivalDatetime': Date.parse(arrival.base.value),
+            'description': description.base.value,
             'contactNumber': contactNumber.base.value,
             'isHaveWhatsUp': isHaveWhatsUp ? 1 : 0,
         }, oldParams);
@@ -121,14 +126,10 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
             ClosePopup()
         } else {
             // or clear all if create
-            const fields = [weight, departure, arrival, travelType, contactNumber, from, to, fromID, toID];
-            clearAll(fields, setHaveWhatsUp)
+            const fields = [description, contactNumber, travelTypeID, from, to, fromID, toID];
+            clearAll(fields, setHaveWhatsUp, setTravelType)
         }
-    }, [travelTypeID, travelType, from, to, fromID, toID, weight, departure, arrival, contactNumber, isHaveWhatsUp, type, cb, failText, successText, data]);
-
-    useEffect(() => {
-        if (travelTypes === undefined) return getTravelTypes()
-    }, [getTravelTypes, travelTypes])
+    }, [travelTypeID, from, to, fromID, toID, description, contactNumber, isHaveWhatsUp, type, cb, failText, successText, data]);
 
     return (
         <STravel onSubmit={onSubmit}>
@@ -140,28 +141,37 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
                 <datalist id="to-list"></datalist>
             </div>
 
-            <div className="travelType_weigth">
-                <Input type="number" name="weight" base={weight.base} labelText="Заберу до (в г)" />
-                <Select name="travelType" text="Тип транспорта" options={{
-                    data: travelTypes,
-                    value: "id",
-                    selected: travelTypeID.base.value,
-                    makeText: ({ name }) => name
-                }} onChange={e => onChangeTravelType(e, travelTypeID.setCertainValue, travelType.setCertainValue)} />
+            <div className="description">
+                <textarea
+                    className="form-control" {...description.base}
+                    id="description" name="description" rows="2" placeholder="Опишите вашу поездку, сколько вы забираете, когда выходите и приходите"
+                ></textarea>
             </div>
 
-            <div className="departure_arrival">
-                <Input type="datetime-local" name="departureDatetime" base={departure.base} labelText="Выезд" />
-                <Input type="datetime-local" name="arrivalDatetime" base={arrival.base} labelText="Прибытие" />
+            <div className="travel_type">
+                <div className={`travel_type-item ${travelType === 1 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(1) || setTravelType(1)}>
+                    <i className="fa fa-car" aria-hidden="true"></i>
+                </div>
+
+                <div className={`travel_type-item ${travelType === 2 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(2) || setTravelType(2)}>
+                    <i className="fa fa-train" aria-hidden="true"></i>
+                </div>
+
+                <div className={`travel_type-item ${travelType === 3 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(3) || setTravelType(3)}>
+                    <i className="fa fa-plane" aria-hidden="true"></i>
+                </div>
+
+                <div className={`travel_type-item ${travelType === 4 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(4) || setTravelType(4)}>
+                    <i className="fa fa-ship" aria-hidden="true"></i>
+                </div>
             </div>
 
-            <div className="contactNumber">
-                <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
-                <span>
-                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} checked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsUp" /> Есть WhatsUp?
-                </span>
-            </div>
+            <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
 
+            <div className="form-check">
+                <label htmlFor="wp" className="form-check-label"></label>
+                <input id="wp" className="form-check-input" onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} checked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsup" /> Есть WhatsUp?
+            </div>
             <SubmitBtn value={type === "create" ? "Опубликовать" : "Изменить"} />
         </STravel>
     )

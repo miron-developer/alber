@@ -5,4 +5,5 @@ export const USER = {
     nickname: 'nickname',
     status: '',
     guest: false,
+    isAdmin: true,
 };

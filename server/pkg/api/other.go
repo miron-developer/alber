@@ -6,7 +6,8 @@ import (
 	"os"
 	"strconv"
 	"time"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/orm"
 )
 
 func SearchCity(r *http.Request) (interface{}, error) {
@@ -26,7 +27,7 @@ func SearchCity(r *http.Request) (interface{}, error) {
 func Images(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	ID, e := strconv.Atoi(r.FormValue("id"))
 	if e != nil {
-		return nil, errors.New("wrong id")
+		return nil, errors.New("не корректный id")
 	}
 
 	mainQ := orm.SQLSelectParams{
@@ -37,7 +38,7 @@ func Images(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	if datas := orm.GeneralGet(mainQ, nil, orm.Image{}); datas != nil {
 		return datas, nil
 	}
-	return nil, errors.New("n/d")
+	return nil, errors.New("н/д")
 }
 
 func TravelTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
@@ -69,7 +70,7 @@ func CountryCodes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 func CreateImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return nil, errors.New("not logged")
+		return nil, errors.New("не зарегистрированы в сети")
 	}
 
 	link, name := r.PostFormValue("link"), r.PostFormValue("filename")
@@ -80,14 +81,14 @@ func CreateImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 
 	parselID, e := strconv.Atoi(r.PostFormValue("whomID"))
 	if e != nil {
-		return nil, errors.New("wrong parsel")
+		return nil, errors.New("не корректная посылка")
 	}
 	i.ParselID = parselID
 
 	if _, e = i.Create(); e != nil {
 		wd, _ := os.Getwd()
 		os.Remove(wd + i.Source)
-		return nil, errors.New("not create clipped image")
+		return nil, errors.New("не удалось прикрепить фото")
 	}
 	return nil, nil
 }
@@ -97,11 +98,11 @@ func ChangeTop(w http.ResponseWriter, r *http.Request) error {
 	// get general ids
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return errors.New("not logged")
+		return errors.New("не зарегистрированы в сети")
 	}
 	ID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
-		return errors.New("wrong id")
+		return errors.New("не корректный id")
 	}
 
 	table := "Parsels"
@@ -119,7 +120,7 @@ func ChangeTop(w http.ResponseWriter, r *http.Request) error {
 		Options: orm.DoSQLOption("id = ?", "", "", topID),
 	})
 	if e != nil {
-		return errors.New("internal server error: toptype")
+		return errors.New("ошибка сервера: toptype")
 	}
 
 	newExpire := int(time.Now().Unix()*1000) + duration[0].(int)
@@ -129,7 +130,7 @@ func ChangeTop(w http.ResponseWriter, r *http.Request) error {
 		Options: orm.DoSQLOption("userID = ? AND id = ?", "", "1", userID, ID),
 	})
 	if e != nil {
-		return errors.New("wrong id")
+		return errors.New("не корректный id")
 	}
 
 	if expire[0].(int) < newExpire {
@@ -154,11 +155,11 @@ func ItemUp(w http.ResponseWriter, r *http.Request) error {
 	// get general ids
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return errors.New("not logged")
+		return errors.New("не зарегистрированы в сети")
 	}
 	ID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
-		return errors.New("wrong id")
+		return errors.New("не корректный id")
 	}
 
 	table := "Parsels"
@@ -166,14 +167,26 @@ func ItemUp(w http.ResponseWriter, r *http.Request) error {
 		table = "Travelers"
 	}
 
-	if table == "parsel" {
+	now := int(time.Now().Unix() * 1000)
+
+	// check one day between
+	cdate, e := orm.GetOneFrom(orm.SQLSelectParams{
+		Table:   table,
+		What:    "creationDatetime",
+		Options: orm.DoSQLOption("id=?", "", "", ID),
+	})
+	if e != nil || orm.FromINT64ToINT(cdate[0]) > now-84600000 {
+		return errors.New("последнее поднятие было раньше чем день")
+	}
+
+	if table == "Parsels" {
 		p := &orm.Parsel{
-			UserID: userID, ID: ID, CreationDatetime: int(time.Now().Unix() * 1000),
+			UserID: userID, ID: ID, CreationDatetime: now,
 		}
 		return p.Change()
 	} else {
 		t := &orm.Traveler{
-			UserID: userID, ID: ID, CreationDatetime: int(time.Now().Unix() * 1000),
+			UserID: userID, ID: ID, CreationDatetime: now,
 		}
 		return t.Change()
 	}
@@ -184,11 +197,11 @@ func RemoveImage(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	// get general ids
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return nil, errors.New("not logged")
+		return nil, errors.New("не зарегистрированы в сети")
 	}
 	imgID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
-		return nil, errors.New("wrong image id")
+		return nil, errors.New("не корректный id  фото")
 	}
 
 	wd, _ := os.Getwd()

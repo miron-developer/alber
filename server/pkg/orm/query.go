@@ -7,13 +7,13 @@ import (
 // GetFrom get more than one
 func GetFrom(params SQLSelectParams) ([][]interface{}, error) {
 	if params.What == "" || params.Table == "" {
-		return nil, errors.New("n/d")
+		return nil, errors.New("н/д")
 	}
 
 	if result, e := selectSQL(prepareGetQueryAndArgs(params)); len(result) != 0 && e == nil {
 		return result, nil
 	}
-	return nil, errors.New("n/d")
+	return nil, errors.New("н/д")
 }
 
 // GetOneFrom get one value
@@ -21,7 +21,7 @@ func GetOneFrom(params SQLSelectParams) ([]interface{}, error) {
 	if result, e := GetFrom(params); e == nil {
 		return result[0], e
 	}
-	return nil, errors.New("n/d")
+	return nil, errors.New("н/д")
 }
 
 // GetWithSubqueries get nested querys
@@ -39,7 +39,7 @@ func GetWithSubqueries(mainQ SQLSelectParams, subQuerys []SQLSelectParams, joinA
 
 	result, e := GetFrom(mainQ)
 	if len(result) == 0 || e != nil {
-		return nil, errors.New("n/d")
+		return nil, errors.New("н/д")
 	}
 	return MapFromStructAndMatrix(result, sampleStruct, joinAs...), nil
 }

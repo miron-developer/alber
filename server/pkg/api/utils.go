@@ -8,7 +8,8 @@ import (
 	"regexp"
 	"strconv"
 	"time"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/orm"
 )
 
 type API_RESPONSE struct {
@@ -26,6 +27,19 @@ func xss(data string) error {
 	rg := regexp.MustCompile(`<+[\w\s/]+>+`)
 	if rg.MatchString(data) {
 		return errors.New("xss data")
+	}
+	return nil
+}
+
+// TestPhone is phone number
+func TestPhone(phone string) error {
+	if phone == "" {
+		return errors.New("пустой номер")
+	}
+
+	rg := regexp.MustCompile(`^[\d+]+$`)
+	if !rg.MatchString(phone) {
+		return errors.New("не корректный номер")
 	}
 	return nil
 }
@@ -64,7 +78,7 @@ func DoJS(w http.ResponseWriter, data interface{}) {
 func getAuthCookie(r *http.Request) (string, error) {
 	cookie, e := r.Cookie(cookieName)
 	if e != nil {
-		return "", errors.New("cookie not founded")
+		return "", errors.New("не зарегистрированы в сети")
 	}
 	return url.QueryUnescape(cookie.Value)
 }
@@ -105,7 +119,7 @@ func GetUserID(w http.ResponseWriter, r *http.Request, reqID string) (int, error
 	if userID := GetUserIDfromReq(w, r); userID != -1 {
 		return userID, nil
 	}
-	return -1, errors.New("not logged")
+	return -1, errors.New("не зарегистрированы в сети")
 }
 
 // SendErrorJSON send to front error

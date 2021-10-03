@@ -4,9 +4,10 @@ import ManageParsel from "components/parsel/manage/manage";
 import ManageTraveler from "components/traveler/manage/manage";
 import ToTopType from "components/to-toptype/toptype";
 import ToUp from "components/to-up/up";
+import ToDelete from "components/to-delete/delete";
 
+import { GetDataByCrieteries } from "./api";
 
-import { GetDataByCrieteries, POSTRequestWithParams } from "./api";
 // just debounce
 export function Debounce(fn, ms) {
     let timeOut;
@@ -53,11 +54,29 @@ export const ShowAndHidePassword = (e, passElem, passwordToggle) => {
 export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = false, loadCallback = async() => {}, childrenClass) => {
     if (isStopLoad) return;
 
-    const parent = childrenClass ? document.getElementsByClassName(childrenClass)[0].parentNode : e.target;
-    const pRec = parent.getBoundingClientRect();
+    let parent;
+    let treshhold;
+    let position;
+
+    if (childrenClass) {
+        // relatively on body
+        const children = document.getElementsByClassName(childrenClass);
+        if (!children || !children[0]) return;
+        parent = children[0].parentNode;
+        position = window.scrollY;
+        if (isScrollingToTop) treshhold = Math.round((document.body.offsetHeight - window.innerHeight) * .25);
+        else treshhold = Math.round((document.body.offsetHeight - window.innerHeight) * .75);
+    } else {
+        // or relatively on element
+        parent = e.target;
+        const pRec = parent.getBoundingClientRect();
+        position = parent.scrollTop;
+        if (isScrollingToTop) treshhold = Math.round((parent.scrollHeight - pRec.height) * .25);
+        else treshhold = Math.round((parent.scrollHeight - pRec.height) * .75);
+    }
+
     if (
-        (isScrollingToTop && parent.scrollTop === 0) ||
-        (!isScrollingToTop && parent.scrollTop >= Math.round((parent.scrollHeight - pRec.height) * .75))
+        (isScrollingToTop && position <= treshhold) || (!isScrollingToTop && position >= treshhold)
     ) {
         const priorEdgeChildNum = isScrollingToTop ? 0 : parent.childElementCount - 1;
 
@@ -69,16 +88,31 @@ export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = fa
             }, 100);
         }
     }
+
+
+    // let parent = childrenClass ? document.getElementsByClassName(childrenClass)[0].parentNode : e.target;
+    // const pRec = parent.getBoundingClientRect();
+
+    // if (
+    //     (isScrollingToTop && parent.scrollTop === 0) ||
+    //     (!isScrollingToTop && parent.scrollTop >= Math.round((parent.scrollHeight - pRec.height) * .75))
+    // ) {
+    //     const priorEdgeChildNum = isScrollingToTop ? 0 : parent.childElementCount - 1;
+
+    //     if (await loadCallback()) {
+    //         setTimeout(() => {
+    //             // smooth scroll
+    //             const el = parent.childNodes[priorEdgeChildNum];
+    //             if (el) el.scrollIntoView({ behavior: "smooth" });
+    //         }, 100);
+    //     }
+    // }
 }, 100);
 
 export const EditItem = async(type, data, cb) =>
     PopupOpen(type === "parsel" ? ManageParsel : ManageTraveler, { 'cb': cb, 'data': data, 'type': 'edit' })
 
-export const RemoveItem = async(id, type, cb) => {
-    const res = await POSTRequestWithParams("/r/" + (type === "parsel" ? "parsel" : 'travel'), { 'id': id })
-    if (res.err && res.err !== "ok") return Notify('fail', 'Не удалено');
-    cb()
-}
+export const RemoveItem = async(id, type, cb) => PopupOpen(ToDelete, { 'cb': cb, "type": type, 'id': id })
 
 export const TopItem = async(id, type, cb) => PopupOpen(ToUp, { 'cb': cb, "type": type, 'id': id })
 

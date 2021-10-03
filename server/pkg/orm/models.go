@@ -52,7 +52,7 @@ type CountryCode struct {
 // Parsel - table
 type Parsel struct {
 	ID                  int    `json:"id"`
-	Title               string `json:"title"`
+	Description         string `json:"description"`
 	Weight              int    `json:"weight"`
 	Price               int    `json:"price"`
 	ContactNumber       string `json:"contactNumber"`
@@ -69,11 +69,9 @@ type Parsel struct {
 // Traveler - table
 type Traveler struct {
 	ID                  int    `json:"id"`
+	Description         string `json:"description"`
 	ContactNumber       string `json:"contactNumber"`
-	Weight              int    `json:"weight"`
 	CreationDatetime    int    `json:"creationDatetime"`
-	DepartureDatetime   int    `json:"departureDatetime"`
-	ArrivalDatetime     int    `json:"arrivalDatetime"`
 	ExpireOnTopDatetime int    `json:"expireOnTopDatetime"`
 	IsHaveWhatsUp       string `json:"isHaveWhatsUp"`
 	UserID              int    `json:"userID"`

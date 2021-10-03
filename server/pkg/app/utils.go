@@ -12,11 +12,11 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	"zhibek/pkg/api"
+
+	"alber/pkg/api"
 )
 
-func StringWithCharset(length int) string {
-	charset := "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+func RandomStringFromCharsetAndLength(charset string, length int) string {
 	seededRand := rand.New(rand.NewSource(time.Now().UnixNano()))
 	b := make([]byte, length)
 	for i := range b {
@@ -32,7 +32,7 @@ func logingReq(r *http.Request) string {
 
 // DoBackup make backup every 30 min
 func (app *Application) DoBackup() error {
-	cmd := exec.Command("cp", `db/zhibek.db`, `db/zhibek_backup.db`)
+	cmd := exec.Command("cp", `db/alber.db`, `db/alber_backup.db`)
 	return cmd.Run()
 }
 
@@ -96,24 +96,24 @@ func (app *Application) SendSMS(phone, code, msg string) error {
 	// send post rq
 	resp, e := http.PostForm(strings.Join([]string{HOST, SERVICE, METHOD}, "/"), params)
 	if e != nil {
-		return errors.New("internal server error: api not response")
+		return errors.New("ошибка сервера: сервер отправки сообщений не отвечает")
 	}
 
 	// get response data
 	content, e := io.ReadAll(resp.Body)
 	if e != nil {
-		return errors.New("internal server error: content error")
+		return errors.New("ошибка сервера: ошибка содержимого")
 	}
 
 	// convert data to struct
 	result := &MOBIZONE_API_RESP{}
 	if e := json.Unmarshal(content, result); e != nil {
-		return errors.New("internal server error: parse json")
+		return errors.New("ошибка сервера: парсинг")
 	}
 
 	// handle api errors
 	if result.Message != "" || result.Code == 1 {
-		return errors.New("wrong phone")
+		return errors.New("не корректный телефон")
 	}
 	return nil
 }

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { GetValueFromListByIDAndInputValue, OnChangeTransitPoint, ScrollHandler } from "utils/effects";
 import { useInput } from "utils/form";
@@ -18,15 +18,14 @@ const STravelers = styled.section`
         padding: 1rem;
         background: var(--blueColor);
 
-        & * {
-            color: var(--onHoverColor);
+        & > div {
+            flex-basis: 20%;
         }
 
         & .search_btn {
             padding: .5rem 1rem;
-            background: var(--darkGreyColor);
+            margin: 0 1rem;
             border-radius: 10px;
-            cursor: pointer;
             box-shadow: var(--boxShadow);
             transition: var(--transitionApp);
 
@@ -39,6 +38,14 @@ const STravelers = styled.section`
     @media screen and (max-width: 600px) {
         & .filters {
             justify-content: start;
+
+            & > div {
+                flex-basis: 50%;
+            }
+
+            & .search_btn {
+                width: 100%;
+            }
         }
     }
 `;
@@ -48,25 +55,25 @@ export default function TravelersPage() {
     const to = useInput('');
     const fromID = useInput('');
     const toID = useInput('');
-    const departure = useInput('');
-    const arrival = useInput('');
 
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
 
-    const { datalist, isStopLoad, getPart } = useFromTo([], 5)
+    const { datalist, isStopLoad, getPart } = useFromTo()
 
     const loadTravelers = useCallback((clear = false) => {
         const params = ValidateParselTravelerSearch(
-            GetValueFromListByIDAndInputValue("from-list", from.base.value), GetValueFromListByIDAndInputValue("to-list", to.base.value),
-            Date.parse(departure.base.value), Date.parse(arrival.base.value)
+            GetValueFromListByIDAndInputValue("from-list", from.base.value), GetValueFromListByIDAndInputValue("to-list", to.base.value)
         )
         if (!params) return;
         getPart("travelers", params, 'Не удалось загрузить попутчиков', true, clear === true ? true : false)
-    }, [from, to, departure, arrival, getPart])
+    }, [from, to, getPart])
 
-    // set scroll handler
-    document.body.onscroll = e => ScrollHandler(e, isStopLoad, false, loadTravelers, "traveler");
+
+    useEffect(() => {
+        // set scroll handler
+        document.body.onscroll = e => ScrollHandler(e, isStopLoad, false, loadTravelers, "traveler");
+    }, [isStopLoad, loadTravelers])
 
     return (
         <STravelers>
@@ -77,10 +84,7 @@ export default function TravelersPage() {
                 <Input id="to" type="text" name="to" list="to-list" base={to.base} labelText="Куда" />
                 <datalist id="to-list"></datalist>
 
-                <Input type="date" name="departure" base={departure.base} labelText="Выезд:" />
-                <Input type="date" name="arrival" base={arrival.base} labelText="Прибытие:" />
-
-                <span className="search_btn" onClick={() => loadTravelers(true)}>
+                <span className="search_btn btn btn-primary" onClick={() => loadTravelers(true)}>
                     <i className="fa fa-search" aria-hidden="true"></i>
                 </span>
             </div>

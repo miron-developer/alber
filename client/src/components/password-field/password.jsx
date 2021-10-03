@@ -5,17 +5,16 @@ import styled from 'styled-components';
 
 const SPasswordWrapper = styled.div`
     display: flex;
-    align-items: baseline;
+    align-items: center;
     cursor: pointer;
 
     & input {
-        margin: 0 1rem;
         flex-grow: 1;
     }
 
     & i {
+        margin-left: 1rem;
         padding: 5px;
-        background: var(--offHoverBG);
         border-radius: 5px;
         box-shadow: 2px 2px 2px 0 #00000061;
     }
@@ -30,7 +29,7 @@ export default function PasswordField({ index, id, required, hidden = false, lab
 
             {
                 !hidden &&
-                <i className="fa fa-eye fa-eye-slash"
+                <i className="btn btn-primary fa fa-eye fa-eye-slash"
                     aria-hidden="true"
                     title="show/hide password"
                     onClick={e => {

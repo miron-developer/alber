@@ -37,6 +37,45 @@ const SAside = styled.aside`
         z-index: 15;
         cursor: pointer;
     }
+
+    & .menu {
+        & > span {
+            margin: .5rem;
+            padding: 1rem;
+            color: var(--onHoverColor);
+            border-radius: 10px;
+            transition: var(--transitionApp);
+            cursor: pointer;
+
+            &.active,
+            &:hover {
+                background: var(--blueColor);
+            }
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+
+        .links a {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            background: white;
+            border-radius: 10px;
+            transition: .5s;
+
+            &:hover,
+            &.active {
+                background: #193162;
+                color: white;
+            }
+        }
+    }
 `
 
 const SUser = styled.div`
@@ -53,7 +92,7 @@ const SUser = styled.div`
 
 const SLogo = styled.div`
     margin: auto;
-    width: 10vw;
+    width: 10rem;
     display: block;
     overflow: hidden;
     transition: var(--transitionApp);
@@ -103,6 +142,7 @@ const SEdit = styled(SNickname)`
 
 export default function Aside() {
     const [isOpened, setOpened] = useState(false);
+    const [tab, setTab] = useState(0);
     const history = useHistory();
 
     return (
@@ -116,7 +156,7 @@ export default function Aside() {
                 isOpened &&
                 <>
                     <SLogo as={NavLink} to="/" >
-                        <img src="/assets/app/logo192.png" alt="logo" />
+                        <img src="/assets/app/logo.png" alt="logo" />
                     </SLogo>
 
                     <SUser>
@@ -127,7 +167,7 @@ export default function Aside() {
                                         <i className="fa fa-user" aria-hidden="true"></i>
                                         {USER.nickname} ({USER.phoneNumber})
                                     </SNickname>
-                                    <SEdit onClick={()=>PopupOpen(EditProfile, {})}>
+                                    <SEdit onClick={() => PopupOpen(EditProfile, {})}>
                                         <i className="fa fa-pencil" aria-hidden="true"></i>
                                     </SEdit>
                                 </div>
@@ -147,9 +187,21 @@ export default function Aside() {
                         }
                     </SUser>
 
-                    {
-                        USER.status === "online" && <History />
-                    }
+                    <div className="menu">
+                        <span className={tab === 0 ? 'active' : ''} onClick={() => setTab(0)}>Меню</span>
+
+                        {USER.status === "online" && <span className={tab === 1 ? 'active' : ''} onClick={() => setTab(1)}>Ваша история</span>}
+
+                        {
+                            USER.status === "online" && tab === 1
+                                ? <History />
+                                : <div className="links">
+                                    <NavLink to="/faq">Вопросы и ответы</NavLink>
+                                    <NavLink to="/contacts">Контакты</NavLink>
+                                    { USER.isAdmin && <NavLink to="/admin">Админ</NavLink> }
+                                </div>
+                        }
+                    </div>
                 </>
             }
         </SAside>

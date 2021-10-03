@@ -31,6 +31,7 @@ func execMigrations() error {
 	if e = m.Up(); e != nil && e != migrate.ErrNoChange {
 		return e
 	}
+
 	return nil
 }
 
@@ -38,7 +39,7 @@ func execMigrations() error {
 func InitDB(iLog *log.Logger) error {
 	// creating db file or getting access to it
 	iLog.Println("accessing database file")
-	ConnToDB, _ = sql.Open("sqlite3", "file:db/zhibek.db?_auth&_auth_user=zhibek&_auth_pass=zhibek1234&_auth_crypt=sha1")
+	ConnToDB, _ = sql.Open("sqlite3", "file:db/alber.db?_auth&_auth_user=alber&_auth_pass=zhibek1234&_auth_crypt=sha1")
 	iLog.Println("access completed")
 
 	// make some sql settings

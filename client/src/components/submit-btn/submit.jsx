@@ -2,14 +2,9 @@ import styled from "styled-components"
 
 const SSubmitBtn = styled.input`
     width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     margin: 1rem auto;
     padding: 1rem;
-    font-size: 1rem;
-    color: var(--offHoverColor);
-    background: var(--offHoverBG);
     border-radius: 5px;
     border: none;
     box-shadow: 2px 2px 2px 0 #00000061;
@@ -17,11 +12,10 @@ const SSubmitBtn = styled.input`
     cursor: pointer;
 
     &:hover {
-        color: var(--onHoverColor);
-        background: var(--onHoverBG);
+        background: #002148;
     }
 `;
 
 export default function SubmitBtn({value, onClick}) {
-    return <SSubmitBtn type="submit" value={value} onClick={onClick} />
+    return <SSubmitBtn className="btn btn-primary" type="submit" value={value} onClick={onClick} />
 }

@@ -4,7 +4,8 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/orm"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -46,12 +47,12 @@ func User(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 func ChangeProfile(w http.ResponseWriter, r *http.Request) error {
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return errors.New("not logged")
+		return errors.New("не зарегистрированы в сети")
 	}
 
 	nickname, phone, pass := r.PostFormValue("nickname"), r.PostFormValue("phone"), r.PostFormValue("password")
 	if CheckAllXSS(nickname, phone) != nil {
-		return errors.New("wrong content")
+		return errors.New("не корректное содержимое")
 	}
 	u := &orm.User{
 		ID: userID, Nickname: nickname, PhoneNumber: phone,

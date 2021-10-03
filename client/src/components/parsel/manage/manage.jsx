@@ -4,7 +4,6 @@ import { CompareParams, GetValueFromListByIDAndInputValue, OnChangeTransitPoint 
 import { POSTRequestWithParams } from "utils/api";
 import { useInput } from "utils/form";
 import { UploadFile } from "utils/file";
-import { DateFromMilliseconds } from "utils/content";
 import { Notify } from "components/app-notification/notification";
 import { ClosePopup } from "components/popup/popup";
 import Input from "components/form-input/input";
@@ -19,10 +18,12 @@ const SParsel = styled.form`
     margin: 1rem;
     min-width: 80vw;
 
+    & > div {
+        margin: 1rem;
+    }
+
     & .transit_points,
-    & .price_weigth,
-    & .title_expire,
-    & .contactNumber {
+    & .price_weigth {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -48,9 +49,7 @@ const SParsel = styled.form`
 
     @media screen and (max-width: 600px) {
         & .transit_points,
-        & .price_weigth,
-        & .title_expire,
-        & .contactNumber {
+        & .price_weigth {
             align-items: unset;
             flex-direction: column;
         }
@@ -71,10 +70,9 @@ const clearAll = (fields = [], setHaveWhatsUp, setPreloaded) => {
 }
 
 export default function ManageParsel({ type = "create", cb, failText, successText, data }) {
-    const weight = useInput(data?.weight);
+    const weight = useInput(parseFloat(data?.weight) / 1000 || '');
     const price = useInput(data?.price);
-    const title = useInput(data?.title);
-    const expire = useInput(DateFromMilliseconds(data?.expireDatetime));
+    const description = useInput(data?.description);
     const contactNumber = useInput(data?.contactNumber);
     const from = useInput(data?.from);
     const to = useInput(data?.to);
@@ -94,27 +92,25 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
         e.preventDefault();
 
         const oldParams = {
-            'title': data?.title,
+            'description': data?.description,
             'fromID': data?.fromID,
             'toID': data?.toID,
             'from': data?.from,
             'to': data?.to,
             'weight': data?.weight,
             'price': data?.price,
-            'expireDatetime': data?.expireDatetime,
             'contactNumber': data?.contactNumber,
             'isHaveWhatsUp': data?.isHaveWhatsUp,
         }
         const comparedParams = CompareParams({
             'id': data?.id,
-            'title': title.base.value,
+            'description': description.base.value,
             'fromID': GetValueFromListByIDAndInputValue('from-list', from.base.value),
             'toID': GetValueFromListByIDAndInputValue('to-list', to.base.value),
             'from': from.base.value,
             'to': to.base.value,
-            'weight': weight.base.value,
+            'weight': weight.base.value * 1000,
             'price': price.base.value,
-            'expireDatetime': Date.parse(expire.base.value),
             'contactNumber': contactNumber.base.value,
             'isHaveWhatsUp': isHaveWhatsUp ? 1 : 0,
         }, oldParams);
@@ -137,10 +133,10 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             ClosePopup();
         } else {
             // or clear all if create
-            const fields = [weight, price, title, expire, contactNumber, from, to, fromID, toID];
+            const fields = [weight, price, description, contactNumber, from, to, fromID, toID];
             clearAll(fields, setHaveWhatsUp, setPreloaded)
         }
-    }, [title, from, to, fromID, toID, weight, price, expire, contactNumber, isHaveWhatsUp, preloadedFiles, type, cb, failText, successText, data]);
+    }, [description, from, to, fromID, toID, weight, price, contactNumber, isHaveWhatsUp, preloadedFiles, type, cb, failText, successText, data]);
 
     return (
         <SParsel onSubmit={onSubmit}>
@@ -153,20 +149,22 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             </div>
 
             <div className="price_weigth">
-                <Input type="number" name="weight" base={weight.base} labelText="Вес (в г)" />
+                <Input type="number" name="weight" base={weight.base} labelText="Вес (в кг)" />
                 <Input type="number" name="price" base={price.base} labelText="Цена (в тг)" />
             </div>
 
-            <div className="title_expire">
-                <Input type="text" name="title" base={title.base} labelText="Заголовок вашей посылки" />
-                <Input type="datetime-local" name="expireDatetime" base={expire.base} labelText="Доставить до:" />
+            <div className="description">
+                <textarea
+                    className="form-control" {...description.base}
+                    id="description" name="description" rows="2" placeholder="Опишите вашу посылку, когда нужно доставить, заголовок"
+                ></textarea>
             </div>
 
-            <div className="contactNumber">
-                <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
-                <span>
-                    <input onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} checked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsup" /> Есть WhatsUp?
-                </span>
+            <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
+
+            <div className="form-check">
+                <label htmlFor="wp" className="form-check-label"></label>
+                <input id="wp" className="form-check-input" onChange={() => setHaveWhatsUp(!isHaveWhatsUp)} checked={isHaveWhatsUp} type="checkbox" name="isHaveWhatsup" /> Есть WhatsUp?
             </div>
 
             {
@@ -183,6 +181,6 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             </div>
 
             <SubmitBtn value={type === "create" ? "Опубликовать" : "Изменить"} />
-        </SParsel>
+        </SParsel >
     )
 }

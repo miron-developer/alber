@@ -7,25 +7,19 @@ const SLalel = styled.label`
     align-items: center;
     white-space: nowrap;
 
+    & span {
+        color: white;
+    }
+
     & select {
         margin-left: 1rem;
-        padding: .5rem;
-        width: 100%;
-        font-size: 1rem;
-        color: var(--offHoverColor);
-        background: none;
-        border: none;
-        border-radius: 5px;
-        outline: none;
-        border-bottom: 1px solid var(--onHoverColor);
-        box-shadow: 4px 4px 3px 0 #00000029;
     }
 `;
 export default function Select({ name, text, required = true, options, onChange }) {
     return (
         <SLalel>
             <span>{text}</span>
-            <select name={name} value={options.selected} required={required} onChange={onChange}>
+            <select className="form-select" name={name} value={options.selected} required={required} onChange={onChange}>
                 {options?.data?.map((opt) => <option key={RandomKey()} value={opt[options.value]}>{options.makeText(opt)}</option>)}
             </select>
         </SLalel>

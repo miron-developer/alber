@@ -28,6 +28,28 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+
+/* scroll */
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #E7E7EF;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1c62d8;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #183301;
+}
+
 @media screen and (max-width: 900px) {
     * {
         font-size: 12px;
@@ -42,6 +64,6 @@ code {
 
 @media screen and (max-width: 600px) {
     * {
-        font-size: 10px;
+        font-size: 12px;
     }
 }

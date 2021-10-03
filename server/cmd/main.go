@@ -4,19 +4,13 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
-	"os"
 	"time"
-	"zhibek/pkg/app"
+
+	"alber/pkg/app"
 )
 
 func main() {
-	port := os.Getenv("PORT")
 	app := app.InitProg()
-
-	if port != "" {
-		app.IsHeroku = true
-		app.Config.PORT = port
-	}
 
 	app.ILog.Println("initialization completed!")
 

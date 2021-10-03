@@ -6,8 +6,9 @@ import (
 	"os"
 	"strconv"
 	"text/template"
-	"zhibek/pkg/api"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/api"
+	"alber/pkg/orm"
 )
 
 // SecureHeaderMiddleware set secure header option
@@ -42,7 +43,7 @@ func (app *Application) AccessLogMiddleware(next http.Handler) http.Handler {
 func (app *Application) HIndex(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		wd, _ := os.Getwd()
-		t, e := template.ParseFiles(wd + "/dist/index.html")
+		t, e := template.ParseFiles(wd + "/website/index.html")
 		if e != nil {
 			http.Error(w, "can't load this page", 500)
 			app.ELog.Println(e)
@@ -57,23 +58,21 @@ func (app *Application) HIndex(w http.ResponseWriter, r *http.Request) {
 // HUser for handle '/api/'
 func (app *Application) HApiIndex(w http.ResponseWriter, r *http.Request) {
 	type Route struct {
-		Path     string  `json:"route"`
-		Children []Route `json:"children"`
+		Path     string            `json:"route"`
+		Children []Route           `json:"children"`
+		Params   map[string]string `json:"params"`
 	}
 
 	data := api.API_RESPONSE{
 		Err:  "",
 		Code: 200,
-		Data: Route{
-			Path: "/",
-			Children: []Route{
-				{Path: "/user"},
-				{Path: "/parsels"},
-				{Path: "/travelers"},
-				{Path: "/images"},
-				{Path: "/search"},
-				{Path: "/toptypes"},
-			},
+		Data: []Route{
+			{Path: "/user", Params: map[string]string{"id": "id пользователя"}},
+			{Path: "/parsels"},
+			{Path: "/travelers"},
+			{Path: "/images"},
+			{Path: "/search"},
+			{Path: "/toptypes"},
 		},
 	}
 
@@ -134,7 +133,7 @@ func (app *Application) HCheckUserLogged(w http.ResponseWriter, r *http.Request)
 
 		userID := api.GetUserIDfromReq(w, r)
 		if userID == -1 {
-			api.SendErrorJSON(w, data, "not logged")
+			api.SendErrorJSON(w, data, "нет зарегистрированы в сети")
 			return
 		}
 
@@ -153,9 +152,17 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 		}
 
 		phone := getPhoneNumber(r.PostFormValue("phone"))
-		code := StringWithCharset(8)
+		if e := api.TestPhone(phone); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+		code := RandomStringFromCharsetAndLength("0123456789", 6)
 		countryCode := r.PostFormValue("countryCode")
-		msg := "Регистрирация на платформе Жибек. Код подтверждения: " + code
+		scheme := "http"
+		if r.TLS != nil {
+			scheme += "s"
+		}
+		msg := scheme + "://" + r.Host + "/sign. Ал-Бер. Код: " + code
 
 		// send SMS
 		if e := app.SendSMS(phone, countryCode, msg); e != nil {
@@ -225,9 +232,18 @@ func (app *Application) HPreChangePasswordSMS(w http.ResponseWriter, r *http.Req
 		}
 
 		phone := getPhoneNumber(r.PostFormValue("phone"))
-		code := StringWithCharset(8)
+		if e := api.TestPhone(phone); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+
+		code := RandomStringFromCharsetAndLength("0123456789", 6)
 		countryCode := r.PostFormValue("countryCode")
-		msg := "Изменение пароля на платформе Жибек. Код подтверждения: " + code
+		scheme := "http"
+		if r.TLS != nil {
+			scheme += "s"
+		}
+		msg := scheme + "://" + r.Host + "/sign. Ал-Бер. Код: " + code
 
 		// send SMS
 		if e := app.SendSMS(phone, countryCode, msg); e != nil {
@@ -277,7 +293,7 @@ func (app *Application) HLogout(w http.ResponseWriter, r *http.Request) {
 
 		userID := api.GetUserIDfromReq(w, r)
 		if userID == -1 {
-			api.SendErrorJSON(w, data, "not logged")
+			api.SendErrorJSON(w, data, "не зарегистрированы в сети")
 			return
 		}
 
@@ -301,15 +317,25 @@ func (app *Application) HPreChangeProfileSMS(w http.ResponseWriter, r *http.Requ
 
 		userID := api.GetUserIDfromReq(w, r)
 		if userID == -1 {
-			api.SendErrorJSON(w, data, "not logged")
+			api.SendErrorJSON(w, data, "не зарегистрированы в сети")
 			return
 		}
 
 		phone := getPhoneNumber(r.PostFormValue("phone"))
+		if e := api.TestPhone(phone); e != nil {
+			api.SendErrorJSON(w, data, e.Error())
+			return
+		}
+
 		countryCode := r.PostFormValue("countryCode")
-		code := StringWithCharset(8)
+		code := RandomStringFromCharsetAndLength("0123456789", 6)
 		cd := &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
-		msg := "Изменение аккаунта на платформе Жибек. Код подтверждения: " + code
+
+		scheme := "http"
+		if r.TLS != nil {
+			scheme += "s"
+		}
+		msg := scheme + "://" + r.Host + "/sign. Ал-Бер. Код: " + code
 
 		if phone == "" {
 			phoneDB, e := orm.GetOneFrom(orm.SQLSelectParams{
@@ -318,7 +344,7 @@ func (app *Application) HPreChangeProfileSMS(w http.ResponseWriter, r *http.Requ
 				Options: orm.DoSQLOption("id=?", "", "", userID),
 			})
 			if e != nil {
-				api.SendErrorJSON(w, data, "not logged")
+				api.SendErrorJSON(w, data, "вас не существует в базе. вы кто такой?)")
 				return
 			}
 			phone = phoneDB[0].(string)
@@ -447,13 +473,6 @@ func (app *Application) HItemUp(w http.ResponseWriter, r *http.Request) {
 			Err:  "ok",
 			Data: "",
 			Code: 200,
-		}
-
-		// check payed code
-		_, ok := app.UsersCode[r.PostFormValue("code")]
-		if !ok {
-			api.SendErrorJSON(w, data, "not payed yet")
-			return
 		}
 
 		if e := api.ItemUp(w, r); e != nil {

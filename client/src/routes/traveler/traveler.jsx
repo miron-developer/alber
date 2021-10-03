@@ -13,6 +13,7 @@ const STravel = styled.section`
         border-radius: 10px;
         text-align: center;
         background: #f5f000;
+        box-shadow: var(--boxShadow);
     }
 `;
 

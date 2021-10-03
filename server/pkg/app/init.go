@@ -9,7 +9,9 @@ import (
 	"os"
 	"strings"
 	"sync"
-	"zhibek/pkg/orm"
+	"time"
+
+	"alber/pkg/orm"
 )
 
 // Code struct for app
@@ -32,7 +34,6 @@ type Application struct {
 	ILog                *log.Logger
 	CurrentRequestCount int
 	CurrentMin          int // how many minuts pass after start/day
-	IsHeroku            bool
 	UsersCode           map[string]*Code
 	Config              *AppConfig
 }
@@ -63,7 +64,8 @@ func GetConfigs() (*AppConfig, error) {
 
 // InitProg initialise
 func InitProg() *Application {
-	logFile, _ := os.Create("logs.txt")
+	wd, _ := os.Getwd()
+	logFile, _ := os.OpenFile(wd+"/logs/log_"+time.Now().Format("2006-01-02")+".txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 
 	eLog := log.New(logFile, "\033[31m[ERROR]\033[0m\t", log.Ldate|log.Ltime|log.Lshortfile)
 	iLog := log.New(logFile, "\033[34m[INFO]\033[0m\t", log.Ldate|log.Ltime|log.Lshortfile)
@@ -83,7 +85,6 @@ func InitProg() *Application {
 		ILog:                iLog,
 		CurrentRequestCount: 0,
 		CurrentMin:          0,
-		IsHeroku:            false,
 		UsersCode:           map[string]*Code{},
 		Config:              config,
 	}

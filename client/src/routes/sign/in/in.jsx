@@ -1,5 +1,6 @@
 import { useHistory } from 'react-router';
 
+import { USER } from 'constants/constants';
 import { SubmitFormData, useInput, useTogglePassword } from 'utils/form';
 import { UserOnline } from 'utils/user';
 import { Notify } from 'components/app-notification/notification';
@@ -24,6 +25,7 @@ export default function SignIn() {
         const isOnline = await UserOnline(data.id);
         if (isOnline) {
             Notify('success', "Вход произведен");
+            USER.guest = false;
             history.push('/parsel');
         } else Notify('fail', "Ошибка входа")
     }

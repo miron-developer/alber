@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { GetDataByCrieteries } from "utils/api";
-import { RandomKey, DateFromMilliseconds } from "utils/content";
+import { RandomKey } from "utils/content";
 import { EditItem, PaintItem, RemoveItem, TopItem } from "utils/effects";
 import { Notify } from "components/app-notification/notification";
 
@@ -10,13 +10,14 @@ import styled from "styled-components"
 const SParsel = styled.div`
     position: relative;
     padding: 1rem;
+    margin: 1rem;
     min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: ${props => props.color ? props.color : 'white'};
-    border: 1px solid black;
+    background: ${props => props.color ? props.color : '#ffffff94'};
     border-radius: 10px;
+    box-shadow: var(--boxShadow);
 
     & .info {
         display: flex;
@@ -25,6 +26,11 @@ const SParsel = styled.div`
         & .general_info {
             display: flex;
             flex-direction: column;
+            flex-basis: 70%;
+
+            & span {
+                word-break: break-word;
+            }
 
             & .price b {
                 text-decoration: underline;
@@ -122,7 +128,7 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
 
     const getPhotos = useCallback(async () => {
         const res = await GetDataByCrieteries("images", { "id": data.id });
-        if (res?.err === "n/d") return setPhotos(null);
+        if (res?.err === "н/д") return setPhotos(null);
         if (res.err && res.err !== "ok") return Notify('fail', "Не удалось загрузить прикрепленные фото");
         return setPhotos(res?.data || res);
     }, [data]);
@@ -138,15 +144,16 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                     <span>Имя: {data.nickname}</span>
                     <span>{data.from}-{data.to}</span>
                     <span>{data.title}</span>
-                    <span>Вес: {data.weight/1000} кг</span>
+                    <span>Вес: {data.weight / 1000} кг</span>
                     <span className="price">Цена: <b> {data.price} </b> тг</span>
+                    <span>Описание: {data.description}</span>
                 </div>
 
                 <div className="other_info">
                     <div className="phones">
                         {
                             data.isHaveWhatsUp === 1 &&
-                            <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${data.contactNumber}&text="Добрый день, пишу из приложения Жибек насчет вашей посылки: ${data.title}"`}>
+                            <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${data.contactNumber}&text="Добрый день, пишу из приложения Al-Ber насчет вашей посылки: ${data.title}"`}>
                                 <i className="fa fa-whatsapp" aria-hidden="true"></i>
                             </a>
                         }
@@ -154,9 +161,6 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                         <span onClick={() => window.open("tel:" + data.contactNumber)}>
                             <i className="fa fa-phone" aria-hidden="true"></i>
                         </span>
-                    </div>
-                    <div className="expire">
-                        <span>Надо доставить до: {DateFromMilliseconds(data.expireDatetime, false)}</span>
                     </div>
                 </div>
             </div>
@@ -180,16 +184,16 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                         isOpened &&
                         <div className="manage-actions">
                             <span className="manage-action"
-                                onClick={() => EditItem("parsel", {...data, 'photos': photos}, newData => changeItem(data.id, newData))}
+                                onClick={() => EditItem("parsel", { ...data, 'photos': photos }, newData => changeItem(data.id, newData))}
                             >
                                 <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
                             </span>
                             <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem(data.id))}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
-                            <span className="manage-action" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+                            {/* <span className="manage-action" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
                                 <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
-                            </span>
+                            </span> */}
                             <span className="manage-action" onClick={() => TopItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
                                 <i className="fa fa-level-up" aria-hidden="true">Поднять</i>
                             </span>

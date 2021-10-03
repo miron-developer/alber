@@ -59,7 +59,7 @@ func (app *Application) SetRoutes() http.Handler {
 	appMux.Handle("/r/", http.StripPrefix("/r", removeMux))
 
 	// static react get
-	static := http.FileServer(http.Dir("dist/static"))
+	static := http.FileServer(http.Dir("website/static"))
 	appMux.Handle("/static/", http.StripPrefix("/static/", static))
 
 	// assets get

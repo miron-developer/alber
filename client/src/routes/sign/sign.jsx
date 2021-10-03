@@ -12,14 +12,18 @@ import styled from 'styled-components';
 const SSign = styled.section`
     height: 100%;
     margin-bottom: 1rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-
+    background: linear-gradient(45deg, #0054d2, #00d2f7, #1c62d8);
+   
     & .logo {
-        max-width: 40vw;
-        max-height: 40vh;
+        max-width: 20rem;
+        max-height: 20rem;
+        border-radius: 50%;
+        overflow: hidden;
 
         & img {
             width: 100%;
@@ -27,17 +31,34 @@ const SSign = styled.section`
         }
     }
 
+    & h1 {
+        margin: 2rem;
+        text-align: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+
     & .main-action {
-        min-width: 60vw;
-        padding: 2rem;
+        padding: 2rem 4rem;
+        margin-bottom: 2rem;
         border-radius: 10px;
-        background: #fdfdfd;
         box-shadow: var(--boxShadow);
+        transition: .5s;
+
+        &:hover{
+            background: #ffffff2b;
+        }
+
+        & h3 {
+            color: white;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
     }
 
     & .other-actions {
         display: flex;
-        flex-direction: column;
+        margin-bottom: 2rem;
 
         & span {
             margin: .5rem;
@@ -45,12 +66,16 @@ const SSign = styled.section`
             border-radius: 5px;
             cursor: pointer;
             transition: var(--transitionApp);
+            box-shadow: var(--boxShadow);
 
             &:hover {
-                background: var(--onHoverBG);
-                color:  var(--onHoverColor);
+                background: #002148;
             }
         }
+    }
+
+    & a {
+        color: white;
     }
 `;
 
@@ -77,9 +102,9 @@ const GSignAction = ({ action, setAction }) => {
     )
 }
 
-const GInAction = ({ setAction }) => <span onClick={() => setAction("in")}>Войти</span>
-const GUpAction = ({ setAction }) => <span onClick={() => setAction("up")}>Нет аккаунта? Зарегистроваться</span>
-const GResetAction = ({ setAction }) => <span onClick={() => setAction("reset")}>Забыли пароль?</span>
+const GInAction = ({ setAction }) => <span className="btn btn-primary" onClick={() => setAction("in")}>Войти</span>
+const GUpAction = ({ setAction }) => <span className="btn btn-primary" onClick={() => setAction("up")}>Нет аккаунта? Зарегистроваться</span>
+const GResetAction = ({ setAction }) => <span className="btn btn-primary" onClick={() => setAction("reset")}>Забыли пароль?</span>
 
 export default function Sign() {
     const [action, setAction] = useState("in");
@@ -87,14 +112,18 @@ export default function Sign() {
     return (
         <SSign>
             <div className="logo">
-                <img src="/assets/app/logo512.png" alt="logo" />
+                <img src="/assets/app/logo.png" alt="logo" />
             </div>
+
+            <h1 className="container-fluid">
+                Al-Ber — это сервис, соединяющий человека, которому необходимо срочно отправить посылку, с тем, кому по пути
+            </h1>
 
             <GSignAction action={action} setAction={setAction} />
 
             <Link to="/" onClick={()=>USER.guest = true}>Войти как гость</Link>
 
-            <Link download={true} to="/assets/rights/name.txt">Пользовательское соглашение</Link>
+            <Link target="_blank" download={true} to="/assets/rights/name.txt">Пользовательское соглашение</Link>
         </SSign>
     )
 }

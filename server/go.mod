@@ -1,10 +1,10 @@
-
 // +heroku goVersion go1.16
-module zhibek
+module alber
 
 go 1.16
 
 require (
+	github.com/anthonynsimon/bild v0.13.0 // indirect
 	github.com/golang-migrate/migrate v3.5.4+incompatible
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/satori/go.uuid v1.2.0

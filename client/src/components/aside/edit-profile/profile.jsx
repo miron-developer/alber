@@ -13,8 +13,12 @@ import styled from "styled-components";
 
 let afterStyles = [];
 
-const SForms = styled.form `
+const SForms = styled.form`
     padding: 2rem;
+
+    & > * {
+        margin: 1rem;
+    }
 `;
 
 export default function EditProfile() {
@@ -63,10 +67,10 @@ export default function EditProfile() {
 
                 <input hidden type="tel" name="phone" {...phone.base} />
                 <input hidden type="text" name="nickname" {...nickname.base} />
-                <input hidden type="password"  name="password" {...pass.base} />
-        
-                <Input index="3" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
-                    minLength="8" maxLength="8" placeholder="Mfa7sd45"
+                <input hidden type="password" name="password" {...pass.base} />
+
+                <Input index="3" id="code" type="text" name="code" base={code.base} labelText="6-значный код:"
+                    minLength="6" maxLength="6" placeholder="123456"
                 />
 
                 <SubmitBtn value="Отправить!" />

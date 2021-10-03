@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/orm"
 )
 
 func doSearch(r *http.Request, q orm.SQLSelectParams, sampleStruct interface{}, addQs []orm.SQLSelectParams, joinAs, qAs []string) (interface{}, error) {
@@ -46,7 +47,7 @@ func searchGetTextFilter(q string, searchFields []string, op *orm.SQLOption) err
 		return nil
 	}
 	if xss(q) != nil {
-		return errors.New("danger search text")
+		return errors.New("не корректный поисковый запрос")
 	}
 
 	op.Where += "("

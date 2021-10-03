@@ -8,6 +8,9 @@ import ParselPage from 'routes/parsel/parsel';
 import ParselsPage from 'routes/parsels/parsels';
 import TravelerPage from 'routes/traveler/traveler';
 import TravelersPage from 'routes/travelers/travelers';
+import FaqPage from 'routes/faq/faq';
+import ContactsPage from 'routes/contacts/contacts';
+import AdminPage from 'routes/admins/admins';
 import Popup from 'components/popup/popup';
 import AppNotifications from 'components/app-notification/notification';
 
@@ -15,7 +18,7 @@ import styled from 'styled-components';
 
 const SMain = styled.main`
     grid-area: main;
-    background: var(--greyColor);
+    background: linear-gradient(45deg, #0054d2, #00d2f7, #1c62d8);
 `;
 
 // app's routes
@@ -27,11 +30,11 @@ const ROUTES = [{
     href: "/parsel",
     isExact: true,
     component: ParselPage,
-},{
+}, {
     href: "/parsels",
     isExact: true,
     component: ParselsPage,
-},{
+}, {
     href: "/traveler",
     isExact: true,
     component: TravelerPage,
@@ -39,6 +42,18 @@ const ROUTES = [{
     href: "/travelers",
     isExact: true,
     component: TravelersPage,
+}, {
+    href: "/faq",
+    isExact: true,
+    component: FaqPage,
+}, {
+    href: "/contacts",
+    isExact: true,
+    component: ContactsPage,
+}, {
+    href: "/admin",
+    isExact: true,
+    component: AdminPage,
 }]
 
 export default function DefineRoutes() {

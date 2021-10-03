@@ -58,7 +58,8 @@ export default function History() {
         setDataList([...datalist]);
     }
 
-    const removeItem = id => setDataList([...datalist.filter(d => d.id !== id)])
+    const removeItem = id => setDataList([...datalist.filter(d => d.id !== id)]);
+
 
     useEffect(() => {
         if (datalist.length === 0 && !isLoaded) {
@@ -75,10 +76,10 @@ export default function History() {
 
             {
                 datalist.length > 0
-                ? <div className="history" onScroll={e => ScrollHandler(e, isStopLoad, false, () => loadHistory(getType, getTypeOnRus, getPart))}>
-                    {datalist.map(d => <Item key={RandomKey()} data={d} isMy={true} changeItem={changeItem} removeItem={removeItem} />)}
-                </div>
-                : <div className="history">Отсутствует</div>
+                    ? <div className="history" onScroll={e => ScrollHandler(e, isStopLoad, false, () => loadHistory(getType, getTypeOnRus, getPart))}>
+                        {datalist.map(d => <Item key={RandomKey()} data={d} isMy={true} changeItem={changeItem} removeItem={removeItem} />)}
+                    </div>
+                    : <div className="history">Отсутствует</div>
             }
         </SHistory>
 

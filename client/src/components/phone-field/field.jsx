@@ -21,7 +21,7 @@ export default function PhoneField({ index, base, required }) {
     if (!codes) return null;
     return (
         <div>
-            <Input index={index} id="phone" type="tel" name="phone" base={base} labelText="Телефон:"
+            <Input index={index} id="phone" type="number" name="phone" base={base} labelText="Телефон:"
                 minLength="10" maxLength="15" placeholder="7777777777" required={required}
             />
 

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { GetValueFromListByIDAndInputValue, OnChangeTransitPoint, ScrollHandler } from "utils/effects";
 import { useInput } from "utils/form";
@@ -14,19 +14,18 @@ const SParsels = styled.section`
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-around;
         padding: 1rem;
         background: var(--blueColor);
 
-        & * {
-            color: var(--onHoverColor);
+        & > div {
+            flex-basis: 20%;
         }
 
         & .search_btn {
             padding: .5rem 1rem;
-            background: var(--darkGreyColor);
+            margin: 0 1rem;
             border-radius: 10px;
-            cursor: pointer;
             box-shadow: var(--boxShadow);
             transition: var(--transitionApp);
 
@@ -39,6 +38,15 @@ const SParsels = styled.section`
     @media screen and (max-width: 600px) {
         & .filters {
             justify-content: start;
+            
+            & > div {
+                flex-basis: 50%;
+            }
+
+            & .search_btn {
+                width: 100%;
+                text-align: center;
+            }
         }
     }
 `;
@@ -48,8 +56,8 @@ export default function ParselsPage() {
     const to = useInput('');
     const fromID = useInput('');
     const toID = useInput('');
-    const startDT = useInput('');
-    const endDT = useInput('');
+    const weight = useInput('');
+    const price = useInput('');
 
     from.base.onChange = e => OnChangeTransitPoint(from, e, fromID.setCertainValue);
     to.base.onChange = e => OnChangeTransitPoint(to, e, toID.setCertainValue);
@@ -59,14 +67,17 @@ export default function ParselsPage() {
     const loadParsels = useCallback((clear = false) => {
         const params = ValidateParselTravelerSearch(
             GetValueFromListByIDAndInputValue("from-list", from.base.value), GetValueFromListByIDAndInputValue("to-list", to.base.value),
-            Date.parse(startDT.base.value), Date.parse(endDT.base.value)
+            weight.base.value * 1000, price.base.value
         )
         if (!params) return;
         getPart("parsels", params, 'Не удалось загрузить посылки', true, clear === true ? true : false)
-    }, [from, to, startDT, endDT, getPart])
+    }, [from, to, weight, price, getPart])
 
-    // set scroll handler
-    document.body.onscroll = e => ScrollHandler(e, isStopLoad, false, loadParsels, "parsel");
+
+    useEffect(() => {
+        // set scroll handler
+        document.body.onscroll = e => ScrollHandler(e, isStopLoad, false, loadParsels, "parsel");
+    }, [isStopLoad, loadParsels])
 
     return (
         <SParsels>
@@ -77,10 +88,10 @@ export default function ParselsPage() {
                 <Input id="to" type="text" name="to" list="to-list" base={to.base} labelText="Куда" />
                 <datalist id="to-list"></datalist>
 
-                <Input type="date" name="startDT" base={startDT.base} required={false} labelText="С:" />
-                <Input type="date" name="endDT" base={endDT.base} required={false} labelText="До:" />
+                <Input type="number" name="weight" base={weight.base} labelText="Вес (в кг)" />
+                <Input type="number" name="price" base={price.base} labelText="Цена (в тг)" />
 
-                <span className="search_btn" onClick={() => loadParsels(true)}>
+                <span className="search_btn btn btn-primary" onClick={() => loadParsels(true)}>
                     <i className="fa fa-search" aria-hidden="true"></i>
                 </span>
             </div>

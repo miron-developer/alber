@@ -43,7 +43,7 @@ export const useFromTo = (initState = [], step = 10) => {
         else fromToState.start += step;
 
         setFromToState(Object.assign({}, fromToState));
-        return true;
+        return fromToState.datalist;
     }, [fromToState, step])
 
     const zeroState = async() => setFromToState({

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 
+import { USER } from 'constants/constants';
 import { SubmitFormData, useInput } from 'utils/form';
 import { Notify } from 'components/app-notification/notification';
 import Input from 'components/form-input/input';
@@ -23,7 +24,8 @@ export default function SignUp() {
         setStep(2);
     }
     const onSuccessStep2 = data => {
-        Notify('success', `Вы успешно зарегистрированы. Ваш логин: "${data?.login}" и временный пароль:"${data?.password}"`, false)
+        Notify('success', `Вы успешно зарегистрированы. Ваш логин: "${data?.login}" и временный пароль:"${data?.password}"`, false);
+        USER.guest = false;
         history.push("/parsel")
     }
     const onFail = err => Notify('fail', 'Ошибка регистрации:' + err);
@@ -33,7 +35,7 @@ export default function SignUp() {
             ? <form action="/sign/sms/up" onSubmit={async (e) => {
                 afterStyles = await SubmitFormData(e, afterStyles, fields, undefined, onSuccessStep1, onFail, false);
             }}>
-                <h3>Регистрация(шаг 1)</h3>
+                <h3>Регистрация (шаг 1)</h3>
 
                 <PhoneField index="0" base={phone.base} />
 
@@ -43,13 +45,13 @@ export default function SignUp() {
             : <form action="/sign/up" onSubmit={async (e) => {
                 afterStyles = await SubmitFormData(e, afterStyles, fields, undefined, onSuccessStep2, onFail);
             }}>
-                <h3>Регистрация(шаг 2)</h3>
+                <h3>Регистрация (шаг 2)</h3>
 
                 <Input index="1" id="nickname" type="text" name="nickname" base={nickname.base} labelText="Имя(никнейм):"
                     minLength="3" maxLength="20" placeholder="Miron"
                 />
-                <Input index="2" id="code" type="text" name="code" base={code.base} labelText="8-значный код:"
-                    minLength="8" maxLength="8" placeholder="Mfa7sd45"
+                <Input index="2" id="code" type="text" name="code" base={code.base} labelText="6-значный код:"
+                    minLength="6" maxLength="6" placeholder="123456"
                 />
                 <SubmitBtn value="Отправить!" />
             </form>

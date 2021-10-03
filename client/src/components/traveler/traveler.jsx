@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { DateFromMilliseconds } from "utils/content";
 import { EditItem, PaintItem, RemoveItem, TopItem } from "utils/effects";
 
 import styled from "styled-components";
@@ -8,12 +7,12 @@ import styled from "styled-components";
 const STraveler = styled.div`
     position: relative;
     padding: 1rem;
+    margin: 1rem;
     min-height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: ${props => props.color ? props.color : 'white'};
-    border: 1px solid black;
+    background: ${props => props.color ? props.color : '#ffffff94'};
     border-radius: 10px;
 
     & .info {
@@ -84,6 +83,10 @@ const STraveler = styled.div`
         & .info {
             flex-direction: column;
 
+            & .general_info {
+                flex-direction: column;
+            }
+
             & .phones {
                 display: flex;
                 align-items: center;
@@ -107,13 +110,8 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
                     <div className="common">
                         <span>Имя: {data.nickname}</span>
                         <span>{data.from}-{data.to}</span>
-                        <span className="weight">Заберу до: <b> {data.weight / 1000} </b> кг</span>
                         <span>Тип транспорта: {data.travelType}</span>
-                    </div>
-
-                    <div className="dates">
-                        <span> <b> Выезд: </b> {DateFromMilliseconds(data.departureDatetime, false)}</span>
-                        <span> <b> Прибытие: </b> {DateFromMilliseconds(data.arrivalDatetime, false)}</span>
+                        <span>Описание: {data.description}</span>
                     </div>
                 </div>
 
@@ -121,7 +119,7 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
                     <div className="phones">
                         {
                             data.isHaveWhatsUp === 1 &&
-                            <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${data.contactNumber}&text="Добрый день, пишу из приложения Жибек насчет передачи посылки"`}>
+                            <a target="_blank" rel="noreferrer" href={`https://api.whatsapp.com/send?phone=${data.contactNumber}&text="Добрый день, пишу из приложения Al-Ber насчет передачи посылки"`}>
                                 <i className="fa fa-whatsapp" aria-hidden="true"></i>
                             </a>
                         }
@@ -159,9 +157,9 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
                             <span className="manage-action" onClick={() => RemoveItem(data.id, "traveler", () => removeItem(data.id))}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
-                            <span className="manage-action" onClick={() => PaintItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+                            {/* <span className="manage-action" onClick={() => PaintItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
                                 <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
-                            </span>
+                            </span> */}
                             <span className="manage-action" onClick={() => TopItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
                                 <i className="fa fa-level-up" aria-hidden="true">Поднять</i>
                             </span>

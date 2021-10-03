@@ -1,13 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-
-import { GetDataByCrieteries, POSTRequestWithParams } from "utils/api";
-import { useInput } from "utils/form";
+import { POSTRequestWithParams } from "utils/api";
 import { ClosePopup } from "components/popup/popup";
 import { Notify } from "components/app-notification/notification";
-import Input from "components/form-input/input";
-import SubmitBtn from "components/submit-btn/submit";
 
-import { ExamplePrice } from "./ex";
 import styled from "styled-components";
 
 const SToUp = styled.div`
@@ -49,6 +43,7 @@ const toUp = async (id, type, code, cb) => {
     const res = await POSTRequestWithParams("/e/up", { 'id': id, 'type': type, 'code': code })
     if (res.err && res.err !== "ok") return Notify('fail', 'Не удалось поднять');
     cb()
+    ClosePopup();
 }
 
 /**
@@ -58,36 +53,37 @@ const toUp = async (id, type, code, cb) => {
  * @param id parsel/travel id 
  */
 export default function ToUp({ cb, type, id }) {
-    const [price, setPrice] = useState();
-    const [isPayed, setPayed] = useState();
-    const code = useInput('');
+    // const [price, setPrice] = useState();
+    // const [isPayed, setPayed] = useState();
+    // const code = useInput('');
 
-    const getPrice = useCallback(async () => {
-        const res = await GetDataByCrieteries('price');
-        if (res?.err !== "ok") return Notify('fail', "Ошибка. Попробуйте позднее") || setPrice(ExamplePrice)
-        setPrice(res)
-    }, [])
+    // const getPrice = useCallback(async () => {
+    //     const res = await GetDataByCrieteries('price');
+    //     if (res?.err !== "ok") return Notify('fail', "Ошибка. Попробуйте позднее") || setPrice(ExamplePrice)
+    //     setPrice(res)
+    // }, [])
 
-    useEffect(() => {
-        if (!price) return getPrice()
-    }, [getPrice, price])
+    // useEffect(() => {
+    //     if (!price) return getPrice()
+    // }, [getPrice, price])
 
 
-    if (!price) return <div>Ошибка. Попробуйте позднее</div>
+    // if (!price) return <div>Ошибка. Попробуйте позднее</div>
     return (
         <SToUp>
             <h2>Поднять Ваше объявление?</h2>
+            <span>Поднимать можно только один раз в день</span>
 
-            <div className="price">
+            {/* <div className="price">
                 Стоимость: {price?.cost} тг
-            </div>
+            </div> */}
 
             <div className="answer">
-                <span onClick={() => setPayed(true)}>Да</span>
+                <span onClick={() => toUp(id, type, "", cb)}>Да</span>
                 <span onClick={ClosePopup}>Нет</span>
             </div>
 
-            {
+            {/* {
                 isPayed &&
                 <div>
                     <Input index="2" id="code" type="text" name="code" base={code.base} labelText="Введите 8-значный код:"
@@ -96,7 +92,7 @@ export default function ToUp({ cb, type, id }) {
 
                     <SubmitBtn value="Поднять!" onClick={() => toUp(id, type, code, cb)} />
                 </div>
-            }
+            } */}
         </SToUp>
     )
 }

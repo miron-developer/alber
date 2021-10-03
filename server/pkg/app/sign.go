@@ -4,8 +4,9 @@ import (
 	"errors"
 	"net/http"
 	"regexp"
-	"zhibek/pkg/api"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/api"
+	"alber/pkg/orm"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -20,16 +21,16 @@ func checkPhoneAndNick(isExist bool, phone, nickname string) error {
 	})
 
 	if e != nil && isExist {
-		return errors.New("wrong login")
+		return errors.New("не корретный логин")
 	}
 	if e != nil && !isExist {
 		return nil
 	}
 	if !isExist {
 		if results[0].(string) == phone {
-			return errors.New("this phone is not empty")
+			return errors.New("такой телефон существует")
 		}
-		return errors.New("this nickname is not empty")
+		return errors.New("такой никнейм существует")
 	}
 	return nil
 }
@@ -39,16 +40,16 @@ func checkPhoneAndNick(isExist bool, phone, nickname string) error {
 func checkPassword(isExist bool, pass, login string) error {
 	if !isExist {
 		if !regexp.MustCompile(`[A-Z]`).MatchString(pass) {
-			return errors.New("password must have A-Z")
+			return errors.New("пароль должени иметь латинские буквы A-Z")
 		}
 		if !regexp.MustCompile(`[a-z]`).MatchString(pass) {
-			return errors.New("password must have a-z(small)")
+			return errors.New("пароль должени иметь латинские буквы a-z(маленькие)")
 		}
 		if !regexp.MustCompile(`[0-9]`).MatchString(pass) {
-			return errors.New("password must have 0-9")
+			return errors.New("пароль должени иметь цифры 0-9")
 		}
 		if len(pass) < 8 {
-			return errors.New("password must have at least 8 character")
+			return errors.New("пароль должени иметь как минимум 8 символов")
 		}
 	} else {
 		dbPass, e := orm.GetOneFrom(orm.SQLSelectParams{
@@ -57,11 +58,11 @@ func checkPassword(isExist bool, pass, login string) error {
 			Options: orm.DoSQLOption("phoneNumber = ?", "", "", login),
 		})
 		if e != nil {
-			return errors.New("wrong login")
+			return errors.New("не корретный логин")
 		}
 
 		if e := bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass)); e != nil {
-			return errors.New("wrong password")
+			return errors.New("не корретный пароль")
 		}
 		return nil
 	}
@@ -76,13 +77,13 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 
 	// XSS
 	if api.CheckAllXSS(nickname) != nil {
-		return nil, errors.New("danger nickname")
+		return nil, errors.New("ошибка имени")
 	}
 
 	// checking code from sms
 	validPhone, ok := app.UsersCode[code]
 	if !ok {
-		return nil, errors.New("wrong code")
+		return nil, errors.New("не корретный код")
 	}
 
 	// check phone and nick
@@ -92,7 +93,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 
 	// generating password
 	for {
-		tempPass := StringWithCharset(12)
+		tempPass := RandomStringFromCharsetAndLength("0123456789ABCDEFJGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 12)
 		if e := checkPassword(false, tempPass, ""); e == nil {
 			pass = tempPass
 			break
@@ -101,7 +102,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 
 	hashPass, e := bcrypt.GenerateFromPassword([]byte(pass), 4)
 	if e != nil {
-		return nil, errors.New("internal server error: password")
+		return nil, errors.New("ошибка сервера: пароль")
 	}
 
 	user := &orm.User{
@@ -109,7 +110,7 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 	}
 	userID, e := user.Create()
 	if e != nil {
-		return nil, errors.New("internal server error: create user")
+		return nil, errors.New("ошибка сервера: не удалось создать пользователя")
 	}
 
 	// start session
@@ -128,6 +129,9 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 	pass := r.PostFormValue("password")
 
 	// checkings
+	if e := api.TestPhone(phone); e != nil {
+		return -1, e
+	}
 	if e := checkPhoneAndNick(true, phone, phone); e != nil {
 		return -1, e
 	}
@@ -142,7 +146,7 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 		Joins:   nil,
 	})
 	if e != nil {
-		return -1, errors.New("wrong login")
+		return -1, errors.New("неправильный логин")
 	}
 
 	ID := orm.FromINT64ToINT(res[0])
@@ -153,14 +157,14 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 func (app *Application) Logout(w http.ResponseWriter, r *http.Request) error {
 	id := api.GetUserIDfromReq(w, r)
 	if id == -1 {
-		return errors.New("not logged")
+		return errors.New("не зарегистрированы в сети")
 	}
 
 	if e := orm.DeleteByParams(orm.SQLDeleteParams{
 		Table:   "Sessions",
 		Options: orm.DoSQLOption("userID = ?", "", "", id),
 	}); e != nil {
-		return errors.New("not logouted")
+		return errors.New("не произведен выход")
 	}
 
 	api.SetCookie(w, "", -1)
@@ -171,7 +175,7 @@ func (app *Application) Logout(w http.ResponseWriter, r *http.Request) error {
 func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) error {
 	phone, ok := app.UsersCode[r.PostFormValue("code")]
 	if !ok {
-		return errors.New("wrong code")
+		return errors.New("не корректный код")
 	}
 
 	newPass := r.PostFormValue("password")
@@ -185,12 +189,12 @@ func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) er
 		Options: orm.DoSQLOption("phoneNumber = ?", "", "", phone.Value),
 	})
 	if e != nil {
-		return errors.New("wrong phone")
+		return errors.New("не корректный телефон")
 	}
 
 	password, e := bcrypt.GenerateFromPassword([]byte(newPass), 4)
 	if e != nil {
-		return errors.New("the new password do not created")
+		return errors.New("ошибка сервера: новый пароль не создан")
 	}
 
 	user := &orm.User{ID: orm.FromINT64ToINT(res[0]), Password: string(password)}

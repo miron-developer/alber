@@ -12,9 +12,7 @@ export const IsTwoDigit = data => parseInt(data) < 10 ? "0".concat(data) : data;
 export const DateFromMilliseconds = (milliseconds, isForInput = true) => {
     const datetime = new Date(parseInt(milliseconds));
     if (isNaN(datetime)) return;
-    const str = [datetime.getFullYear(), IsTwoDigit(datetime.getMonth() + 1), IsTwoDigit(datetime.getDate())].join('-') +
-        (isForInput ? "T" : " ") +
-        [IsTwoDigit(datetime.getHours()), IsTwoDigit(datetime.getMinutes())].join(":")
+    const str = [datetime.getFullYear(), IsTwoDigit(datetime.getMonth() + 1), IsTwoDigit(datetime.getDate())].join('-')
     return str;
 }
 
@@ -60,16 +58,13 @@ export const CalculateRelativeDatetime = (datetime = Date.now().toString()) => {
 
 export const RandomKey = () => Math.round(Math.random() * Math.random() * 100000000);
 
-export const ValidateParselTravelerSearch = (from, to, min, max) => {
-    // filter dates, check exist, > now, min < max
-    if (min < Date.now()-86400000000 || min > max || isNaN(min) || isNaN(max)) return Notify('fail', 'Ошибка даты')
-
+export const ValidateParselTravelerSearch = (from, to, weight, price) => {
     // filter transit points, check exist, !=
     if (from === to || !to || !from) return Notify('fail', "Ошибка пунктов отправки и назначения")
     return {
         'fromID': from,
         'toID': to,
-        'startDT': min || '',
-        'endDT': max || '',
+        'weight': weight || '',
+        'price': price || '',
     }
 }

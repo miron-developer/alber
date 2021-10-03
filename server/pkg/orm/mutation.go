@@ -41,7 +41,7 @@ func chooseForeingKeys(datas string, values []interface{}, options []int) (strin
 // Create create one user
 func (u *User) Create() (int, error) {
 	if u.Nickname == "" || u.Password == "" || u.PhoneNumber == "" {
-		return -1, errors.New("n/d")
+		return -1, errors.New("н/д")
 	}
 
 	r, e := insertSQL(SQLInsertParams{
@@ -59,7 +59,7 @@ func (u *User) Create() (int, error) {
 // Create create new session in db
 func (ses *Session) Create() error {
 	if ses.ID == "" || ses.UserID == 0 || ses.Expire == "" {
-		return errors.New("n/d")
+		return errors.New("н/д")
 	}
 
 	_, e := insertSQL(SQLInsertParams{
@@ -74,9 +74,9 @@ func (ses *Session) Create() error {
 
 // Create one parsel and return it's ID
 func (p *Parsel) Create() (int, error) {
-	if p.Title == "" || p.ContactNumber == "" ||
+	if p.Description == "" || p.ContactNumber == "" ||
 		p.Weight*p.Price*p.CreationDatetime*p.ExpireDatetime*p.UserID*p.FromID*p.ToID == 0 {
-		return -1, errors.New("n/d")
+		return -1, errors.New("н/д")
 	}
 
 	params := SQLInsertParams{
@@ -97,14 +97,13 @@ func (p *Parsel) Create() (int, error) {
 
 // Create one parsel and return it's ID
 func (t *Traveler) Create() (int, error) {
-	if t.Weight*t.CreationDatetime*t.DepartureDatetime*t.DepartureDatetime*t.ArrivalDatetime*
-		t.UserID*t.FromID*t.ToID == 0 || t.ContactNumber == "" {
-		return -1, errors.New("n/d")
+	if t.CreationDatetime*t.UserID*t.FromID*t.ToID == 0 || t.ContactNumber == "" || t.Description == "" {
+		return -1, errors.New("н/д")
 	}
 
 	params := SQLInsertParams{
 		Table:  "Travelers",
-		Datas:  "null,?,?,?,?,?,?,?,?,?,?,?,?",
+		Datas:  "null,?,?,?,?,?,?,?,?,?,?",
 		Values: MakeArrFromStruct(*t),
 	}
 	params.Datas, params.Values = chooseForeingKeys(params.Datas, params.Values, []int{t.TopTypeID})
@@ -121,7 +120,7 @@ func (t *Traveler) Create() (int, error) {
 // Create create one clipped image
 func (i *Image) Create() (int, error) {
 	if i.UserID*i.ParselID == 0 || i.Source == "" || i.Name == "" {
-		return -1, errors.New("n/d")
+		return -1, errors.New("н/д")
 	}
 
 	r, e := insertSQL(SQLInsertParams{
@@ -190,8 +189,8 @@ func (p *Parsel) Change() error {
 		Couples: map[string]string{},
 		Options: DoSQLOption("id=?", "", "", p.ID),
 	}
-	if p.Title != "" {
-		params.Couples["title"] = p.Title
+	if p.Description != "" {
+		params.Couples["description"] = p.Description
 	}
 	if p.ContactNumber != "" {
 		params.Couples["contactNumber"] = p.ContactNumber
@@ -248,17 +247,11 @@ func (t *Traveler) Change() error {
 	if t.ContactNumber != "" {
 		params.Couples["contactNumber"] = t.ContactNumber
 	}
-	if t.Weight != 0 {
-		params.Couples["weight"] = strconv.Itoa(t.Weight)
+	if t.Description != "" {
+		params.Couples["description"] = t.Description
 	}
 	if t.CreationDatetime != 0 {
 		params.Couples["creationDatetime"] = strconv.Itoa(t.CreationDatetime)
-	}
-	if t.DepartureDatetime != 0 {
-		params.Couples["departureDatetime"] = strconv.Itoa(t.DepartureDatetime)
-	}
-	if t.ArrivalDatetime != 0 {
-		params.Couples["arrivalDatetime"] = strconv.Itoa(t.ArrivalDatetime)
 	}
 	if t.ExpireOnTopDatetime != 0 {
 		params.Couples["expireOnTopDatetime"] = strconv.Itoa(t.ExpireOnTopDatetime)

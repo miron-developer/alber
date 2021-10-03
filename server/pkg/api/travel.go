@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-	"zhibek/pkg/orm"
+
+	"alber/pkg/orm"
 )
 
 func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
@@ -16,28 +17,20 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	topJ := orm.DoSQLJoin(orm.LOJOINQ, "TopTypes AS tt", "t.topTypeID = tt.id")
 	typeJ := orm.DoSQLJoin(orm.LOJOINQ, "TravelTypes AS tRt", "t.travelTypeID = tRt.id")
 
-	// get not my
-	userID := GetUserIDfromReq(w, r)
 	op := orm.DoSQLOption("", "t.creationDatetime DESC, tt.id DESC", "?,?")
-	if userID != -1 {
-		op.Where = "t.userID != ? AND"
-		op.Args = append(op.Args, userID)
-	}
 
 	if r.FormValue("type") == "user" {
+		userID := GetUserIDfromReq(w, r)
 		if userID == -1 {
-			return nil, errors.New("not logged")
+			return nil, errors.New("не зарегистрированы в сети")
 		}
 		op.Where = "t.userID = ?"
+		op.Args = append(op.Args, userID)
 	} else {
 		// add filters
 		// from Almaty to Astana by default
 		searchGetCountFilter(" t.fromID = ?", "t.fromID > ?", r.FormValue("fromID"), 0, true, &op)
 		searchGetCountFilter(" t.toID = ?", "t.toID > ?", r.FormValue("toID"), 0, true, &op)
-
-		// dates between now and in 1 month
-		searchGetCountFilter(" t.departureDatetime >= ?", " t.departureDatetime >= ?", r.FormValue("startDT"), int(time.Now().Unix())*1000, true, &op)
-		searchGetCountFilter(" t.arrivalDatetime <= ?", "  t.arrivalDatetime <= ?", r.FormValue("endDT"), int(time.Now().Unix())*1000+86400000*30, true, &op)
 		op.Where = removeLastFromStr(op.Where, "AND")
 	}
 
@@ -64,42 +57,34 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return nil, errors.New("not logged")
+		return nil, errors.New("не зарегистрированы в сети")
 	}
 
-	contactNumber, countryCode := r.PostFormValue("contactNumber"), r.PostFormValue("countryCode")
-	if e := CheckAllXSS(contactNumber, countryCode); e != nil {
-		return nil, errors.New("wrong number")
+	contactNumber, description := r.PostFormValue("contactNumber"), r.PostFormValue("description")
+	if e := CheckAllXSS(contactNumber, description); e != nil {
+		return nil, errors.New("не корректный телефон или описание")
+	}
+	if description == "" {
+		return nil, errors.New("заполните описание")
 	}
 
-	weight, e := strconv.Atoi(r.PostFormValue("weight"))
-	if e != nil || weight == 0 {
-		return nil, errors.New("wrong weigth")
+	// check phone number
+	if e := TestPhone(contactNumber); e != nil {
+		return nil, e
 	}
 
 	from, e := strconv.Atoi(r.PostFormValue("fromID"))
 	to, e2 := strconv.Atoi(r.PostFormValue("toID"))
 	travelType, e3 := strconv.Atoi(r.PostFormValue("travelTypeID"))
 	if e != nil || e2 != nil || e3 != nil || from*to*travelType == 0 {
-		return nil, errors.New("wrong from or to place, or travel type")
+		return nil, errors.New("не корректные точки отправки и прибытия, или транспорт")
 	}
 
 	t := &orm.Traveler{
-		Weight: weight, IsHaveWhatsUp: "0", ContactNumber: countryCode + contactNumber,
+		Description: description, IsHaveWhatsUp: "0", ContactNumber: contactNumber,
 		UserID: userID, FromID: from, ToID: to, TravelTypeID: travelType,
 		CreationDatetime: int(time.Now().Unix() * 1000),
 	}
-
-	departure, e := strconv.Atoi(r.PostFormValue("departureDatetime"))
-	arrival, e2 := strconv.Atoi(r.PostFormValue("arrivalDatetime"))
-	if e != nil || e2 != nil ||
-		departure < t.CreationDatetime ||
-		arrival < t.CreationDatetime ||
-		arrival < departure {
-		return nil, errors.New("wrong departure or arrival time")
-	}
-	t.DepartureDatetime = departure
-	t.ArrivalDatetime = arrival
 
 	if r.PostFormValue("isHaveWhatsUp") == "1" {
 		t.IsHaveWhatsUp = "1"
@@ -107,7 +92,7 @@ func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 
 	travelID, e := t.Create()
 	if e != nil {
-		return nil, errors.New("not create travel")
+		return nil, errors.New("не создан попутчик")
 	}
 	return travelID, nil
 }
@@ -116,21 +101,23 @@ func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return errors.New("not logged")
+		return errors.New("не зарегистрированы в сети")
 	}
 	travelID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
-		return errors.New("wrong id")
+		return errors.New("не корректный id")
 	}
 
-	contactNumber, countryCode := r.PostFormValue("contactNumber"), r.PostFormValue("countryCode")
-	if e := CheckAllXSS(contactNumber, countryCode); e != nil {
-		return errors.New("wrong number")
+	contactNumber, description := r.PostFormValue("contactNumber"), r.PostFormValue("description")
+	if e := CheckAllXSS(contactNumber, description); e != nil {
+		return errors.New("не корректный телефон или описание")
 	}
-
-	weight, e := strconv.Atoi(r.PostFormValue("weight"))
-	if r.PostFormValue("weight") != "" && e != nil && weight == 0 {
-		return errors.New("wrong weigth")
+	if description == "" {
+		return errors.New("заполните описание")
+	}
+	// check phone number
+	if e := TestPhone(contactNumber); e != nil {
+		return e
 	}
 
 	from, e := strconv.Atoi(r.PostFormValue("fromID"))
@@ -140,37 +127,18 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 		(r.PostFormValue("toID") != "" && e2 != nil && to == 0) ||
 		(r.PostFormValue("toID") != "" && r.PostFormValue("fromID") != "" && from == to) ||
 		(r.PostFormValue("travelTypeID") != "" && e3 != nil && travelType == 0) {
-		return errors.New("wrong from or to place, or travel type")
-	}
-
-	arrivalDatetime, e := orm.GetOneFrom(orm.SQLSelectParams{
-		Table:   "Travelers",
-		What:    "arrivalDatetime",
-		Options: orm.DoSQLOption("userID = ? AND id = ?", "", "1", userID, travelID),
-	})
-	if e != nil {
-		return errors.New("not found parsel: wrong id")
-	}
-
-	now := int(time.Now().Unix() * 1000)
-	departure, e := strconv.Atoi(r.PostFormValue("departureDatetime"))
-	arrival, e2 := strconv.Atoi(r.PostFormValue("arrivalDatetime"))
-	if (r.PostFormValue("departureDatetime") != "" && e != nil && departure < now) ||
-		(r.PostFormValue("arrivalDatetime") != "" && e2 != nil && arrival < now) ||
-		(r.PostFormValue("arrivalDatetime") != "" && r.PostFormValue("departureDatetime") != "" && arrival < departure) ||
-		(r.PostFormValue("arrivalDatetime") == "" && r.PostFormValue("departureDatetime") != "" && arrivalDatetime[0].(int) < departure) {
-		return errors.New("wrong departure or arrival time")
+		return errors.New("не корректные точки отправки и прибытия, или транспорт")
 	}
 
 	isHaveWhatsUp := r.PostFormValue("isHaveWhatsUp")
 	if isHaveWhatsUp != "1" && isHaveWhatsUp != "0" && isHaveWhatsUp != "" {
-		return errors.New("wrong whatsup")
+		return errors.New("не корректный ватсап")
 	}
 
 	t := &orm.Traveler{
-		Weight: weight, IsHaveWhatsUp: isHaveWhatsUp, ContactNumber: countryCode + contactNumber,
+		Description: description, IsHaveWhatsUp: isHaveWhatsUp, ContactNumber: contactNumber,
 		UserID: userID, FromID: from, ToID: to, TravelTypeID: travelType, ID: travelID,
-		CreationDatetime: now, DepartureDatetime: departure, ArrivalDatetime: arrival,
+		CreationDatetime: int(time.Now().Unix() * 1000),
 	}
 	return t.Change()
 }
@@ -180,15 +148,15 @@ func RemoveTraveler(w http.ResponseWriter, r *http.Request) (interface{}, error)
 	// get general ids
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
-		return nil, errors.New("not logged")
+		return nil, errors.New("не зарегистрированы в сети")
 	}
-	parselID, e := strconv.Atoi(r.PostFormValue("id"))
+	ID, e := strconv.Atoi(r.PostFormValue("id"))
 	if e != nil {
-		return nil, errors.New("wrong traveler")
+		return nil, errors.New("не корректный id")
 	}
 
 	return nil, orm.DeleteByParams(orm.SQLDeleteParams{
 		Table:   "Travelers",
-		Options: orm.DoSQLOption("id=? AND userID=?", "", "", parselID, userID),
+		Options: orm.DoSQLOption("id=? AND userID=?", "", "", ID, userID),
 	})
 }

@@ -9,7 +9,7 @@ const formDataToString = (data = new FormData()) => {
 export const Fetching = async(action, data, method = "POST") => {
     if (action === undefined) return { err: "action undefined" };
 
-    const fetchOption = { 'method': method, 'mode': 'cors', 'credentials': 'include' };
+    const fetchOption = { 'method': method };
     if (method === "GET") action += "?" + encodeURI(formDataToString(data));
     else fetchOption["body"] = data;
 
@@ -29,7 +29,7 @@ const prepareDataToFetch = (datas = {}) => {
 export const GetDataByCrieteries = async(datatype, criteries = {}) => {
     const data = prepareDataToFetch(criteries);
     const res = await Fetching("/api/" + datatype, data, 'GET');
-    if (res.err !== 'ok') return { 'err': res.err }
+    if (res.code !== 200) return { 'err': res.err }
     return res.data;
 }
 
