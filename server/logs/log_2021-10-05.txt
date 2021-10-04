@@ -1,0 +1,40 @@
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 00:11:59 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 00:12:00 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 00:12:00 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 00:12:00 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 00:12:00 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 00:12:00 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 00:12:00 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 00:12:01 handlers.go:33: 127.0.0.1:43222 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:03 handlers.go:33: 127.0.0.1:43258 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 00:12:03 handlers.go:33: 127.0.0.1:43260 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 00:12:03 handlers.go:33: 127.0.0.1:43266 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:03 handlers.go:33: 127.0.0.1:43276 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 00:12:04 handlers.go:33: 127.0.0.1:43294 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:04 handlers.go:33: 127.0.0.1:43304 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/05 00:12:16 handlers.go:33: 127.0.0.1:43414 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:39 handlers.go:33: 127.0.0.1:43652 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 00:12:39 handlers.go:33: 127.0.0.1:43654 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 00:12:39 handlers.go:33: 127.0.0.1:43672 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:39 handlers.go:33: 127.0.0.1:43674 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 00:12:39 handlers.go:33: 127.0.0.1:43684 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:46 handlers.go:33: 127.0.0.1:43804 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 00:12:46 handlers.go:33: 127.0.0.1:43814 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 00:12:46 handlers.go:33: 127.0.0.1:43824 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/05 00:12:52 handlers.go:33: 127.0.0.1:43882 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:12:57 handlers.go:33: 127.0.0.1:43942 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 00:12:57 handlers.go:33: 127.0.0.1:43952 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:13:03 handlers.go:33: 127.0.0.1:44010 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:13:04 handlers.go:33: 127.0.0.1:44036 GET: '/api/api/?'
+[34m[INFO][0m	2021/10/05 00:13:19 handlers.go:33: 127.0.0.1:44162 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 00:13:22 handlers.go:33: 127.0.0.1:44204 POST: '/sign/out'
+[34m[INFO][0m	2021/10/05 00:13:23 handlers.go:33: 127.0.0.1:44214 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 00:13:32 handlers.go:33: 127.0.0.1:44302 POST: '/sign/in'
+[34m[INFO][0m	2021/10/05 00:13:32 handlers.go:33: 127.0.0.1:44324 GET: '/api/user?id=7'
+[34m[INFO][0m	2021/10/05 00:13:32 handlers.go:33: 127.0.0.1:44334 GET: '/assets/app/send-gallery.png'
