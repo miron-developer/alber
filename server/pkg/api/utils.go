@@ -63,6 +63,7 @@ func getIntFromString(src string, def int) int {
 	return val
 }
 
+// returm from and step
 func getLimits(r *http.Request) (int, int) {
 	return getIntFromString(r.FormValue("from"), 0), getIntFromString(r.FormValue("step"), 10)
 }

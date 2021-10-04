@@ -22,6 +22,7 @@ func (app *Application) SetRoutes() http.Handler {
 	apiMux := http.NewServeMux()
 	apiMux.HandleFunc("/", app.HApiIndex)
 	apiMux.HandleFunc("/user", app.HUser)
+	apiMux.HandleFunc("/users", app.HUsers)
 	apiMux.HandleFunc("/parsels", app.HParsels)
 	apiMux.HandleFunc("/travelers", app.HTravelers)
 	apiMux.HandleFunc("/toptypes", app.HTopTypes)

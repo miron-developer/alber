@@ -10,6 +10,10 @@ import (
 )
 
 func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	// joins
 	userJ := orm.DoSQLJoin(orm.LOJOINQ, "Users AS u", "t.userID = u.id")
 	fromJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS cf", "t.fromID = cf.id")
@@ -24,15 +28,14 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		if userID == -1 {
 			return nil, errors.New("не зарегистрированы в сети")
 		}
-		op.Where = "t.userID = ?"
+		op.Where = "t.userID = ? AND"
 		op.Args = append(op.Args, userID)
-	} else {
-		// add filters
-		// from Almaty to Astana by default
-		searchGetCountFilter(" t.fromID = ?", "t.fromID > ?", r.FormValue("fromID"), 0, true, &op)
-		searchGetCountFilter(" t.toID = ?", "t.toID > ?", r.FormValue("toID"), 0, true, &op)
-		op.Where = removeLastFromStr(op.Where, "AND")
 	}
+
+	// add filters
+	searchGetCountFilter(" t.fromID = ?", "t.fromID > ?", r.FormValue("fromID"), 2, false, &op)
+	searchGetCountFilter(" t.toID = ?", "t.toID > ?", r.FormValue("toID"), 1, false, &op)
+	op.Where = removeLastFromStr(op.Where, "AND")
 
 	first, count := getLimits(r)
 	op.Args = append(op.Args, first, count)
@@ -55,6 +58,10 @@ func Travelers(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 
 // CreateTravel create one travel
 func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "GET" {
+		return nil, errors.New("wrong method")
+	}
+
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
 		return nil, errors.New("не зарегистрированы в сети")
@@ -145,6 +152,10 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 
 // RemoveTraveler remove one traveler
 func RemoveTraveler(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "GET" {
+		return nil, errors.New("wrong method")
+	}
+
 	// get general ids
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {

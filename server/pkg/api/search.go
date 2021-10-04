@@ -61,5 +61,9 @@ func searchGetTextFilter(q string, searchFields []string, op *orm.SQLOption) err
 
 // controller for future search
 func Search(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	return SearchCity(r)
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Redirect } from "react-router"
 
 import { USER } from "constants/constants"
@@ -11,6 +11,7 @@ import styled from "styled-components"
 
 const SAdmin = styled.div`
     padding: 1rem;
+    margin-bottom: 5rem;
 
     .btn {
         box-shadow: var(--boxShadow);
@@ -42,6 +43,19 @@ const SAdmin = styled.div`
             &.active {
                 background: white;
                 color: #192955;
+            }
+        }
+    }
+
+    .active_route {
+        border: 1px solid white;
+        padding: 1rem;
+
+        .active_title{
+            text-align: center;
+
+            b {
+                color: red;
             }
         }
     }
@@ -98,15 +112,22 @@ const SAdmin = styled.div`
 
     button.btn.btn-primary.search {
         margin: 1rem;
+        width: 80%;
     }
 
-  
+    .results {
+        color: white;
+
+        pre {
+            background: black;
+        }
+    }
 `;
 
-const GRoute = ({ active, route, children = [], params = {}, setRoute }) => {
+const GRoute = ({ active, route, description, methods, children = [], params = {}, setRoute }) => {
     return (
-        <div className={`route-item ${active === route ? "active" : ""}`} onClick={() => setRoute(route)}>
-            <span>Путь {route} {...params}</span>
+        <div className={`route-item ${active?.route === route ? "active" : ""}`} onClick={() => setRoute({ 'route': route, 'methods': methods, 'params': params })}>
+            <span>Путь <b> {route} </b> {description}</span>
 
             {children && children.map(r => <GRoute setRoute={setRoute} key={RandomKey()} {...r} />)}
         </div>
@@ -121,9 +142,19 @@ const GParam = ({ k, v, removeParam }) => {
                 <span>Значение: {v}</span>
             </div>
 
-            <button className="btn btn-primary remove-param" onClick={() => removeParam(k)}>X</button>
+            {removeParam && <button className="btn btn-primary remove-param" onClick={() => removeParam(k)}>X</button>}
         </div>
     )
+}
+
+const GResultData = ({data}) => {
+    const rf = useRef(null);
+
+    useEffect(() => {
+        if (rf.current) rf.current.innerHTML = window.prettyPrintJson.toHtml(data)
+    })
+
+    return <pre ref={rf}></pre>
 }
 
 const addParam = (key, value, params, setParams, fields) => {
@@ -155,22 +186,18 @@ export default function AdminPage() {
         const data = new FormData();
         params.forEach(p => data.append(p.k, p.v))
 
-        const resp = await Fetching("/api/" + route, data, method)
-        if (resp.err && resp.err !== "ok") return Notify('fail', "Не загрузились данные") || setData(null);
-        setData(resp);
+        const resp = await Fetching("/api/" + route.route, data, method)
+        if (resp.code !== 200) return Notify('fail', "Не загрузились данные") || setData(null);
+        setData(resp.data);
     }, [route, params, method])
-
-
-    console.log(route, method);
-
 
     useEffect(() => {
         if (routes === undefined) getRoutes()
     })
 
-
     if (!USER.isAdmin) return <Redirect to="/parsels" />
     if (!routes) return <div>Не загрузились точки входа</div>
+
     return (
         <SAdmin>
             <h1 className="title">Админка</h1>
@@ -184,6 +211,29 @@ export default function AdminPage() {
                     }
                 </div>
             </div>
+
+            {
+                route &&
+                <div className="active_route">
+                    <h3 className="active_title">Активный путь <b> {route.route} </b></h3>
+
+                    <div className="methods">
+                        <h3>Методы</h3>
+
+                        <div className="method-items">
+                            {route.methods.map(m => <span key={RandomKey()} className="btn btn-primary">{m}</span>)}
+                        </div>
+                    </div>
+
+                    <div className="params">
+                        <h3>Параметры</h3>
+
+                        <div className="params-items">
+                            {route.params.map(p => <GParam key={RandomKey()} {...p} />)}
+                        </div>
+                    </div>
+                </div>
+            }
 
             <div className="method">
                 <h2>Метод</h2>
@@ -213,7 +263,8 @@ export default function AdminPage() {
                 <div className="results">
                     <h2>Результаты</h2>
 
-
+                    {/* pretty print */}
+                    <GResultData data={data} />
                 </div>
             }
 

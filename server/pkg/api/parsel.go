@@ -11,6 +11,10 @@ import (
 )
 
 func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	// joins
 	userJ := orm.DoSQLJoin(orm.LOJOINQ, "Users AS u", "p.userID = u.id")
 	fromJ := orm.DoSQLJoin(orm.LOJOINQ, "Cities AS cf", "p.fromID = cf.id")
@@ -24,19 +28,18 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		if userID == -1 {
 			return nil, errors.New("не зарегистрированы в сети")
 		}
-		op.Where = "p.userID = ?"
+		op.Where = "p.userID = ? AND"
 		op.Args = append(op.Args, userID)
-	} else {
-		// add filters
-		// from Almaty to Astana by default
-		searchGetCountFilter(" p.fromID = ?", "p.fromID > ?", r.FormValue("fromID"), 0, true, &op)
-		searchGetCountFilter(" p.toID = ?", "p.toID > ?", r.FormValue("toID"), 0, true, &op)
-
-		// expires date between now and in 1 month
-		searchGetCountFilter(" p.weight <= ?", " p.weight <= ?", r.FormValue("weight"), 100000, true, &op)
-		searchGetCountFilter(" p.price >= ?", " p.price >= ?", r.FormValue("price"), 0, true, &op)
-		op.Where = removeLastFromStr(op.Where, "AND")
 	}
+
+	// add filters
+	searchGetCountFilter(" p.fromID = ?", "p.fromID > ?", r.FormValue("fromID"), 1, false, &op)
+	searchGetCountFilter(" p.toID = ?", "p.toID > ?", r.FormValue("toID"), 2, false, &op)
+
+	// expires date between now and in 1 month
+	searchGetCountFilter(" p.weight <= ?", " p.weight <= ?", r.FormValue("weight"), 100000, true, &op)
+	searchGetCountFilter(" p.price >= ?", " p.price >= ?", r.FormValue("price"), 0, true, &op)
+	op.Where = removeLastFromStr(op.Where, "AND")
 
 	first, count := getLimits(r)
 	op.Args = append(op.Args, first, count)
@@ -58,6 +61,10 @@ func Parsels(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 
 // CreateParsel create one parsel
 func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "GET" {
+		return nil, errors.New("wrong method")
+	}
+
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {
 		return nil, errors.New("не зарегистрированы в сети")
@@ -165,6 +172,10 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 
 // RemoveParsel remove one parsel
 func RemoveParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "GET" {
+		return nil, errors.New("wrong method")
+	}
+
 	// get general ids
 	userID := GetUserIDfromReq(w, r)
 	if userID == -1 {

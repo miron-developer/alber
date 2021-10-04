@@ -58,21 +58,42 @@ func (app *Application) HIndex(w http.ResponseWriter, r *http.Request) {
 // HUser for handle '/api/'
 func (app *Application) HApiIndex(w http.ResponseWriter, r *http.Request) {
 	type Route struct {
-		Path     string            `json:"route"`
-		Children []Route           `json:"children"`
-		Params   map[string]string `json:"params"`
+		Path        string              `json:"route"`
+		Description string              `json:"description"`
+		Children    []Route             `json:"children"`
+		Params      []map[string]string `json:"params"`
+		Methods     []string            `json:"methods"`
 	}
 
 	data := api.API_RESPONSE{
 		Err:  "",
 		Code: 200,
 		Data: []Route{
-			{Path: "/user", Params: map[string]string{"id": "id пользователя"}},
-			{Path: "/parsels"},
-			{Path: "/travelers"},
-			{Path: "/images"},
-			{Path: "/search"},
-			{Path: "/toptypes"},
+			{Path: "/user", Description: "получение одного пользователя(полное)", Methods: []string{"GET"}, Params: []map[string]string{{"k": "id", "v": "id пользователя"}}},
+			{
+				Path: "/users", Description: "получение id пользователей", Methods: []string{"GET"},
+				Params: []map[string]string{{"k": "from", "v": "с какого индекса"}, {"k": "step", "v": "сколько взять"}},
+			},
+			{
+				Path: "/parsels", Description: "посылки", Methods: []string{"GET"},
+				Params: []map[string]string{
+					{"k": "type", "v": "user/empty"}, {"k": "weight", "v": "масса"},
+					{"k": "price", "v": "цена"}, {"k": "fromID", "v": "откуда"}, {"k": "toID", "v": "куда"},
+					{"k": "from", "v": "с какого индекса"}, {"k": "step", "v": "сколько взять"},
+				},
+			},
+			{
+				Path: "/travelers", Description: "попутчики", Methods: []string{"GET"},
+				Params: []map[string]string{
+					{"k": "type", "v": "user(если твое)/empty(общий)"}, {"k": "fromID", "v": "откуда"}, {"k": "toID", "v": "куда"},
+					{"k": "from", "v": "с какого индекса"}, {"k": "step", "v": "сколько взять"},
+				},
+			},
+			{Path: "/images", Description: "прикрепленные фото", Methods: []string{"GET"}, Params: []map[string]string{{"k": "id", "v": "parsel id"}}},
+			{Path: "/search", Description: "поиск(пока ищет города с таким названием)", Methods: []string{"GET"}, Params: []map[string]string{{"k": "q", "v": "поисковый запрос"}}},
+			{Path: "/toptypes", Description: "поднятия", Methods: []string{"GET"}},
+			{Path: "/travelTypes", Description: "типы путешествия", Methods: []string{"GET"}},
+			{Path: "/countryCodes", Description: "коды стран", Methods: []string{"GET"}},
 		},
 	}
 
@@ -82,6 +103,11 @@ func (app *Application) HApiIndex(w http.ResponseWriter, r *http.Request) {
 // HUser for handle '/api/user/'
 func (app *Application) HUser(w http.ResponseWriter, r *http.Request) {
 	api.HApi(w, r, api.User)
+}
+
+// HUser for handle '/api/users/'
+func (app *Application) HUsers(w http.ResponseWriter, r *http.Request) {
+	api.HApi(w, r, api.Users)
 }
 
 // HParsels for handle '/api/parsels'

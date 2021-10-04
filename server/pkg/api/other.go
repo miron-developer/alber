@@ -11,6 +11,10 @@ import (
 )
 
 func SearchCity(r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	op := orm.DoSQLOption("", "name DESC", "?,?")
 	if e := searchGetTextFilter(r.FormValue("q"), []string{"c.name"}, &op); e != nil {
 		return nil, e
@@ -25,6 +29,10 @@ func SearchCity(r *http.Request) (interface{}, error) {
 }
 
 func Images(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	ID, e := strconv.Atoi(r.FormValue("id"))
 	if e != nil {
 		return nil, errors.New("не корректный id")
@@ -42,6 +50,10 @@ func Images(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 }
 
 func TravelTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	return orm.GeneralGet(orm.SQLSelectParams{
 		Table:   "TravelTypes AS tRt",
 		What:    "tRt.*",
@@ -50,6 +62,10 @@ func TravelTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 }
 
 func TopTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	return orm.GeneralGet(orm.SQLSelectParams{
 		Table:   "TopTypes AS tt",
 		What:    "tt.*",
@@ -58,6 +74,10 @@ func TopTypes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 }
 
 func CountryCodes(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	return orm.GeneralGet(orm.SQLSelectParams{
 		Table:   "CountryCodes AS cc",
 		What:    "cc.*, c.name",

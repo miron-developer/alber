@@ -11,6 +11,10 @@ import (
 )
 
 func User(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
 	ID, e := strconv.Atoi(r.FormValue("id"))
 	if e != nil {
 		return nil, errors.New("wrong id")
@@ -42,6 +46,23 @@ func User(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		as,
 		orm.User{},
 	)
+}
+
+func Users(w http.ResponseWriter, r *http.Request) (interface{}, error) {
+	if r.Method == "POST" {
+		return nil, errors.New("wrong method")
+	}
+
+	first, step := getLimits(r)
+	return orm.GeneralGet(
+		orm.SQLSelectParams{
+			Table:   "Users AS u",
+			What:    "u.*",
+			Options: orm.DoSQLOption("", "", "?,?", first, step),
+		},
+		nil,
+		orm.User{},
+	), nil
 }
 
 func ChangeProfile(w http.ResponseWriter, r *http.Request) error {
