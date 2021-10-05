@@ -22,6 +22,10 @@ const STraveler = styled.div`
         & .general_info {
             display: flex;
 
+            & span {
+                word-break: break-word;
+            }
+
             & div {
                 display: flex;
                 flex-direction: column;
@@ -100,6 +104,11 @@ const STraveler = styled.div`
     }
 `;
 
+// paint
+// <span className="manage-action" onClick={() => PaintItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+//     <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
+// </span>
+
 export default function Traveler({ data, isMy = false, changeItem, removeItem }) {
     const [isOpened, setOpened] = useState(false);
 
@@ -157,9 +166,7 @@ export default function Traveler({ data, isMy = false, changeItem, removeItem })
                             <span className="manage-action" onClick={() => RemoveItem(data.id, "traveler", () => removeItem(data.id))}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
-                            {/* <span className="manage-action" onClick={() => PaintItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
-                                <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
-                            </span> */}
+
                             <span className="manage-action" onClick={() => TopItem(data.id, "traveler", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
                                 <i className="fa fa-level-up" aria-hidden="true">Поднять</i>
                             </span>

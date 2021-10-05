@@ -57,7 +57,7 @@ export const Notify = (type, content, isAutoClose) => {
 }
 
 const Notification = ({ id = 0, type = "fail", content, isAutoClose = true }) => {
-    if (!content) return null;
+    if (!content) return <div></div>;
     if (isAutoClose) setTimeout(() => removeNotification(id), 5000);
 
     let noteContent = content

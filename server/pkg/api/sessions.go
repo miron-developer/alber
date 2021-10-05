@@ -30,8 +30,8 @@ func SetCookie(w http.ResponseWriter, sid string, expire int) {
 		Value:  url.QueryEscape(sid),
 		MaxAge: expire,
 
-		Path:     "/",
-		Secure:   true,
+		Path: "/",
+		// Secure:   true,
 		HttpOnly: true,
 	}
 	http.SetCookie(w, &sidCook)

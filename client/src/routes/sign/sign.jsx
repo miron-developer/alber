@@ -121,7 +121,7 @@ export default function Sign() {
 
             <GSignAction action={action} setAction={setAction} />
 
-            <Link to="/" onClick={()=>USER.guest = true}>Войти как гость</Link>
+            <Link to="/parsel" onClick={()=>USER.guest = true}>Войти как гость</Link>
 
             <Link target="_blank" download={true} to="/assets/rights/name.txt">Пользовательское соглашение</Link>
         </SSign>

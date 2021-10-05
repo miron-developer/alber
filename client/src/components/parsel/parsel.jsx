@@ -122,6 +122,11 @@ const SParsel = styled.div`
     }
 `;
 
+// Paint
+// <span className="manage-action" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
+//     <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
+// </span>
+
 export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
     const [photos, setPhotos] = useState();
     const [isOpened, setOpened] = useState(false);
@@ -191,9 +196,7 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                             <span className="manage-action" onClick={() => RemoveItem(data.id, "parsel", () => removeItem(data.id))}>
                                 <i className="fa fa-trash" aria-hidden="true">Удалить</i>
                             </span>
-                            {/* <span className="manage-action" onClick={() => PaintItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
-                                <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
-                            </span> */}
+
                             <span className="manage-action" onClick={() => TopItem(data.id, "parsel", newData => changeItem(data.id, Object.assign({}, data, newData)))}>
                                 <i className="fa fa-level-up" aria-hidden="true">Поднять</i>
                             </span>

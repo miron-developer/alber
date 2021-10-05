@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { Switch, Route } from 'react-router-dom';
 
 import { RandomKey } from 'utils/content';
@@ -19,10 +19,14 @@ import styled from 'styled-components';
 const SMain = styled.main`
     grid-area: main;
     background: linear-gradient(45deg, #0054d2, #00d2f7, #1c62d8);
+
+    & > * {
+        margin-bottom: 5rem;
+    }
 `;
 
 // app's routes
-const ROUTES = [{
+const ROUTES = [ {
     href: "/sign",
     isExact: false,
     component: SignPage,
@@ -59,7 +63,7 @@ const ROUTES = [{
 export default function DefineRoutes() {
     const history = useHistory();
 
-    if (history.location.pathname === "/") return history.push("/parsel")
+    if (history.location.pathname === "/") return <Redirect to="/parsel" />
     return (
         <SMain>
             <Switch>
@@ -71,7 +75,6 @@ export default function DefineRoutes() {
                 <Route component={Page404} />
             </Switch>
 
-            {/* popups */}
             <Popup />
             <AppNotifications />
         </SMain>

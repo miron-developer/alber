@@ -18,7 +18,7 @@ export default function PhoneField({ index, base, required }) {
     }, [getCodes, codes])
 
 
-    if (!codes) return null;
+    if (!codes) return <div></div>;
     return (
         <div>
             <Input index={index} id="phone" type="number" name="phone" base={base} labelText="Телефон:"

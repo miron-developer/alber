@@ -147,7 +147,6 @@ export default function Aside() {
 
     return (
         <SAside className={isOpened ? "open" : ""}>
-            {/* aside open/close btn */}
             <div className="open-btn" onClick={() => setOpened(!isOpened)}>
                 <i className="fa fa-bars" aria-hidden="true"></i>
             </div>

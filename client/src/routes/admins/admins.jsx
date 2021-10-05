@@ -126,7 +126,7 @@ const SAdmin = styled.div`
 
 const GRoute = ({ active, route, description, methods, children = [], params = {}, setRoute }) => {
     return (
-        <div className={`route-item ${active?.route === route ? "active" : ""}`} onClick={() => setRoute({ 'route': route, 'methods': methods, 'params': params })}>
+        <div className={`route-item ${active?.route === route ? "active" : ""}`} onClick={() => setRoute({ 'route': route, 'methods': methods, 'params': params ? params : undefined })}>
             <span>Путь <b> {route} </b> {description}</span>
 
             {children && children.map(r => <GRoute setRoute={setRoute} key={RandomKey()} {...r} />)}
@@ -147,7 +147,7 @@ const GParam = ({ k, v, removeParam }) => {
     )
 }
 
-const GResultData = ({data}) => {
+const GResultData = ({ data }) => {
     const rf = useRef(null);
 
     useEffect(() => {
@@ -177,7 +177,7 @@ export default function AdminPage() {
     const fields = [key, value];
 
     const getRoutes = useCallback(async () => {
-        const resp = await GetDataByCrieteries("/api/", {}, "GET")
+        const resp = await GetDataByCrieteries("", {}, "GET")
         if (resp.err && resp.err !== "ok") return Notify('fail', "Не загрузились точки входа") || setRoutes(null);
         setRoutes(resp);
     }, [])
@@ -195,7 +195,7 @@ export default function AdminPage() {
         if (routes === undefined) getRoutes()
     })
 
-    if (!USER.isAdmin) return <Redirect to="/parsels" />
+    if (!USER.isAdmin) return <Redirect to="/parsel" />
     if (!routes) return <div>Не загрузились точки входа</div>
 
     return (
@@ -225,13 +225,16 @@ export default function AdminPage() {
                         </div>
                     </div>
 
-                    <div className="params">
-                        <h3>Параметры</h3>
+                    {
+                        route?.params &&
+                        <div className="params">
+                            <h3>Параметры</h3>
 
-                        <div className="params-items">
-                            {route.params.map(p => <GParam key={RandomKey()} {...p} />)}
+                            <div className="params-items">
+                                {route?.params.map(p => <GParam key={RandomKey()} {...p} />)}
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             }
 

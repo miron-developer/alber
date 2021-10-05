@@ -38,3 +38,221 @@
 [34m[INFO][0m	2021/10/05 00:13:32 handlers.go:33: 127.0.0.1:44302 POST: '/sign/in'
 [34m[INFO][0m	2021/10/05 00:13:32 handlers.go:33: 127.0.0.1:44324 GET: '/api/user?id=7'
 [34m[INFO][0m	2021/10/05 00:13:32 handlers.go:33: 127.0.0.1:44334 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 22:00:45 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 22:00:45 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 22:00:45 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 22:00:46 handlers.go:33: [::1]:37162 GET: '/'
+[34m[INFO][0m	2021/10/05 22:00:46 handlers.go:33: [::1]:37164 GET: '/static/js/2.49dffec7.chunk.js'
+[34m[INFO][0m	2021/10/05 22:00:46 handlers.go:33: [::1]:37162 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/05 22:00:46 handlers.go:33: [::1]:37172 GET: '/static/js/main.e19808d0.chunk.js'
+[34m[INFO][0m	2021/10/05 22:00:47 handlers.go:33: [::1]:37164 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 22:00:47 handlers.go:33: [::1]:37164 GET: '/api/user?id=7'
+[34m[INFO][0m	2021/10/05 22:00:48 handlers.go:33: [::1]:37176 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:00:48 handlers.go:33: [::1]:37164 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37164 GET: '/parsel'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37164 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37172 GET: '/static/js/2.49dffec7.chunk.js'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37162 GET: '/static/js/main.e19808d0.chunk.js'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37162 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37162 GET: '/api/user?id=7'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37162 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37176 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:00:49 handlers.go:33: [::1]:37162 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 22:00:51 handlers.go:33: [::1]:37176 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:00:51 handlers.go:33: [::1]:37162 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/05 22:00:51 handlers.go:33: [::1]:37162 GET: '/static/js/2.49dffec7.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:00:51 handlers.go:33: [::1]:37172 GET: '/static/js/main.e19808d0.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:00:51 handlers.go:33: [::1]:37162 GET: '/static/css/main.289280cc.chunk.css.map'
+[34m[INFO][0m	2021/10/05 22:00:56 handlers.go:33: [::1]:37162 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/05 22:00:59 handlers.go:33: [::1]:37162 POST: '/sign/out'
+[34m[INFO][0m	2021/10/05 22:01:05 handlers.go:33: [::1]:37162 POST: '/sign/in'
+[34m[INFO][0m	2021/10/05 22:01:06 handlers.go:33: [::1]:37162 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 22:01:13 handlers.go:33: [::1]:37162 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%D1%!-(MISSING)%!D(MISSING)0%!A(MISSING)1%!D(MISSING)1%D0%!B(MISSING)B%!D(MISSING)1%D0%!B(MISSING)0%!D(MISSING)0%!B(MISSING)D'
+[34m[INFO][0m	2021/10/05 22:01:13 handlers.go:33: [::1]:37162 GET: '/api/search?type=cities&q=%!D(MISSING)0%D0%!B(MISSING)B%!D(MISSING)0%!B(MISSING)C%!D(MISSING)0%!B(MISSING)0%!D(MISSING)1%D1%!B(MISSING)'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37162 GET: '/api/parsels?fromID=2&toID=1&weight=&price=&from=0&step=5'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37162 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37162 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37172 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37164 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37378 GET: '/api/images?id=49'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37378 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)08-24%!-(MISSING)47-07.png71062768'
+[34m[INFO][0m	2021/10/05 22:01:14 handlers.go:33: [::1]:37172 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)09-07%!-(MISSING)16-15.png10855663'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37172 GET: '/api/parsels?fromID=2&toID=1&weight=&price=&from=5&step=5'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37172 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37378 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37172 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37172 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37378 GET: '/api/images?id=49'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37172 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37164 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37162 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37398 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/05 22:01:15 handlers.go:33: [::1]:37400 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/05 22:01:17 handlers.go:33: [::1]:37400 GET: '/api/parsels?fromID=2&toID=1&weight=&price=&from=10&step=5'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37400 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37400 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37398 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37400 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37398 GET: '/api/images?id=49'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37162 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37164 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37172 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37398 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37378 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37400 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37162 GET: '/api/images?id=40'
+[34m[INFO][0m	2021/10/05 22:01:18 handlers.go:33: [::1]:37164 GET: '/api/images?id=39'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37164 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37164 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37164 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37162 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37164 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37378 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37162 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37164 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37378 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37400 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/05 22:01:26 handlers.go:33: [::1]:37162 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/05 22:01:28 handlers.go:33: [::1]:37162 GET: '/api/travelers?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37162 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37162 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37400 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37162 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37378 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37162 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37400 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37164 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37398 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37172 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/05 22:01:36 handlers.go:33: [::1]:37378 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/05 22:01:38 handlers.go:33: [::1]:37378 GET: '/api/travelers?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/05 22:01:45 handlers.go:33: [::1]:37378 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37378 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37172 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37378 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37398 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37172 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37378 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37172 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37400 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37398 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/05 22:01:46 handlers.go:33: [::1]:37164 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/05 22:01:53 handlers.go:33: [::1]:37400 GET: '/api/travelers?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 22:03:08 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 22:03:08 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 22:03:08 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 22:05:29 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 22:05:29 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 22:05:29 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 22:05:29 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 22:05:29 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 22:05:30 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 22:05:30 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 22:05:30 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 22:05:30 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 22:05:30 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 22:05:30 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 22:05:30 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 22:05:30 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38350 GET: '/'
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38350 GET: '/static/js/main.5525aa62.chunk.js'
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38352 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38354 GET: '/static/js/2.49dffec7.chunk.js'
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38354 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38356 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:05:33 handlers.go:33: [::1]:38354 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 22:05:37 handlers.go:33: [::1]:38356 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:05:37 handlers.go:33: [::1]:38354 GET: '/static/js/2.49dffec7.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:05:37 handlers.go:33: [::1]:38350 GET: '/static/js/main.5525aa62.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:05:37 handlers.go:33: [::1]:38354 GET: '/static/css/main.289280cc.chunk.css.map'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38354 GET: '/parsel'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38354 GET: '/static/css/main.289280cc.chunk.css.map'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38354 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38350 GET: '/static/js/2.49dffec7.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38352 GET: '/static/js/main.5525aa62.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38356 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38352 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 22:05:41 handlers.go:33: [::1]:38354 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 22:06:21 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 22:06:21 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 22:06:21 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38740 GET: '/parsel'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38740 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38740 GET: '/static/js/2.49dffec7.chunk.js'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38742 GET: '/static/js/main.5525aa62.chunk.js'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38742 GET: '/static/css/main.289280cc.chunk.css.map'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38742 POST: '/sign/status'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38740 GET: '/static/js/2.49dffec7.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38744 GET: '/static/js/main.5525aa62.chunk.js.map'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38740 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38746 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/05 22:06:24 handlers.go:33: [::1]:38742 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 23:51:26 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 23:51:26 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 23:51:26 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 23:56:50 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 23:56:50 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 23:56:50 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:43: access completed
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:50: database configured
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:53: making migrations
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:76: database completed!
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:78: configuring app
+[34m[INFO][0m	2021/10/05 23:59:33 init.go:81: configuring done
+[34m[INFO][0m	2021/10/05 23:59:33 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/05 23:59:33 main.go:37: server listening on port 4330
