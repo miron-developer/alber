@@ -144,7 +144,7 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
             <div className="description">
                 <textarea
                     className="form-control" {...description.base}
-                    id="description" name="description" rows="2" placeholder="Опишите вашу поездку, сколько вы забираете, когда выходите и приходите"
+                    id="description" name="description" rows="3" placeholder="Опишите вашу поездку, сколько вы забираете, когда выходите и приходите"
                 ></textarea>
             </div>
 

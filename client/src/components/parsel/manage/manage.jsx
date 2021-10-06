@@ -156,7 +156,7 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             <div className="description">
                 <textarea
                     className="form-control" {...description.base}
-                    id="description" name="description" rows="2" placeholder="Опишите вашу посылку, когда нужно доставить, заголовок"
+                    id="description" name="description" rows="3" placeholder="Опишите вашу посылку, когда нужно доставить, заголовок"
                 ></textarea>
             </div>
 

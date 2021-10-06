@@ -14,7 +14,7 @@ const SAside = styled.aside`
     position: fixed;
     left: 100vw;
     padding: 1rem;
-    width: 80vw;
+    width: 85vw;
     height: 100vh;
     background: #2b2b2be0;
     transition: var(--transitionApp);
@@ -22,13 +22,13 @@ const SAside = styled.aside`
     opacity: .9;
 
     &.open {
-        transform: translate(-80vw);
+        transform: translate(-85vw);
     }
 
     & .open-btn {
         position: absolute;
         right: 100%;
-        top: 80%;
+        top: 75%;
         padding: 1rem;
         border-radius: 5px;
         font-size: 1.5rem;
@@ -39,7 +39,9 @@ const SAside = styled.aside`
     }
 
     & .menu {
-        & > span {
+        height: 65%;
+
+        .menu-items > span {
             margin: .5rem;
             padding: 1rem;
             color: var(--onHoverColor);
@@ -56,8 +58,7 @@ const SAside = styled.aside`
         .links {
             display: flex;
             flex-direction: column;
-            padding: 2rem;
-            margin: 1rem 0;
+            margin: 2rem 0;
         }
 
         .links a {
@@ -83,6 +84,7 @@ const SUser = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 20%;
 
     & > * {
         display: flex;
@@ -93,6 +95,7 @@ const SUser = styled.div`
 const SLogo = styled.div`
     margin: auto;
     width: 10rem;
+    height: 15%;
     display: block;
     overflow: hidden;
     transition: var(--transitionApp);
@@ -115,10 +118,18 @@ const SNickname = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     text-align: center;
-    word-break: break-all;
+    word-break: break-word;
     background: var(--onHoverColor);
     border-radius: 5px;
     transition: var(--transitionApp);
+
+    & > i {
+        margin: 5px;
+    }
+
+    &.nickname {
+        width: 100%;
+    }
 `
 
 const SLogout = styled(SNickname)`
@@ -162,9 +173,9 @@ export default function Aside() {
                         {
                             USER.status === "online"
                                 ? <div>
-                                    <SNickname>
+                                    <SNickname className="nickname">
                                         <i className="fa fa-user" aria-hidden="true"></i>
-                                        {USER.nickname} ({USER.phoneNumber})
+                                        <span>{USER.nickname} ({USER.phoneNumber})</span>
                                     </SNickname>
                                     <SEdit onClick={() => PopupOpen(EditProfile, {})}>
                                         <i className="fa fa-pencil" aria-hidden="true"></i>
@@ -187,17 +198,19 @@ export default function Aside() {
                     </SUser>
 
                     <div className="menu">
-                        <span className={tab === 0 ? 'active' : ''} onClick={() => setTab(0)}>Меню</span>
+                        <div className="menu-items">
+                            <span className={tab === 0 ? 'active' : ''} onClick={() => setTab(0)}>Меню</span>
 
-                        {USER.status === "online" && <span className={tab === 1 ? 'active' : ''} onClick={() => setTab(1)}>Ваша история</span>}
+                            {USER.status === "online" && <span className={tab === 1 ? 'active' : ''} onClick={() => setTab(1)}>Ваша история</span>}
 
+                        </div>
                         {
                             USER.status === "online" && tab === 1
                                 ? <History />
                                 : <div className="links">
                                     <NavLink to="/faq">Вопросы и ответы</NavLink>
                                     <NavLink to="/contacts">Контакты</NavLink>
-                                    { USER.isAdmin && <NavLink to="/admin">Админ</NavLink> }
+                                    {USER.isAdmin && <NavLink to="/admin">Админ</NavLink>}
                                 </div>
                         }
                     </div>

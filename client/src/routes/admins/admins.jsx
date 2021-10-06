@@ -11,7 +11,10 @@ import styled from "styled-components"
 
 const SAdmin = styled.div`
     padding: 1rem;
-    margin-bottom: 5rem;
+    
+    &.admins {
+        margin-bottom: 7rem;
+    }
 
     .btn {
         box-shadow: var(--boxShadow);
@@ -199,7 +202,7 @@ export default function AdminPage() {
     if (!routes) return <div>Не загрузились точки входа</div>
 
     return (
-        <SAdmin>
+        <SAdmin className="admins">
             <h1 className="title">Админка</h1>
 
             <div className="routes">

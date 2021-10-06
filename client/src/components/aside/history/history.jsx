@@ -9,7 +9,8 @@ import Traveler from "components/traveler/traveler";
 import styled from "styled-components";
 
 const SHistory = styled.section`
-    padding: 1rem;
+    padding: 1rem 0;
+    height: 100%;
 
     & .history-tabs {
         display: flex;
@@ -31,8 +32,7 @@ const SHistory = styled.section`
     }
 
     & .history {
-        padding: 1rem;
-        max-height: 60vh;
+        height: 70%;
         overflow: auto;
         border-radius: 10px;
         background: var(--offHoverBG);

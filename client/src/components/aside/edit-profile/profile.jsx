@@ -17,7 +17,7 @@ const SForms = styled.form`
     padding: 2rem;
 
     & > * {
-        margin: 1rem;
+        margin: 1rem auto;
     }
 `;
 

@@ -16,6 +16,7 @@ const SApp = styled.div`
     grid-template-rows: ${props => props.isSign ? "1fr" : '1fr 7vh'};
     grid-template-columns: ${props => props.isSign ? '1fr' : '1fr 0fr'};
     min-height: 100vh;
+    overflow: hidden;
 
 	@media screen and (max-width: 600px) {
 		& {

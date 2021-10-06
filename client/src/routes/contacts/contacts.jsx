@@ -21,11 +21,12 @@ const SContacts = styled.article`
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: center;
     }
 
     .contacts-block {
         margin: 1rem;
+        max-width: 50%;
+        min-width: 25%;
 
         & a {
             text-decoration: none;
@@ -54,7 +55,7 @@ export default function ContactsPage() {
 
             <section className="contacts-section">
                 <div className="contacts-block">
-                    <a className="contacts-block__link" rel="noreferrer" href="https://wa.me/7787833831" alt="" target="_blank">
+                    <a className="contacts-block__link" rel="noreferrer" href="https://wa.me/+77787833831" alt="" target="_blank">
                         <i className="fa fa-whatsapp" aria-hidden="true"></i>
 
                         <div className="contacts-block__right">

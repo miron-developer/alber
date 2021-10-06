@@ -50,7 +50,8 @@ func User(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		return nil, e
 	}
 
-	if data[0]["phoneNumber"] == "+77759339540" {
+	// admin check
+	if data[0]["phoneNumber"] == "+77787833831" {
 		data[0]["isAdmin"] = true
 	}
 	return data, nil

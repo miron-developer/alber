@@ -9,17 +9,17 @@ const SHeader = styled.header`
     right: 0;
     bottom: 0;
     padding: 1rem;
+    width: 100vw;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     background: var(--blueColor);
     z-index: 5;
 `;
 
 const SNavLink = styled(NavLink)`
-    margin: 0.5rem 0;
+    margin: 0.5rem;
     padding: 0.5rem;
-    flex-basis: 20%;
+    width: calc(25% - 1rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +27,6 @@ const SNavLink = styled(NavLink)`
     border-radius: 5px;
     color: var(--onHoverColor);
     text-decoration: none;
-    text-transform: uppercase;
     transition: var(--transitionApp);
 
     &.active,

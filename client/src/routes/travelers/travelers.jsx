@@ -10,6 +10,10 @@ import Traveler from "components/traveler/traveler";
 import styled from "styled-components";
 
 const STravelers = styled.section`
+    &.travelers{
+        margin-bottom: 10rem;
+    }
+
     & .filters {
         display: flex;
         flex-wrap: wrap;
@@ -76,7 +80,7 @@ export default function TravelersPage() {
     }, [isStopLoad, loadTravelers])
 
     return (
-        <STravelers>
+        <STravelers className="travelers">
             <div className="filters">
                 <Input id="from" type="text" name="from" list="from-list" base={from.base} labelText="Откуда" />
                 <datalist id="from-list"></datalist>
