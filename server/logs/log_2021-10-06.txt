@@ -583,3 +583,274 @@
 [34m[INFO][0m	2021/10/06 00:53:50 init.go:81: configuring done
 [34m[INFO][0m	2021/10/06 00:53:50 main.go:15: initialization completed!
 [34m[INFO][0m	2021/10/06 00:53:50 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/06 15:29:40 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/06 15:29:40 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/06 15:29:40 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/06 15:29:40 init.go:43: access completed
+[34m[INFO][0m	2021/10/06 15:29:40 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/06 15:29:41 init.go:50: database configured
+[34m[INFO][0m	2021/10/06 15:29:41 init.go:53: making migrations
+[34m[INFO][0m	2021/10/06 15:29:41 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/06 15:29:41 init.go:76: database completed!
+[34m[INFO][0m	2021/10/06 15:29:41 init.go:78: configuring app
+[34m[INFO][0m	2021/10/06 15:29:41 init.go:81: configuring done
+[34m[INFO][0m	2021/10/06 15:29:41 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/06 15:29:41 main.go:37: server listening on port 4330
+[31m[ERROR][0m	2021/10/06 15:30:57 server.go:3117: http: TLS handshake error from [::1]:48732: remote error: tls: unknown certificate
+[31m[ERROR][0m	2021/10/06 15:30:57 server.go:3117: http: TLS handshake error from [::1]:48734: remote error: tls: unknown certificate
+[31m[ERROR][0m	2021/10/06 15:30:57 server.go:3117: http: TLS handshake error from [::1]:48740: remote error: tls: unknown certificate
+[31m[ERROR][0m	2021/10/06 15:31:03 server.go:3117: http: TLS handshake error from [::1]:48730: read tcp [::1]:4330->[::1]:48730: i/o timeout
+[31m[ERROR][0m	2021/10/06 15:31:31 server.go:3117: http: TLS handshake error from [::1]:48744: remote error: tls: unknown certificate
+[31m[ERROR][0m	2021/10/06 15:31:31 server.go:3117: http: TLS handshake error from [::1]:48746: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:31:31 handlers.go:31: [::1]:48748 GET: '/'
+[34m[INFO][0m	2021/10/06 15:31:31 handlers.go:31: [::1]:48748 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 15:31:31 handlers.go:31: [::1]:48748 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 15:31:31 handlers.go:31: [::1]:48748 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 15:31:32 handlers.go:31: [::1]:48748 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:31:32 handlers.go:31: [::1]:48748 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/06 15:31:32 handlers.go:31: [::1]:48748 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/06 15:31:33 handlers.go:31: [::1]:48748 GET: '/assets/app/favicon.ico'
+[31m[ERROR][0m	2021/10/06 15:31:33 server.go:3117: http: TLS handshake error from [::1]:48750: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:31:33 handlers.go:31: [::1]:48752 GET: '/manifest.json'
+[31m[ERROR][0m	2021/10/06 15:34:51 server.go:3117: http: TLS handshake error from 127.0.0.1:33274: remote error: tls: bad certificate
+[31m[ERROR][0m	2021/10/06 15:34:51 server.go:3117: http: TLS handshake error from 127.0.0.1:33278: remote error: tls: bad certificate
+[34m[INFO][0m	2021/10/06 15:34:56 handlers.go:31: 127.0.0.1:33280 GET: '/'
+[34m[INFO][0m	2021/10/06 15:34:56 handlers.go:31: 127.0.0.1:33280 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 15:34:56 handlers.go:31: 127.0.0.1:33280 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 15:34:56 handlers.go:31: 127.0.0.1:33280 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 15:34:57 handlers.go:31: 127.0.0.1:33280 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:34:57 handlers.go:31: 127.0.0.1:33280 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:34:57 handlers.go:31: 127.0.0.1:33280 GET: '/assets/app/logo.png'
+[31m[ERROR][0m	2021/10/06 15:35:15 server.go:3117: http: TLS handshake error from [::1]:48830: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:35:15 handlers.go:31: [::1]:48832 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/06 15:35:16 handlers.go:31: [::1]:48832 POST: '/sign/out'
+[31m[ERROR][0m	2021/10/06 15:36:37 h2_bundle.go:4215: http2: received GOAWAY [FrameHeader GOAWAY len=33], starting graceful shutdown
+[31m[ERROR][0m	2021/10/06 15:37:14 server.go:3117: http: TLS handshake error from [::1]:48846: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48848 GET: '/assets/app/favicon.ico'
+[31m[ERROR][0m	2021/10/06 15:37:15 server.go:3117: http: TLS handshake error from [::1]:48850: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:37:15 handlers.go:31: [::1]:48852 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:43: access completed
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:50: database configured
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:53: making migrations
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:76: database completed!
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:78: configuring app
+[34m[INFO][0m	2021/10/06 15:38:42 init.go:81: configuring done
+[34m[INFO][0m	2021/10/06 15:38:42 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/06 15:38:42 main.go:37: server listening on port 4330
+[31m[ERROR][0m	2021/10/06 15:39:27 server.go:3117: http: TLS handshake error from [::1]:48882: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[31m[ERROR][0m	2021/10/06 15:39:27 server.go:3117: http: TLS handshake error from [::1]:48886: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:27 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:29 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:29 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:29 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:29 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:29 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:30 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:31 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:32 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:33 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/sign/'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48888 GET: '/manifest.json'
+[34m[INFO][0m	2021/10/06 15:39:34 handlers.go:31: [::1]:48884 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:43: access completed
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:50: database configured
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:53: making migrations
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:76: database completed!
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:78: configuring app
+[34m[INFO][0m	2021/10/06 15:46:17 init.go:81: configuring done
+[34m[INFO][0m	2021/10/06 15:46:17 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/06 15:46:17 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:43: access completed
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:50: database configured
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:53: making migrations
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:76: database completed!
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:78: configuring app
+[34m[INFO][0m	2021/10/06 16:09:55 init.go:81: configuring done
+[34m[INFO][0m	2021/10/06 16:09:55 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/06 16:09:55 main.go:38: server listening on port 4330
+[31m[ERROR][0m	2021/10/06 16:10:24 server.go:3117: http: TLS handshake error from [::1]:49748: remote error: tls: unknown certificate
+[31m[ERROR][0m	2021/10/06 16:10:27 server.go:3117: http: TLS handshake error from [::1]:49750: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/static/css/main.289280cc.chunk.css'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/static/js/2.53c81300.chunk.js'
+[34m[INFO][0m	2021/10/06 16:10:27 handlers.go:31: [::1]:49752 GET: '/static/js/main.99773403.chunk.js'
+[34m[INFO][0m	2021/10/06 16:10:28 handlers.go:31: [::1]:49752 POST: '/sign/status'
+[34m[INFO][0m	2021/10/06 16:10:28 handlers.go:31: [::1]:49752 GET: '/assets/app/logo.png'
+[31m[ERROR][0m	2021/10/06 16:10:28 server.go:3117: http: TLS handshake error from [::1]:49754: remote error: tls: unknown certificate
+[34m[INFO][0m	2021/10/06 16:10:28 handlers.go:31: [::1]:49756 GET: '/manifest.json'
+[31m[ERROR][0m	2021/10/06 16:10:33 server.go:3117: http: TLS handshake error from [::1]:49746: EOF
+[31m[ERROR][0m	2021/10/06 16:10:36 server.go:3117: http: TLS handshake error from [::1]:49758: remote error: tls: unknown certificate
+[31m[ERROR][0m	2021/10/06 16:10:36 server.go:3117: http: TLS handshake error from [::1]:49760: remote error: tls: unknown certificate

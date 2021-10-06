@@ -36,9 +36,9 @@ func main() {
 	fmt.Printf("server listening on port %v\n", app.Config.PORT)
 	app.ILog.Printf("server listening on port %v\n", app.Config.PORT)
 
-	// if app.IsHeroku {
-	app.ELog.Fatal(srv.ListenAndServe())
-	// 	return
-	// }
-	// app.ELog.Fatal(srv.ListenAndServeTLS("./tls/cert.pem", "./tls/key.pem"))
+	// HTTP
+	// app.ELog.Fatal(srv.ListenAndServe())
+
+	// HTTPS
+	app.ELog.Fatal(srv.ListenAndServeTLS("./tls/al-ber_kz.crt", "./tls/11029176.key"))
 }

@@ -2,21 +2,21 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function(app) {
     app.use(
-        createProxyMiddleware("/api/", { target: "http://localhost:4330/" })
+        createProxyMiddleware("/api/", { target: "https://localhost:4330/" })
     );
     app.use(
-        createProxyMiddleware("/sign/", { target: "http://localhost:4330/" })
+        createProxyMiddleware("/sign/", { target: "https://localhost:4330/" })
     );
     app.use(
-        createProxyMiddleware("/e/", { target: "http://localhost:4330/" })
+        createProxyMiddleware("/e/", { target: "https://localhost:4330/" })
     );
     app.use(
-        createProxyMiddleware("/r/", { target: "http://localhost:4330/" })
+        createProxyMiddleware("/r/", { target: "https://localhost:4330/" })
     );
     app.use(
-        createProxyMiddleware("/s/", { target: "http://localhost:4330/" })
+        createProxyMiddleware("/s/", { target: "https://localhost:4330/" })
     );
     app.use(
-        createProxyMiddleware("/assets/", { target: "http://localhost:4330/" })
+        createProxyMiddleware("/assets/", { target: "https://localhost:4330/" })
     );
 };
