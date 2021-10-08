@@ -71,7 +71,15 @@ const clearAll = (fields = [], setHaveWhatsUp, setTravelType) => {
     setTravelType(0);
 }
 
-export default function ManageTraveler({ type = "create", cb, failText, successText, data }) {
+const defineTravelTypeByID = (travelTypeID) => {
+    if (travelTypeID === 1) return "Машина";
+    if (travelTypeID === 2) return "Поезд";
+    if (travelTypeID === 3) return "Самолет";
+    if (travelTypeID === 4) return "Корабль";
+    return ""
+}
+
+export default function ManageTraveler({ type = "create", cb, failText = "Ошибка", successText = "Успех", data }) {
     const description = useInput(data?.description);
     const contactNumber = useInput(data?.contactNumber);
     const from = useInput(data?.from);
@@ -79,7 +87,7 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
     const travelTypeID = useInput(data?.travelTypeID || 0);
     const fromID = useInput(data?.fromID);
     const toID = useInput(data?.toID);
-    const [isHaveWhatsUp, setHaveWhatsUp] = useState(data?.isHaveWhatsup === 1);
+    const [isHaveWhatsUp, setHaveWhatsUp] = useState(data?.isHaveWhatsUp === 1);
 
     const [travelType, setTravelType] = useState(data?.travelTypeID || 0);
 
@@ -91,6 +99,7 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
 
         const oldParams = {
             'travelTypeID': data?.travelTypeID,
+            'travelType': data?.travelType,
             'fromID': data?.fromID,
             'toID': data?.toID,
             'from': data?.from,
@@ -102,6 +111,7 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
         const comparedParams = CompareParams({
             'id': data?.id,
             'travelTypeID': travelTypeID.base.value,
+            'travelType': defineTravelTypeByID(parseInt(travelTypeID.base.value)),
             'fromID': GetValueFromListByIDAndInputValue('from-list', from.base.value),
             'toID': GetValueFromListByIDAndInputValue('to-list', to.base.value),
             'from': from.base.value,
@@ -143,30 +153,30 @@ export default function ManageTraveler({ type = "create", cb, failText, successT
 
             <div className="description">
                 <textarea
-                    className="form-control" {...description.base}
+                    className="form-control" {...description.base} required
                     id="description" name="description" rows="3" placeholder="Опишите вашу поездку, сколько вы забираете, когда выходите и приходите"
                 ></textarea>
             </div>
 
             <div className="travel_type">
-                <div className={`travel_type-item ${travelType === 1 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(1) || setTravelType(1)}>
+                <div className={`travel_type-item ${travelType === 1 ? "active" : ""}`} onClick={() => travelTypeID.setCertainValue(1) || setTravelType(1)}>
                     <i className="fa fa-car" aria-hidden="true"></i>
                 </div>
 
-                <div className={`travel_type-item ${travelType === 2 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(2) || setTravelType(2)}>
+                <div className={`travel_type-item ${travelType === 2 ? "active" : ""}`} onClick={() => travelTypeID.setCertainValue(2) || setTravelType(2)}>
                     <i className="fa fa-train" aria-hidden="true"></i>
                 </div>
 
-                <div className={`travel_type-item ${travelType === 3 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(3) || setTravelType(3)}>
+                <div className={`travel_type-item ${travelType === 3 ? "active" : ""}`} onClick={() => travelTypeID.setCertainValue(3) || setTravelType(3)}>
                     <i className="fa fa-plane" aria-hidden="true"></i>
                 </div>
 
-                <div className={`travel_type-item ${travelType === 4 ? "active": ""}`} onClick={() => travelTypeID.setCertainValue(4) || setTravelType(4)}>
+                <div className={`travel_type-item ${travelType === 4 ? "active" : ""}`} onClick={() => travelTypeID.setCertainValue(4) || setTravelType(4)}>
                     <i className="fa fa-ship" aria-hidden="true"></i>
                 </div>
             </div>
 
-            <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
+            <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Номер отправителя" />
 
             <div className="form-check">
                 <label htmlFor="wp" className="form-check-label"></label>

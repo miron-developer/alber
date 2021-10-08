@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/anthonynsimon/bild/transform"
 )
@@ -36,8 +37,9 @@ func uploadFile(fileFormKey string, r *http.Request) (string, string, error) {
 		return "", "", errors.New("dont support this type of photo")
 	}
 
-	filePostName := RandomStringFromCharsetAndLength("0123456789", 8)
-	link := "/assets/img/" + fh.Filename + filePostName
+	fileName := RandomStringFromCharsetAndLength("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8)
+	ext := strings.Split(fh.Filename, ".")
+	link := "/assets/img/" + fileName + "." + ext[len(ext)-1]
 
 	wd, _ := os.Getwd()
 	f, e := createFile(wd + link)

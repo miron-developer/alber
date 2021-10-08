@@ -3,71 +3,12 @@ package app
 import (
 	"errors"
 	"net/http"
-	"regexp"
 
 	"alber/pkg/api"
 	"alber/pkg/orm"
 
 	"golang.org/x/crypto/bcrypt"
 )
-
-// checkPhoneAndNick check if phone & nickname is empty or not
-//	exist = true - user exist in db
-func checkPhoneAndNick(isExist bool, phone, nickname string) error {
-	results, e := orm.GetOneFrom(orm.SQLSelectParams{
-		Table:   "Users",
-		What:    "phoneNumber, nickname",
-		Options: orm.DoSQLOption("phoneNumber=? OR nickname=?", "", "", phone, nickname),
-	})
-
-	if e != nil && isExist {
-		return errors.New("не корретный логин")
-	}
-	if e != nil && !isExist {
-		return nil
-	}
-	if !isExist {
-		if results[0].(string) == phone {
-			return errors.New("такой телефон существует")
-		}
-		return errors.New("такой никнейм существует")
-	}
-	return nil
-}
-
-// checkPassword check is password is valid(up) or correct password(in)
-//	exist = true - user exist in db
-func checkPassword(isExist bool, pass, login string) error {
-	if !isExist {
-		if !regexp.MustCompile(`[A-Z]`).MatchString(pass) {
-			return errors.New("пароль должени иметь латинские буквы A-Z")
-		}
-		if !regexp.MustCompile(`[a-z]`).MatchString(pass) {
-			return errors.New("пароль должени иметь латинские буквы a-z(маленькие)")
-		}
-		if !regexp.MustCompile(`[0-9]`).MatchString(pass) {
-			return errors.New("пароль должени иметь цифры 0-9")
-		}
-		if len(pass) < 8 {
-			return errors.New("пароль должени иметь как минимум 8 символов")
-		}
-	} else {
-		dbPass, e := orm.GetOneFrom(orm.SQLSelectParams{
-			Table:   "Users",
-			What:    "password",
-			Options: orm.DoSQLOption("phoneNumber = ?", "", "", login),
-		})
-		if e != nil {
-			return errors.New("не корретный логин")
-		}
-
-		if e := bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass)); e != nil {
-			return errors.New("не корретный пароль")
-		}
-		return nil
-	}
-	return nil
-}
 
 // SignUp check validate, start session
 func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[string]interface{}, error) {
@@ -87,14 +28,14 @@ func (app *Application) SignUp(w http.ResponseWriter, r *http.Request) (map[stri
 	}
 
 	// check phone and nick
-	if e := checkPhoneAndNick(false, validPhone.Value.(string), nickname); e != nil {
+	if e := api.CheckPhoneAndNick(false, validPhone.Value.(string), nickname); e != nil {
 		return nil, e
 	}
 
 	// generating password
 	for {
 		tempPass := RandomStringFromCharsetAndLength("0123456789ABCDEFJGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 12)
-		if e := checkPassword(false, tempPass, ""); e == nil {
+		if e := api.CheckPassword(false, tempPass, ""); e == nil {
 			pass = tempPass
 			break
 		}
@@ -129,13 +70,13 @@ func (app *Application) SignIn(w http.ResponseWriter, r *http.Request) (int, err
 	pass := r.PostFormValue("password")
 
 	// checkings
-	if e := api.TestPhone(phone); e != nil {
+	if e := api.TestPhone(phone, false); e != nil {
 		return -1, e
 	}
-	if e := checkPhoneAndNick(true, phone, phone); e != nil {
+	if e := api.CheckPhoneAndNick(true, phone, phone); e != nil {
 		return -1, e
 	}
-	if e := checkPassword(true, pass, phone); e != nil {
+	if e := api.CheckPassword(true, pass, phone); e != nil {
 		return -1, e
 	}
 
@@ -179,7 +120,7 @@ func (app *Application) ResetPassword(w http.ResponseWriter, r *http.Request) er
 	}
 
 	newPass := r.PostFormValue("password")
-	if e := checkPassword(false, newPass, ""); e != nil {
+	if e := api.CheckPassword(false, newPass, ""); e != nil {
 		return e
 	}
 

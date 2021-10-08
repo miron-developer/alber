@@ -73,9 +73,15 @@ const SContentWrapper = styled.div`
     }
 `;
 
-let add = ()=>{};
-let close = ()=>{};
-let closeCB = ()=>{};
+let add = () => { };
+
+let close = () => { };
+let closeCB = () => { };
+
+let onCloseCB = () => { };
+
+export const OnClosePopup = (f = () => { }) =>  onCloseCB = f;
+
 export const PopupOpen = (Component, componentArgs = {}) => {
     add(Component, componentArgs);
     if (componentArgs.closeCB) closeCB = componentArgs.closeCB;
@@ -85,15 +91,16 @@ export const ClosePopup = () => close();
 export default function Popup() {
     const [popup, setPopup] = useState(null);
     const [isOpened, setOpenedState] = useState(false);
-    add = (Component, componentArgs) => setPopup(<Component {...componentArgs}/>) || setOpenedState(true);
+    add = (Component, componentArgs) => setPopup(<Component {...componentArgs} />) || setOpenedState(true);
     close = () => {
         setOpenedState(false) || setPopup(null);
         closeCB();
+        onCloseCB()
     }
-    
+
     return (
         <SPopup className={`${isOpened ? 'opened' : ''}`} >
-            <SPopupBG onClick={close}/>
+            <SPopupBG onClick={close} />
 
             <SPopupClose onClick={close}>
                 <i className="fa fa-times" aria-hidden="true"></i>

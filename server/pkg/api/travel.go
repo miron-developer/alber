@@ -76,7 +76,7 @@ func CreateTravel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}
 
 	// check phone number
-	if e := TestPhone(contactNumber); e != nil {
+	if e := TestPhone(contactNumber, false); e != nil {
 		return nil, e
 	}
 
@@ -119,11 +119,9 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 	if e := CheckAllXSS(contactNumber, description); e != nil {
 		return errors.New("не корректный телефон или описание")
 	}
-	if description == "" {
-		return errors.New("заполните описание")
-	}
+
 	// check phone number
-	if e := TestPhone(contactNumber); e != nil {
+	if e := TestPhone(contactNumber, false); e != nil && contactNumber != "" {
 		return e
 	}
 
@@ -147,7 +145,10 @@ func ChangeTravel(w http.ResponseWriter, r *http.Request) error {
 		UserID: userID, FromID: from, ToID: to, TravelTypeID: travelType, ID: travelID,
 		CreationDatetime: int(time.Now().Unix() * 1000),
 	}
-	return t.Change()
+	if e := t.Change(); e != nil {
+		return errors.New("ошибка пунктов (пункты не должны быть одинаковы) или длины описания (макс 1000) ")
+	}
+	return nil
 }
 
 // RemoveTraveler remove one traveler

@@ -10,6 +10,7 @@ import Input from "components/form-input/input";
 import PasswordField from "components/password-field/password";
 
 import styled from "styled-components";
+import { ClosePopup } from "components/popup/popup";
 
 let afterStyles = [];
 
@@ -33,20 +34,27 @@ export default function EditProfile() {
 
     const onSuccessStep1 = (data) => {
         Notify('success', "Отправлено смс на номер " + data?.login + ". Возьмите оттуда код подтверждения")
+        if (data.newPhone) phone.setCertainValue(data.newPhone);
         setStep(2);
     }
     const onSuccessStep2 = () => {
         UserOnline(USER.id)
-        Notify('success', `Вы успешно изменили ваши данные.`)
+        Notify('success', `Вы успешно изменили ваши данные. Данные применятся после закрытия бокового меню`)
+        ClosePopup();
+    }
+    const check = () => {
+        if (nickname.base.value + pass.base.value + phone.base.value === "") return ClosePopup();
+        return true
     }
     const onFail = err => Notify('fail', 'Ошибка регистрации:' + err);
 
     return (
         step === 1
             ? <SForms action="/e/user/confirm" onSubmit={async (e) => {
+                if (!check()) return;
                 afterStyles = await SubmitFormData(e, afterStyles, fields, undefined, onSuccessStep1, onFail, false);
             }}>
-                <h3>Смена данных(шаг 1). Введите только то, что хотите</h3>
+                <h3>Смена данных(шаг 1). Введите только то, что хотите изменить</h3>
 
                 <PhoneField index="0" base={phone.base} required={false} />
 

@@ -3,12 +3,71 @@ package api
 import (
 	"errors"
 	"net/http"
+	"regexp"
 	"strconv"
 
 	"alber/pkg/orm"
 
 	"golang.org/x/crypto/bcrypt"
 )
+
+// CheckPhoneAndNick check if phone & nickname is empty or not
+//	exist = true - user exist in db
+func CheckPhoneAndNick(isExist bool, phone, nickname string) error {
+	results, e := orm.GetOneFrom(orm.SQLSelectParams{
+		Table:   "Users",
+		What:    "phoneNumber, nickname",
+		Options: orm.DoSQLOption("phoneNumber=? OR nickname=?", "", "", phone, nickname),
+	})
+
+	if e != nil && isExist {
+		return errors.New("не корретный логин")
+	}
+	if e != nil && !isExist {
+		return nil
+	}
+	if !isExist {
+		if results[0].(string) == phone {
+			return errors.New("такой телефон существует")
+		}
+		return errors.New("такой никнейм существует")
+	}
+	return nil
+}
+
+// CheckPassword check is password is valid(up) or correct password(in)
+//	exist = true - user exist in db
+func CheckPassword(isExist bool, pass, login string) error {
+	if !isExist {
+		if !regexp.MustCompile(`[A-Z]`).MatchString(pass) {
+			return errors.New("пароль должени иметь латинские буквы A-Z")
+		}
+		if !regexp.MustCompile(`[a-z]`).MatchString(pass) {
+			return errors.New("пароль должени иметь латинские буквы a-z(маленькие)")
+		}
+		if !regexp.MustCompile(`[0-9]`).MatchString(pass) {
+			return errors.New("пароль должени иметь цифры 0-9")
+		}
+		if len(pass) < 8 {
+			return errors.New("пароль должени иметь как минимум 8 символов")
+		}
+	} else {
+		dbPass, e := orm.GetOneFrom(orm.SQLSelectParams{
+			Table:   "Users",
+			What:    "password",
+			Options: orm.DoSQLOption("phoneNumber = ?", "", "", login),
+		})
+		if e != nil {
+			return errors.New("не корретный логин")
+		}
+
+		if e := bcrypt.CompareHashAndPassword([]byte(dbPass[0].(string)), []byte(pass)); e != nil {
+			return errors.New("не корретный пароль")
+		}
+		return nil
+	}
+	return nil
+}
 
 func User(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	if r.Method == "POST" {
@@ -84,11 +143,20 @@ func ChangeProfile(w http.ResponseWriter, r *http.Request) error {
 	if CheckAllXSS(nickname, phone) != nil {
 		return errors.New("не корректное содержимое")
 	}
+
+	if nickname != "" || phone != "" {
+		if e := CheckPhoneAndNick(false, phone, nickname); e != nil {
+			return e
+		}
+	}
+
 	u := &orm.User{
 		ID: userID, Nickname: nickname, PhoneNumber: phone,
 	}
-
 	if pass != "" {
+		if e := CheckPassword(false, pass, ""); e != nil {
+			return e
+		}
 		if hashPass, e := bcrypt.GenerateFromPassword([]byte(pass), 4); e == nil {
 			u.Password = string(hashPass)
 		}

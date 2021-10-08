@@ -75,7 +75,7 @@ func (ses *Session) Create() error {
 // Create one parsel and return it's ID
 func (p *Parsel) Create() (int, error) {
 	if p.Description == "" || p.ContactNumber == "" ||
-		p.Weight*p.Price*p.CreationDatetime*p.ExpireDatetime*p.UserID*p.FromID*p.ToID == 0 {
+		p.Weight*p.Price*p.CreationDatetime*p.UserID*p.FromID*p.ToID == 0 {
 		return -1, errors.New("н/д")
 	}
 

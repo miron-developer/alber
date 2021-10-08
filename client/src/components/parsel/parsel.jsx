@@ -127,7 +127,7 @@ const SParsel = styled.div`
 //     <i className="fa fa-paint-brush" aria-hidden="true">Покрасить</i>
 // </span>
 
-export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
+export default function Parsel({ data, isMy = false, changeItem, removeItem, reloadItem }) {
     const [photos, setPhotos] = useState();
     const [isOpened, setOpened] = useState(false);
 
@@ -189,7 +189,7 @@ export default function Parsel({ data, isMy = false, changeItem, removeItem }) {
                         isOpened &&
                         <div className="manage-actions">
                             <span className="manage-action"
-                                onClick={() => EditItem("parsel", { ...data, 'photos': photos }, newData => changeItem(data.id, newData))}
+                                onClick={() => EditItem("parsel", { ...data, 'photos': photos }, newData => changeItem(data.id, newData), reloadItem)}
                             >
                                 <i className="fa fa-pencil" aria-hidden="true">Редактировать</i>
                             </span>

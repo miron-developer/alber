@@ -22,9 +22,18 @@ const SClippedFileWrapper = styled.div`
     align-items: center;
     justify-content: 'space-between';
     color: var(--onHoverColor);
-    background: #000000ad;
+    /* background: #000000ad; */
     border-radius: 10px;
     cursor: pointer;
+    overflow: hidden;
+
+    & span {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 5px;
+        background: #0f6dfb9e;
+    }
 `;
 
 const SClippedFileSrc = styled.div`

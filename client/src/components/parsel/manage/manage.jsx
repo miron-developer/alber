@@ -5,7 +5,7 @@ import { POSTRequestWithParams } from "utils/api";
 import { useInput } from "utils/form";
 import { UploadFile } from "utils/file";
 import { Notify } from "components/app-notification/notification";
-import { ClosePopup } from "components/popup/popup";
+import { ClosePopup, OnClosePopup } from "components/popup/popup";
 import Input from "components/form-input/input";
 import SubmitBtn from "components/submit-btn/submit";
 import ClipPlash from "components/clips/clips";
@@ -69,7 +69,14 @@ const clearAll = (fields = [], setHaveWhatsUp, setPreloaded) => {
     setPreloaded([]);
 }
 
-export default function ManageParsel({ type = "create", cb, failText, successText, data }) {
+const uploadImages = (images = [], parselID) => {
+    if (!parselID) return;
+    images.forEach(img => UploadFile(img.type, img.file, "parsel", parselID))
+}
+
+export default function ManageParsel(
+    { type = "create", cb, reloadCB = () => { }, failText = "Ошибка", successText = "Успех", data }
+) {
     const weight = useInput(parseFloat(data?.weight) / 1000 || '');
     const price = useInput(data?.price);
     const description = useInput(data?.description);
@@ -86,7 +93,10 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
     const [photos, setPhotos] = useState(data?.photos);
     const [preloadedFiles, setPreloaded] = useState([]);
 
-    const removePhoto = id => setPhotos(photos.filter(ph => ph.id !== id))
+    const removePhoto = id => {
+        OnClosePopup(reloadCB);
+        setPhotos(photos.filter(ph => ph.id !== id))
+    }
 
     const onSubmit = useCallback(async (e) => {
         e.preventDefault();
@@ -115,6 +125,15 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             'isHaveWhatsUp': isHaveWhatsUp ? 1 : 0,
         }, oldParams);
 
+        // if just added images
+        if (Object.values(comparedParams).length <= 1 && preloadedFiles.length > 0) {
+            OnClosePopup(reloadCB);
+            
+            // upload images
+            uploadImages(preloadedFiles, data?.id);
+            return ClosePopup();
+        }
+
         // bcs we have id on new so <= 1
         if (Object.values(comparedParams).length <= 1 && preloadedFiles.length === 0) return Notify('info', 'Нет изменений');
 
@@ -124,7 +143,7 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
         Notify('success', successText);
 
         // upload images
-        preloadedFiles.forEach(ph => UploadFile(ph.type, ph.file, "parsel", type === "create" ? res?.data : data?.id))
+        uploadImages(preloadedFiles, type === "create" ? res?.data : data?.id)
 
         // do callback if edit
         if (cb) {
@@ -136,7 +155,7 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
             const fields = [weight, price, description, contactNumber, from, to, fromID, toID];
             clearAll(fields, setHaveWhatsUp, setPreloaded)
         }
-    }, [description, from, to, fromID, toID, weight, price, contactNumber, isHaveWhatsUp, preloadedFiles, type, cb, failText, successText, data]);
+    }, [description, from, to, fromID, toID, weight, price, contactNumber, isHaveWhatsUp, preloadedFiles, type, cb, reloadCB, failText, successText, data]);
 
     return (
         <SParsel onSubmit={onSubmit}>
@@ -155,12 +174,12 @@ export default function ManageParsel({ type = "create", cb, failText, successTex
 
             <div className="description">
                 <textarea
-                    className="form-control" {...description.base}
+                    className="form-control" {...description.base} required
                     id="description" name="description" rows="3" placeholder="Опишите вашу посылку, когда нужно доставить, заголовок"
                 ></textarea>
             </div>
 
-            <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Контакты отправителя" />
+            <Input type="tel" name="contactNumber" base={contactNumber.base} labelText="Номер отправителя" />
 
             <div className="form-check">
                 <label htmlFor="wp" className="form-check-label"></label>

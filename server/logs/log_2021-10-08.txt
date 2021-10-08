@@ -1,0 +1,810 @@
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 02:40:38 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 02:40:38 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 02:40:38 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 02:40:38 handlers.go:31: 127.0.0.1:41610 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 02:40:38 handlers.go:31: 127.0.0.1:41612 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 02:40:38 handlers.go:31: 127.0.0.1:41618 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 02:40:38 handlers.go:31: 127.0.0.1:41632 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 14:27:32 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 14:27:32 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 14:27:32 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 14:27:32 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 14:27:32 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 14:27:33 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 14:27:33 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 14:27:33 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 14:27:33 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 14:27:33 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 14:27:33 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 14:27:33 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 14:27:33 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 14:32:01 handlers.go:31: 127.0.0.1:54428 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 14:32:01 handlers.go:31: 127.0.0.1:54430 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 14:32:01 handlers.go:31: 127.0.0.1:54448 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 14:32:01 handlers.go:31: 127.0.0.1:54458 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 14:34:55 handlers.go:31: 127.0.0.1:55876 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 14:34:55 handlers.go:31: 127.0.0.1:55886 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 14:34:55 handlers.go:31: 127.0.0.1:55888 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 14:34:55 handlers.go:31: 127.0.0.1:55906 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 14:35:07 handlers.go:31: 127.0.0.1:56022 POST: '/sign/in'
+[34m[INFO][0m	2021/10/08 14:35:07 handlers.go:31: 127.0.0.1:56032 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 14:35:07 handlers.go:31: 127.0.0.1:56042 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/08 14:35:09 handlers.go:31: 127.0.0.1:56068 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 14:35:11 handlers.go:31: 127.0.0.1:56094 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 14:35:34 handlers.go:31: 127.0.0.1:56292 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:36:51 handlers.go:31: 127.0.0.1:56926 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:37:24 handlers.go:31: 127.0.0.1:57204 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 14:42:14 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 14:42:14 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 14:42:14 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 14:45:50 handlers.go:31: 127.0.0.1:33074 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:45:57 handlers.go:31: 127.0.0.1:33148 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:46:01 handlers.go:31: 127.0.0.1:33182 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 14:46:03 handlers.go:31: 127.0.0.1:33208 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 14:48:36 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 14:48:36 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 14:48:36 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 14:48:40 handlers.go:31: 127.0.0.1:34502 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 14:48:43 handlers.go:31: 127.0.0.1:34528 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:48:55 handlers.go:31: 127.0.0.1:34644 POST: '/e/user'
+[34m[INFO][0m	2021/10/08 14:48:56 handlers.go:31: 127.0.0.1:34654 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 14:49:07 handlers.go:31: 127.0.0.1:34752 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 14:50:17 handlers.go:31: 127.0.0.1:35344 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 14:50:55 handlers.go:31: 127.0.0.1:35650 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 14:52:06 handlers.go:31: 127.0.0.1:36236 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:01:33 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:01:33 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:01:33 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:01:34 handlers.go:31: 127.0.0.1:40860 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 15:01:34 handlers.go:31: 127.0.0.1:40862 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 15:01:35 handlers.go:31: 127.0.0.1:40872 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 15:01:35 handlers.go:31: 127.0.0.1:40890 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 15:01:36 handlers.go:31: 127.0.0.1:40908 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 15:01:37 handlers.go:31: 127.0.0.1:40926 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:01:42 handlers.go:31: 127.0.0.1:40978 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:02:05 handlers.go:31: 127.0.0.1:41176 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:03:36 handlers.go:31: 127.0.0.1:41922 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:03:43 handlers.go:31: 127.0.0.1:41992 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:05:30 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:05:30 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:05:30 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:09:45 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:09:45 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:09:45 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:10:26 handlers.go:31: 127.0.0.1:45258 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:10:28 handlers.go:31: 127.0.0.1:45284 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:12:22 handlers.go:31: 127.0.0.1:46244 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:13:02 handlers.go:31: 127.0.0.1:46596 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:13:14 handlers.go:31: 127.0.0.1:46714 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:13:16 handlers.go:31: 127.0.0.1:46740 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:13:48 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:13:48 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:13:48 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:13:52 handlers.go:31: 127.0.0.1:47074 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 15:13:52 handlers.go:31: 127.0.0.1:47080 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 15:13:52 handlers.go:31: 127.0.0.1:47086 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 15:13:52 handlers.go:31: 127.0.0.1:47096 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 15:13:53 handlers.go:31: 127.0.0.1:47114 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 15:13:54 handlers.go:31: 127.0.0.1:47132 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:14:10 handlers.go:31: 127.0.0.1:47262 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:15:01 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:15:01 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:15:01 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:15:09 handlers.go:31: 127.0.0.1:47750 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:15:17 handlers.go:31: 127.0.0.1:47824 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:15:30 handlers.go:31: 127.0.0.1:47940 POST: '/e/user'
+[34m[INFO][0m	2021/10/08 15:15:30 handlers.go:31: 127.0.0.1:47950 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:20:17 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:20:17 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:20:17 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:20:24 handlers.go:31: 127.0.0.1:50338 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:20:28 handlers.go:31: 127.0.0.1:50380 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:20:49 handlers.go:31: 127.0.0.1:50558 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:21:03 handlers.go:31: 127.0.0.1:50682 POST: '/e/user'
+[34m[INFO][0m	2021/10/08 15:21:03 handlers.go:31: 127.0.0.1:50700 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:26:33 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:26:33 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:26:33 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:26:44 handlers.go:31: 127.0.0.1:53500 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 15:26:44 handlers.go:31: 127.0.0.1:53502 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 15:26:44 handlers.go:31: 127.0.0.1:53516 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 15:26:44 handlers.go:31: 127.0.0.1:53530 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 15:26:45 handlers.go:31: 127.0.0.1:53548 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 15:26:46 handlers.go:31: 127.0.0.1:53566 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:27:12 handlers.go:31: 127.0.0.1:53788 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:27:12 handlers.go:31: 127.0.0.1:53798 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:27:33 handlers.go:31: 127.0.0.1:53980 POST: '/e/user'
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:29:31 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:29:31 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:29:31 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:29:40 handlers.go:31: 127.0.0.1:55016 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:29:55 handlers.go:31: 127.0.0.1:55148 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:30:03 handlers.go:31: 127.0.0.1:55222 GET: '/api/countryCodes?'
+[34m[INFO][0m	2021/10/08 15:30:13 handlers.go:31: 127.0.0.1:55320 POST: '/e/user/confirm'
+[34m[INFO][0m	2021/10/08 15:30:28 handlers.go:31: 127.0.0.1:55444 POST: '/e/user'
+[34m[INFO][0m	2021/10/08 15:30:28 handlers.go:31: 127.0.0.1:55454 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56322 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56384 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56388 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56386 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56402 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56406 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56404 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56432 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56434 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56436 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56438 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56456 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)08-24%!-(MISSING)47-07.png71062768'
+[34m[INFO][0m	2021/10/08 15:32:14 handlers.go:31: 127.0.0.1:56458 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)09-07%!-(MISSING)16-15.png10855663'
+[34m[INFO][0m	2021/10/08 15:32:25 handlers.go:31: 127.0.0.1:56560 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 15:37:28 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 15:37:28 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 15:37:28 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 15:37:28 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 15:37:28 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 15:37:29 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 15:37:29 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 15:37:29 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 15:37:29 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 15:37:29 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 15:37:29 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 15:37:29 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 15:37:29 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 15:37:32 handlers.go:31: 127.0.0.1:59068 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 19:49:51 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 19:49:51 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 19:49:51 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 19:58:20 handlers.go:31: 127.0.0.1:37288 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 19:58:20 handlers.go:31: 127.0.0.1:37290 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 19:58:20 handlers.go:31: 127.0.0.1:37292 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 19:58:20 handlers.go:31: 127.0.0.1:37302 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 19:58:20 handlers.go:31: 127.0.0.1:37312 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 19:58:20 handlers.go:31: 127.0.0.1:37322 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/08 19:59:00 handlers.go:31: 127.0.0.1:37652 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37670 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37720 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37736 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37722 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37742 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37744 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37756 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37754 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37772 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37770 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37774 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37792 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)08-24%!-(MISSING)47-07.png71062768'
+[34m[INFO][0m	2021/10/08 19:59:02 handlers.go:31: 127.0.0.1:37794 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)09-07%!-(MISSING)16-15.png10855663'
+[34m[INFO][0m	2021/10/08 19:59:15 handlers.go:31: 127.0.0.1:37910 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:01:10 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:01:10 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:01:10 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:02:28 handlers.go:31: 127.0.0.1:39470 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:04:51 handlers.go:31: 127.0.0.1:40638 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:04:55 handlers.go:31: 127.0.0.1:40688 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:05:20 handlers.go:31: 127.0.0.1:40890 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:06:43 handlers.go:31: 127.0.0.1:41654 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 20:06:44 handlers.go:31: 127.0.0.1:41664 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 20:06:44 handlers.go:31: 127.0.0.1:41682 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 20:06:44 handlers.go:31: 127.0.0.1:41692 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:06:45 handlers.go:31: 127.0.0.1:41710 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41728 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41778 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41792 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41794 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41804 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41830 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41838 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41836 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41832 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41834 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:06:46 handlers.go:31: 127.0.0.1:41840 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:06:55 handlers.go:31: 127.0.0.1:41926 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42708 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42746 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42748 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42752 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42750 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42754 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42756 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42772 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42770 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:08:30 handlers.go:31: 127.0.0.1:42774 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:08:51 handlers.go:31: 127.0.0.1:42962 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:10:16 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:10:16 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:10:16 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:11:09 handlers.go:31: 127.0.0.1:44124 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:12:21 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:12:21 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:12:21 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:12:36 handlers.go:31: 127.0.0.1:44834 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:14:09 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:14:09 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:14:09 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:14:17 handlers.go:31: 127.0.0.1:45656 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:16:11 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:16:11 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:16:11 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46776 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46814 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46816 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46830 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46832 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46836 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46834 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46854 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46868 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46870 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:16:34 handlers.go:31: 127.0.0.1:46872 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:18:55 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:18:55 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:18:55 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:19:02 handlers.go:31: 127.0.0.1:48102 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 20:19:03 handlers.go:31: 127.0.0.1:48104 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 20:19:03 handlers.go:31: 127.0.0.1:48114 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:19:03 handlers.go:31: 127.0.0.1:48124 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 20:19:36 handlers.go:31: 127.0.0.1:48440 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 20:19:37 handlers.go:31: 127.0.0.1:48446 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 20:19:37 handlers.go:31: 127.0.0.1:48452 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:19:37 handlers.go:31: 127.0.0.1:48462 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 20:19:37 handlers.go:31: 127.0.0.1:48480 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48498 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48552 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48556 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48554 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48548 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48550 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48574 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48596 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48592 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48598 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48594 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48616 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)08-24%!-(MISSING)47-07.png71062768'
+[34m[INFO][0m	2021/10/08 20:19:39 handlers.go:31: 127.0.0.1:48618 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)09-07%!-(MISSING)16-15.png10855663'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48684 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48726 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48748 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48750 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48752 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48754 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48756 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48766 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48768 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48778 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:19:46 handlers.go:31: 127.0.0.1:48780 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:21:20 handlers.go:31: 127.0.0.1:49538 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49584 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49604 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49602 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49606 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49608 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49610 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49632 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49634 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49636 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:21:21 handlers.go:31: 127.0.0.1:49638 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49736 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49788 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49786 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49796 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49794 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49790 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49792 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49822 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:21:32 handlers.go:31: 127.0.0.1:49824 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:21:33 handlers.go:31: 127.0.0.1:49828 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:21:33 handlers.go:31: 127.0.0.1:49826 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:21:56 handlers.go:31: 127.0.0.1:50032 GET: '/api/search?type=cities&q=%!D(MISSING)0%!B(MISSING)0%!D(MISSING)0%!B(MISSING)B%!D(MISSING)0%!B(MISSING)C%!D(MISSING)0%!B(MISSING)0'
+[34m[INFO][0m	2021/10/08 20:22:00 handlers.go:31: 127.0.0.1:50074 GET: '/api/search?type=cities&q=%!D(MISSING)0%D0%!B(MISSING)B%!D(MISSING)0%!B(MISSING)C'
+[34m[INFO][0m	2021/10/08 20:22:02 handlers.go:31: 127.0.0.1:50100 GET: '/api/search?type=cities&q=%!D(MISSING)0%D0%!B(MISSING)B%!D(MISSING)0%!B(MISSING)C%!D(MISSING)0%!B(MISSING)0%!D(MISSING)1%D1%!B(MISSING)'
+[34m[INFO][0m	2021/10/08 20:22:04 handlers.go:31: 127.0.0.1:50126 GET: '/api/search?type=cities&q='
+[34m[INFO][0m	2021/10/08 20:22:05 handlers.go:31: 127.0.0.1:50144 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%D1%!'(MISSING)
+[34m[INFO][0m	2021/10/08 20:22:07 handlers.go:31: 127.0.0.1:50170 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%D1%!-(MISSING)%!D(MISSING)0%!A(MISSING)1%!D(MISSING)1%D0%!B(MISSING)B%!D(MISSING)1%D0%!B(MISSING)0%!D(MISSING)0%!B(MISSING)D'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50196 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50230 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50240 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50254 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50256 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50282 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50286 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50288 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50284 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50298 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:22:09 handlers.go:31: 127.0.0.1:50300 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:22:23 handlers.go:31: 127.0.0.1:50422 GET: '/api/search?type=cities&q='
+[34m[INFO][0m	2021/10/08 20:22:24 handlers.go:31: 127.0.0.1:50440 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%D1%!'(MISSING)
+[34m[INFO][0m	2021/10/08 20:22:26 handlers.go:31: 127.0.0.1:50466 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%D1%!-(MISSING)%!D(MISSING)0%!A(MISSING)1%!D(MISSING)1%D0%!B(MISSING)B%!D(MISSING)1%D0%!B(MISSING)0%!D(MISSING)0%!B(MISSING)D'
+[34m[INFO][0m	2021/10/08 20:22:27 handlers.go:31: 127.0.0.1:50484 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:22:30 handlers.go:31: 127.0.0.1:50526 GET: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:29:13 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:29:13 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:29:13 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:29:45 handlers.go:31: 127.0.0.1:54066 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 20:29:45 handlers.go:31: 127.0.0.1:54068 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 20:29:45 handlers.go:31: 127.0.0.1:54078 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 20:29:45 handlers.go:31: 127.0.0.1:54096 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:29:46 handlers.go:31: 127.0.0.1:54106 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:29:48 handlers.go:31: 127.0.0.1:54136 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:29:48 handlers.go:31: 127.0.0.1:54192 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:29:48 handlers.go:31: 127.0.0.1:54190 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:29:48 handlers.go:31: 127.0.0.1:54200 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:29:48 handlers.go:31: 127.0.0.1:54202 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:29:48 handlers.go:31: 127.0.0.1:54198 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54216 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54226 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54228 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54230 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54240 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54250 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)08-24%!-(MISSING)47-07.png71062768'
+[34m[INFO][0m	2021/10/08 20:29:49 handlers.go:31: 127.0.0.1:54252 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)09-07%!-(MISSING)16-15.png10855663'
+[34m[INFO][0m	2021/10/08 20:29:54 handlers.go:31: 127.0.0.1:54302 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%!'(MISSING)
+[34m[INFO][0m	2021/10/08 20:29:55 handlers.go:31: 127.0.0.1:54320 GET: '/api/search?type=cities&q=%!D(MISSING)0%!D(MISSING)%!D(MISSING)1%D1%!-(MISSING)%!D(MISSING)0%!A(MISSING)1%!D(MISSING)1%D0%!B(MISSING)B%!D(MISSING)1%D0%!B(MISSING)0%!D(MISSING)0%!B(MISSING)D'
+[34m[INFO][0m	2021/10/08 20:29:56 handlers.go:31: 127.0.0.1:54338 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:32:19 handlers.go:31: 127.0.0.1:55540 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 20:32:19 handlers.go:31: 127.0.0.1:55542 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:32:38 handlers.go:31: 127.0.0.1:55748 POST: '/sign/status'
+[34m[INFO][0m	2021/10/08 20:32:38 handlers.go:31: 127.0.0.1:55750 GET: '/api/user?id=6'
+[34m[INFO][0m	2021/10/08 20:32:38 handlers.go:31: 127.0.0.1:55752 GET: '/assets/app/send-gallery.png'
+[34m[INFO][0m	2021/10/08 20:32:39 handlers.go:31: 127.0.0.1:55770 GET: '/assets/app/favicon.ico'
+[34m[INFO][0m	2021/10/08 20:32:39 handlers.go:31: 127.0.0.1:55780 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:32:43 handlers.go:31: 127.0.0.1:55822 GET: '/assets/app/logo.png'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55840 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55898 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55900 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55914 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55916 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55918 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55920 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55938 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55944 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55940 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55942 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55962 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)08-24%!-(MISSING)47-07.png71062768'
+[34m[INFO][0m	2021/10/08 20:32:44 handlers.go:31: 127.0.0.1:55972 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)09-07%!-(MISSING)16-15.png10855663'
+[34m[INFO][0m	2021/10/08 20:33:37 handlers.go:31: 127.0.0.1:56410 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56428 POST: '/s/image'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56430 POST: '/s/image'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56486 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56480 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56484 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56482 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56508 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56514 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56520 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56526 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56532 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56538 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56556 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)10-06%!-(MISSING)56-23.png24848454'
+[34m[INFO][0m	2021/10/08 20:33:38 handlers.go:31: 127.0.0.1:56558 GET: '/assets/img/Screenshot%!f(MISSING)rom%!-(MISSING)10-05%!-(MISSING)48-30.png93266115'
+[34m[INFO][0m	2021/10/08 20:33:50 handlers.go:31: 127.0.0.1:56664 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:33:51 handlers.go:31: 127.0.0.1:56682 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:34:09 handlers.go:31: 127.0.0.1:56836 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:34:11 handlers.go:31: 127.0.0.1:56854 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:34:19 handlers.go:31: 127.0.0.1:56930 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:34:19 handlers.go:31: 127.0.0.1:56948 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:38:13 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:38:13 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:38:13 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59242 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59252 POST: '/s/image'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59294 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59296 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59316 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59314 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59338 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59340 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59342 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59360 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59356 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:39:03 handlers.go:31: 127.0.0.1:59358 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59604 GET: '/api/travelers?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59614 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59644 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59646 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59672 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59698 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59706 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59708 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59704 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59702 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59700 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59718 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:39:32 handlers.go:31: 127.0.0.1:59724 GET: '/assets/img/lY4ZhKWIpng'
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:40:09 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:40:09 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:40:09 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:40:13 handlers.go:31: 127.0.0.1:60064 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60162 POST: '/e/parsel'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60172 POST: '/s/image'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60214 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60216 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60218 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60220 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60226 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60248 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60268 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60272 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60270 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:40:24 handlers.go:31: 127.0.0.1:60266 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:41:27 handlers.go:31: 127.0.0.1:60792 GET: '/api/travelers?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60810 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60856 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60858 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60884 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60886 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60894 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60892 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60908 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60910 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60912 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60914 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:41:28 handlers.go:31: 127.0.0.1:60924 GET: '/assets/img/MJdMFeLY.png'
+[34m[INFO][0m	2021/10/08 20:41:32 handlers.go:31: 127.0.0.1:60966 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:41:46 handlers.go:31: 127.0.0.1:32858 POST: '/r/image'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32908 GET: '/api/travelers?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32918 GET: '/api/parsels?type=user&from=0&step=10'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32980 GET: '/api/images?id=53'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32976 GET: '/api/images?id=56'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32978 GET: '/api/images?id=54'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32996 GET: '/api/images?id=44'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32994 GET: '/api/images?id=48'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:32998 GET: '/api/images?id=46'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:33022 GET: '/api/images?id=47'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:33016 GET: '/api/images?id=43'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:33020 GET: '/api/images?id=41'
+[34m[INFO][0m	2021/10/08 20:41:51 handlers.go:31: 127.0.0.1:33018 GET: '/api/images?id=42'
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:42:51 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:42:51 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:42:51 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:43:58 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:43:58 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:43:58 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:43:58 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:43:58 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:43:59 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:43:59 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:43:59 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:43:59 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:43:59 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:43:59 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:43:59 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:43:59 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 20:49:15 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 20:49:15 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 20:49:15 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 21:19:16 utils.go:57: backup created!
+[34m[INFO][0m	2021/10/08 21:49:16 utils.go:57: backup created!
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:11:28 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:11:28 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:11:28 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:30:05 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:30:05 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:30:05 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:30:37 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:30:37 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:30:37 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:31:52 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:31:52 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:31:52 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:33:36 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:33:36 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:33:36 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:36:17 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:36:17 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:36:17 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:38:05 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:38:05 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:38:05 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 22:49:44 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 22:49:44 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 22:49:44 main.go:37: server listening on port 4330

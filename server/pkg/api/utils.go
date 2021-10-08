@@ -32,8 +32,12 @@ func xss(data string) error {
 }
 
 // TestPhone is phone number
-func TestPhone(phone string) error {
-	if phone == "" {
+func TestPhone(phone string, omitEmpty bool) error {
+	if omitEmpty && phone == "" {
+		return nil
+	}
+
+	if phone == "" && !omitEmpty {
 		return errors.New("пустой номер")
 	}
 

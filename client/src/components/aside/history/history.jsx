@@ -48,6 +48,7 @@ const configHistoryParams = tab => {
 
 export default function History() {
     const [tab, setTab] = useState(0);
+    const [isReload, setReload] = useState(0);
     const { datalist, isStopLoad, isLoaded, getPart, zeroState, setDataList } = useFromTo()
 
     const [getType, getTypeOnRus, Item] = configHistoryParams(tab);
@@ -56,6 +57,13 @@ export default function History() {
         const index = datalist.findIndex(d => d.id === id)
         datalist[index] = newData
         setDataList([...datalist]);
+    }
+
+    const reloadItem = () => {
+        setReload(true);
+        setTimeout(() => {
+            setReload(false);    
+        }, 50);
     }
 
     const removeItem = id => setDataList([...datalist.filter(d => d.id !== id)]);
@@ -77,7 +85,7 @@ export default function History() {
             {
                 datalist.length > 0
                     ? <div className="history" onScroll={e => ScrollHandler(e, isStopLoad, false, () => loadHistory(getType, getTypeOnRus, getPart))}>
-                        {datalist.map(d => <Item key={RandomKey()} data={d} isMy={true} changeItem={changeItem} removeItem={removeItem} />)}
+                        {datalist.map(d => <Item key={RandomKey()} data={d} isMy={true} changeItem={changeItem} removeItem={removeItem} reloadItem={reloadItem} />)}
                     </div>
                     : <div className="history">Отсутствует</div>
             }

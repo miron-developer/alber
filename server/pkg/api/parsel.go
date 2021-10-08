@@ -79,7 +79,7 @@ func CreateParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 	}
 
 	// check phone number
-	if e := TestPhone(contactNumber); e != nil {
+	if e := TestPhone(contactNumber, false); e != nil {
 		return nil, e
 	}
 
@@ -131,11 +131,9 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 	if CheckAllXSS(description, contactNumber) != nil {
 		return errors.New("содежимое не корректно")
 	}
-	if description == "" {
-		return errors.New("заполните описание")
-	}
+
 	// check phone number
-	if e := TestPhone(contactNumber); e != nil {
+	if e := TestPhone(contactNumber, false); e != nil && contactNumber != "" {
 		return e
 	}
 
@@ -154,8 +152,6 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 		return errors.New("не корректные точки отправки или прибытия place")
 	}
 
-	now := int(time.Now().Unix() * 1000)
-
 	isHaveWhatsUp := r.PostFormValue("isHaveWhatsUp")
 	if isHaveWhatsUp != "1" && isHaveWhatsUp != "0" && isHaveWhatsUp != "" {
 		return errors.New("не корректный ватсап")
@@ -165,9 +161,12 @@ func ChangeParsel(w http.ResponseWriter, r *http.Request) error {
 		Description: description, ContactNumber: contactNumber, IsHaveWhatsUp: isHaveWhatsUp,
 		Price: price, Weight: weight,
 		UserID: userID, FromID: from, ToID: to, ID: parselID,
-		CreationDatetime: now, ExpireDatetime: now * 86400 * 1000 * 30,
+		CreationDatetime: int(time.Now().Unix() * 1000),
 	}
-	return p.Change()
+	if e := p.Change(); e != nil {
+		return errors.New("ошибка пунктов (пункты не должны быть одинаковы) или длины описания (макс 1000) ")
+	}
+	return nil
 }
 
 // RemoveParsel remove one parsel
@@ -192,6 +191,10 @@ func RemoveParsel(w http.ResponseWriter, r *http.Request) (interface{}, error) {
 		What:    "src",
 		Options: orm.DoSQLOption("parselID = ?", "", "", parselID),
 	}); e == nil && len(photos) > 0 {
+		orm.DeleteByParams(orm.SQLDeleteParams{
+			Table:   "Images",
+			Options: orm.DoSQLOption("parselID = ?", "", "", parselID),
+		})
 		wd, _ := os.Getwd()
 		for _, src := range photos {
 			os.Remove(wd + src[0].(string))

@@ -28,7 +28,8 @@ func (app *Application) AccessLogMiddleware(next http.Handler) http.Handler {
 		max, _ := strconv.Atoi(app.Config.MAX_REQUEST_COUNT)
 		if app.CurrentRequestCount < max {
 			app.CurrentRequestCount++
-			app.ILog.Printf(logingReq(r))
+			// loging
+			// app.ILog.Printf(logingReq(r))
 			next.ServeHTTP(w, r)
 		} else {
 			http.Error(w, "service is overloaded", 529)
@@ -176,7 +177,7 @@ func (app *Application) HPreSignUpSMS(w http.ResponseWriter, r *http.Request) {
 		}
 
 		phone := getPhoneNumber(r.PostFormValue("phone"))
-		if e := api.TestPhone(phone); e != nil {
+		if e := api.TestPhone(phone, false); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
@@ -256,7 +257,7 @@ func (app *Application) HPreChangePasswordSMS(w http.ResponseWriter, r *http.Req
 		}
 
 		phone := getPhoneNumber(r.PostFormValue("phone"))
-		if e := api.TestPhone(phone); e != nil {
+		if e := api.TestPhone(phone, false); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
@@ -345,45 +346,45 @@ func (app *Application) HPreChangeProfileSMS(w http.ResponseWriter, r *http.Requ
 			return
 		}
 
-		phone := getPhoneNumber(r.PostFormValue("phone"))
-		if e := api.TestPhone(phone); e != nil {
+		phoneDB, e := orm.GetOneFrom(orm.SQLSelectParams{
+			Table:   "Users",
+			What:    "phoneNumber",
+			Options: orm.DoSQLOption("id=?", "", "", userID),
+		})
+		if e != nil {
+			api.SendErrorJSON(w, data, "вас не существует в базе. вы кто такой?)")
+			return
+		}
+
+		phone, nickname := getPhoneNumber(r.PostFormValue("phone")), r.PostFormValue("phone")
+		if e := api.TestPhone(phone, true); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
 
-		countryCode := r.PostFormValue("countryCode")
-		code := RandomStringFromCharsetAndLength("0123456789", 6)
-		cd := &Code{Value: countryCode + phone, ExpireMin: app.CurrentMin + 60*1}
+		if countryCode := r.PostFormValue("countryCode"); phone != "" {
+			phone = countryCode + phone
+			if e := api.CheckPhoneAndNick(false, phone, nickname); e != nil {
+				api.SendErrorJSON(w, data, e.Error())
+				return
+			}
+		}
+		data.Data = map[string]string{"login": phoneDB[0].(string), "newPhone": phone}
 
+		code := RandomStringFromCharsetAndLength("0123456789", 6)
+		cd := &Code{Value: phoneDB[0].(string), ExpireMin: app.CurrentMin + 60*1}
 		scheme := "http"
 		if r.TLS != nil {
 			scheme += "s"
 		}
 		msg := scheme + "://" + r.Host + "/sign. Ал-Бер. Код: " + code
 
-		if phone == "" {
-			phoneDB, e := orm.GetOneFrom(orm.SQLSelectParams{
-				Table:   "Users",
-				What:    "phoneNumber",
-				Options: orm.DoSQLOption("id=?", "", "", userID),
-			})
-			if e != nil {
-				api.SendErrorJSON(w, data, "вас не существует в базе. вы кто такой?)")
-				return
-			}
-			phone = phoneDB[0].(string)
-			countryCode = ""
-			cd.Value = ""
-		}
-
-		data.Data = map[string]string{"login": countryCode + phone}
-
 		app.m.Lock()
 		app.UsersCode[code] = cd
 		app.m.Unlock()
 
 		// here sending sms to abonent
-		if e := app.SendSMS(phone, countryCode, msg); e != nil {
+		if e := app.SendSMS(phoneDB[0].(string), "", msg); e != nil {
 			api.SendErrorJSON(w, data, e.Error())
 			return
 		}
@@ -401,14 +402,10 @@ func (app *Application) HChangeProfile(w http.ResponseWriter, r *http.Request) {
 			Code: 200,
 		}
 
-		phone, ok := app.UsersCode[r.PostFormValue("code")]
-		if !ok {
+		if _, ok := app.UsersCode[r.PostFormValue("code")]; !ok {
 			api.SendErrorJSON(w, data, "wrong code")
 			return
 		}
-
-		// set correct phone
-		r.PostForm.Set("phone", phone.Value.(string))
 
 		if e := api.ChangeProfile(w, r); e != nil {
 			api.SendErrorJSON(w, data, e.Error())

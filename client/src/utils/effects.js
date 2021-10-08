@@ -88,29 +88,10 @@ export const ScrollHandler = Debounce(async(e, isStopLoad, isScrollingToTop = fa
             }, 100);
         }
     }
-
-
-    // let parent = childrenClass ? document.getElementsByClassName(childrenClass)[0].parentNode : e.target;
-    // const pRec = parent.getBoundingClientRect();
-
-    // if (
-    //     (isScrollingToTop && parent.scrollTop === 0) ||
-    //     (!isScrollingToTop && parent.scrollTop >= Math.round((parent.scrollHeight - pRec.height) * .75))
-    // ) {
-    //     const priorEdgeChildNum = isScrollingToTop ? 0 : parent.childElementCount - 1;
-
-    //     if (await loadCallback()) {
-    //         setTimeout(() => {
-    //             // smooth scroll
-    //             const el = parent.childNodes[priorEdgeChildNum];
-    //             if (el) el.scrollIntoView({ behavior: "smooth" });
-    //         }, 100);
-    //     }
-    // }
 }, 100);
 
-export const EditItem = async(type, data, cb) =>
-    PopupOpen(type === "parsel" ? ManageParsel : ManageTraveler, { 'cb': cb, 'data': data, 'type': 'edit' })
+export const EditItem = async(type, data, cb, reloadCB) =>
+    PopupOpen(type === "parsel" ? ManageParsel : ManageTraveler, { 'cb': cb, 'data': data, 'type': 'edit', 'reloadCB': reloadCB })
 
 export const RemoveItem = async(id, type, cb) => PopupOpen(ToDelete, { 'cb': cb, "type": type, 'id': id })
 
@@ -119,8 +100,10 @@ export const TopItem = async(id, type, cb) => PopupOpen(ToUp, { 'cb': cb, "type"
 export const PaintItem = async(id, type, cb) => PopupOpen(ToTopType, { 'cb': cb, "type": type, 'id': id })
 
 const removeEmptyFields = (obj = {}) => {
-    for (let [k, v] of Object.entries(obj))
+    for (let [k, v] of Object.entries(obj)) {
+        if (v === 0) continue
         if (v === "" || !v) delete obj[k];
+    }
     return obj
 }
 
