@@ -808,3 +808,29 @@
 [34m[INFO][0m	2021/10/08 22:49:44 init.go:81: configuring done
 [34m[INFO][0m	2021/10/08 22:49:44 main.go:15: initialization completed!
 [34m[INFO][0m	2021/10/08 22:49:44 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 23:05:18 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 23:05:18 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 23:05:18 main.go:37: server listening on port 4330
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:72: loggers is done!
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:74: creating/configuring database
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:41: accessing database file
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:43: access completed
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:46: set up database configs
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:50: database configured
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:53: making migrations
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:57: migrations completed
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:76: database completed!
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:78: configuring app
+[34m[INFO][0m	2021/10/08 23:07:55 init.go:81: configuring done
+[34m[INFO][0m	2021/10/08 23:07:55 main.go:15: initialization completed!
+[34m[INFO][0m	2021/10/08 23:07:55 main.go:37: server listening on port 4330

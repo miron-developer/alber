@@ -123,7 +123,7 @@ export default function Sign() {
 
             <Link to="/parsel" onClick={()=>USER.guest = true}>Войти как гость</Link>
 
-            <Link target="_blank" download={true} to="/assets/rights/name.txt">Пользовательское соглашение</Link>
+            <Link target="_blank" download={true} to="/assets/rights/оферта.docx">Пользовательское соглашение и публичная оферта</Link>
         </SSign>
     )
 }
