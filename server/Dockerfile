@@ -1,7 +1,7 @@
 ###################################################################################################
 #                                                                                                 #
 #                                   Miron-developer                                               #
-#                                      Zhibek                                                     #
+#                                      Al-Ber                                                     #
 #                                                                                                 #
 ###################################################################################################
 
@@ -11,10 +11,10 @@ COPY . .
 WORKDIR /pkg
 RUN go mod download; go build -o ./cmd/zhibek cmd/main.go
 
-LABEL description="This is Zhibek project" \
+LABEL description="This is Al-Ber project" \
     authors="Miron-developer" \
     contacts="https://github.com/miron-developer" \
-    site="https://zhibek.herokuapp.com"
+    site="https://al-ber.kz"
 
 CMD ["cmd/zhibek"]
 
